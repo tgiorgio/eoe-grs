@@ -58,17 +58,17 @@
     },
     "variables": {
       "VNETname" : "[concat(toLower(parameters('customerprefix')),'prod-vnet')]",
-      "Subnet-fgext-name" : "[concat(parameters('customerprefix'),'-prod','-sub-fgext')]",
-      "Subnet-fgint-name" : "[concat(parameters('customerprefix'),'-prod','-sub-fgint')]",
-      "Subnet-rda-name" : "[concat(parameters('customerprefix'),'-prod','-sub-rda')]",
-      "Subnet-rdh-name" : "[concat(parameters('customerprefix'),'-prod','-sub-rdh')]",
-      "Subnet-data-name" : "[concat(parameters('customerprefix'),'-prod','-sub-data')]",
-      "Subnet-app-name" : "[concat(parameters('customerprefix'),'-prod','-sub-app')]",
-      "Subnet-core-name" : "[concat(parameters('customerprefix'),'-prod','-sub-core')]",
-      "Subnet-web-name" : "[concat(parameters('customerprefix'),'-prod','-sub-web')]",
-      "Subnet-test-name" : "[concat(parameters('customerprefix'),'-prod','-sub-test')]",
-      "Subnet-mgmt-name" : "[concat(parameters('customerprefix'),'-prod','-sub-mgmt')]",
-      "Subnet-waf-name" : "[concat(parameters('customerprefix'),'-prod','-sub-waf')]"
+      "Subnet-fgext-name" : "[concat(toLower(parameters('customerprefix')),'-prod','-sub-fgext')]",
+      "Subnet-fgint-name" : "[concat(toLower(parameters('customerprefix')),'-prod','-sub-fgint')]",
+      "Subnet-rda-name" : "[concat(toLower(parameters('customerprefix')),'-prod','-sub-rda')]",
+      "Subnet-rdh-name" : "[concat(toLower(parameters('customerprefix')),'-prod','-sub-rdh')]",
+      "Subnet-data-name" : "[concat(toLower(parameters('customerprefix')),'-prod','-sub-data')]",
+      "Subnet-app-name" : "[concat(toLower(parameters('customerprefix')),'-prod','-sub-app')]",
+      "Subnet-core-name" : "[concat(toLower(parameters('customerprefix')),'-prod','-sub-core')]",
+      "Subnet-web-name" : "[concat(toLower(parameters('customerprefix')),'-prod','-sub-web')]",
+      "Subnet-test-name" : "[concat(toLower(parameters('customerprefix')),'-prod','-sub-test')]",
+      "Subnet-mgmt-name" : "[concat(toLower(parameters('customerprefix')),'-prod','-sub-mgmt')]",
+      "Subnet-waf-name" : "[concat(toLower(parameters('customerprefix')),'-prod','-sub-waf')]"
     },
     "resources": [
         { 
