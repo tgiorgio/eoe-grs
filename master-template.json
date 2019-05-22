@@ -12,13 +12,13 @@
       "type": "Microsoft.Resources/resourceGroups",
       "apiVersion": "2018-05-01",
       "location": "[variables('deploylocation')]",
-      "name": "[variables('vnetRG')]",
+      "name": "[toLower(variables('vnetRG'))]",
       "properties": {}
     },
     {
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2018-05-01",
-      "name": "GRSDeployVNET",
+      "name": "Deployt-RT",
       "resourceGroup": "[variables('vnetRG')]",
       "dependsOn": [
         "[resourceId('Microsoft.Resources/resourceGroups/',variables('vnetRG'))]"
@@ -26,11 +26,51 @@
       "properties": {
         "mode": "Incremental",
         "templateLink": {
-            "uri":"https://raw.githubusercontent.com/tgiorgio/ARMTemplates/master/GRS/GRS-VNET-template.json",
+            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/Microsoft.Network/routeTables/routeTables.azuredeploy.json?token=ALBDDGDDDVFR3JA52FNDRZK44VX54",
             "contentVersion":"1.0.0.0"
           },
         "parametersLink": {
-            "uri":"https://raw.githubusercontent.com/tgiorgio/ARMTemplates/master/GRS/GRS-VNET-parameters.json",
+            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/EOE-GRS/eoe.routeTables.parameters.json?token=ALBDDGDELFLIKTXD2JJAUES44VYFA",
+            "contentVersion":"1.0.0.0"
+          }
+      }
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2018-05-01",
+      "name": "Deploy-NSG",
+      "resourceGroup": "[variables('vnetRG')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Resources/resourceGroups/',variables('vnetRG'))]"
+      ],
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/Microsoft.Network/networkSecurityGroups/networkSecurityGroups.azuredeploy.json?token=ALBDDGA67VE57N2ZUKPCHRC44VYAG",
+            "contentVersion":"1.0.0.0"
+          },
+        "parametersLink": {
+            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/EOE-GRS/eoe.networkSecurityGroups.parameters.json?token=ALBDDGDGYAQ5XCUHI4QGZTK44VYD2",
+            "contentVersion":"1.0.0.0"
+          }
+      }
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2018-05-01",
+      "name": "Deployt-VNET",
+      "resourceGroup": "[variables('vnetRG')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Resources/resourceGroups/',variables('vnetRG'))]"
+      ],
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/Microsoft.Network/virtualNetworks/virtualNetworks.azuredeploy.json?token=ALBDDGAI42YVWIUJW6S2I6244VYBO",
+            "contentVersion":"1.0.0.0"
+          },
+        "parametersLink": {
+            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/EOE-GRS/eoe.virtualNetworks.parameters.json?token=ALBDDGDGEXV6OUZNJ3GKJTK44VYGA",
             "contentVersion":"1.0.0.0"
           }
       }
@@ -39,110 +79,10 @@
       "type": "Microsoft.Resources/resourceGroups",
       "apiVersion": "2018-05-01",
       "location": "[variables('deploylocation')]",
-      "name": "[variables('FortigateRG')]",
+      "name": "[tolower(variables('FortigateRG'))]",
       "properties": {}
-    },
-    {
-      "type": "Microsoft.Resources/deployments",
-      "apiVersion": "2018-05-01",
-      "name": "GRSDeployFortigate",
-      "resourceGroup": "[variables('FortigateRG')]",
-      "dependsOn": ["GRSDeployVNET",
-        "[resourceId('Microsoft.Resources/resourceGroups/', variables('FortigateRG'))]"
-      ],
-      "properties": {
-          "mode": "Incremental",
-          "templateLink": {
-              "uri":"https://raw.githubusercontent.com/tgiorgio/ARMTemplates/master/GRS/GRS-Fortigate-Template.json"
-          },
-          "parameters": {
-              "location":{
-                "value": "[variables('deploylocation')]"
-              },
-              "FortiGateImageSKU" :{
-                  "value" : "fortinet_fg-vm_payg"
-              },
-              "instanceType" :{
-                  "value" : "Standard_F1"
-              },
-              "adminPassword":{
-                "value" : "RQ=Ttbf2k%2443"
-              },
-              "customerprefix":{
-                "value": "[reference('GRSDeployVNET').outputs.customerprefix.value]"
-              },
-              "VNetName":{
-                "value":"[reference('GRSDeployVNET').outputs.VNetName.value]"
-              },
-              "vnetResourceGroup" :{
-                "value": "[variables('vnetRG')]"
-              },
-              "vnetAddressPrefix":{
-                "value":"[reference('GRSDeployVNET').outputs.vnetAddressPrefix.value]"
-              },
-              "Subnet1Prefix": {
-                "value": "[reference('GRSDeployVNET').outputs.Subnet1Prefix.value]"
-              },
-              "Subnet1Name": {
-                "value": "[reference('GRSDeployVNET').outputs.Subnet1Name.value]"
-              },
-              "Subnet2Prefix": {
-                "value": "[reference('GRSDeployVNET').outputs.Subnet2Prefix.value]"
-              },
-              "Subnet2Name": {
-                "value": "[reference('GRSDeployVNET').outputs.Subnet2Name.value]"
-              },
-              "Subnet3Prefix": {
-                "value": "[reference('GRSDeployVNET').outputs.Subnet3Prefix.value]"
-              },
-              "Subnet3Name": {
-                "value": "[reference('GRSDeployVNET').outputs.Subnet3Name.value]"
-              },
-              "Subnet4Prefix": {
-                "value": "[reference('GRSDeployVNET').outputs.Subnet4Prefix.value]"
-              },
-              "Subnet4Name": {
-                "value": "[reference('GRSDeployVNET').outputs.Subnet4Name.value]"
-              },
-              "Subnet5Prefix": {
-                "value": "[reference('GRSDeployVNET').outputs.Subnet5Prefix.value]"
-              },
-              "Subnet5Name": {
-                "value": "[reference('GRSDeployVNET').outputs.Subnet5Name.value]"
-              },
-              "Subnet6Prefix": {
-                "value": "[reference('GRSDeployVNET').outputs.Subnet6Prefix.value]"
-              },
-              "Subnet6Name": {
-                "value": "[reference('GRSDeployVNET').outputs.Subnet6Name.value]"
-              },
-              "Subnet7Prefix": {
-                "value": "[reference('GRSDeployVNET').outputs.Subnet7Prefix.value]"
-              },
-              "Subnet7Name": {
-                "value": "[reference('GRSDeployVNET').outputs.Subnet7Name.value]"
-              },
-              "Subnet8Prefix": {
-                "value": "[reference('GRSDeployVNET').outputs.Subnet8Prefix.value]"
-              },
-              "Subnet8Name": {
-                "value": "[reference('GRSDeployVNET').outputs.Subnet8Name.value]"
-              },
-              "Subnet9Prefix": {
-                "value": "[reference('GRSDeployVNET').outputs.Subnet9Prefix.value]"
-              },
-              "Subnet9Name": {
-                "value": "[reference('GRSDeployVNET').outputs.Subnet9Name.value]"
-              },
-              "Subnet10Name": {
-                "value": "[reference('GRSDeployVNET').outputs.Subnet10Name.value]"
-              },
-              "Subnet10Prefix": {
-                "value": "[reference('GRSDeployVNET').outputs.Subnet10Prefix.value]"
-              }
-          }
-      }
     }
+   
     ],
     "outputs": {
     }
