@@ -3,14 +3,14 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         
-        "location": {
-            "value": "uksouth"
-        },
-        "VNETaddressPrefix": {
-            "value": "172.25.0.0/16"
-        },
-        "Subnet-rda-prefix": {
-          "value": "172.25.4.128/27"
+      "location": {
+          "value": "uksouth"
+      },
+      "VNETaddressPrefix": {
+          "value": "172.25.0.0/16"
+      },
+      "Subnet-rda-prefix": {
+        "value": "172.25.4.128/27"
       },
       "Subnet-rdh-prefix": {
           "value": "172.25.4.160/27"
@@ -33,9 +33,6 @@
       "Subnet-mgmt-prefix": {
           "value": "172.25.1.128/26"
       },
-      "Subnet-waf-prefix": {
-        "value": "172.25.14.192/27"
-    },
       "Subnet-rda-name":{
           "value": "eoe-prod-sub-rda"
       },
