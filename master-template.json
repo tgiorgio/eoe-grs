@@ -61,7 +61,9 @@
       "name": "Deployt-VNET",
       "resourceGroup": "[variables('vnetRG')]",
       "dependsOn": [
-        "[resourceId('Microsoft.Resources/resourceGroups/',variables('vnetRG'))]"
+        "[resourceId('Microsoft.Resources/resourceGroups/',variables('vnetRG'))]",
+        "Deploy-NSG",
+        "Deployt-RT"
       ],
       "properties": {
         "mode": "Incremental",
