@@ -26,11 +26,11 @@
       "properties": {
         "mode": "Incremental",
         "templateLink": {
-            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/Microsoft.Network/routeTables/routeTables.azuredeploy.json?token=ALBDDGDDDVFR3JA52FNDRZK44VX54",
+            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/Microsoft.Network/routeTables/routeTables.azuredeploy.json",
             "contentVersion":"1.0.0.0"
           },
         "parametersLink": {
-            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/EOE-GRS/eoe.routeTables.parameters.json?token=ALBDDGDELFLIKTXD2JJAUES44VYFA",
+            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/EOE-GRS/eoe.routeTables.parameters.json",
             "contentVersion":"1.0.0.0"
           }
       }
@@ -46,11 +46,11 @@
       "properties": {
         "mode": "Incremental",
         "templateLink": {
-            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/Microsoft.Network/networkSecurityGroups/networkSecurityGroups.azuredeploy.json?token=ALBDDGA67VE57N2ZUKPCHRC44VYAG",
+            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/Microsoft.Network/networkSecurityGroups/networkSecurityGroups.azuredeploy.json",
             "contentVersion":"1.0.0.0"
           },
         "parametersLink": {
-            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/EOE-GRS/eoe.networkSecurityGroups.parameters.json?token=ALBDDGDGYAQ5XCUHI4QGZTK44VYD2",
+            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/EOE-GRS/eoe.networkSecurityGroups.parameters.json",
             "contentVersion":"1.0.0.0"
           }
       }
@@ -66,11 +66,11 @@
       "properties": {
         "mode": "Incremental",
         "templateLink": {
-            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/Microsoft.Network/virtualNetworks/virtualNetworks.azuredeploy.json?token=ALBDDGAI42YVWIUJW6S2I6244VYBO",
+            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/Microsoft.Network/virtualNetworks/virtualNetworks.azuredeploy.json",
             "contentVersion":"1.0.0.0"
           },
         "parametersLink": {
-            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/EOE-GRS/eoe.virtualNetworks.parameters.json?token=ALBDDGDGEXV6OUZNJ3GKJTK44VYGA",
+            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/EOE-GRS/eoe.virtualNetworks.parameters.json",
             "contentVersion":"1.0.0.0"
           }
       }
