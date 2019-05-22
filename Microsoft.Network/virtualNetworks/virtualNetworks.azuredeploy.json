@@ -57,7 +57,7 @@
         }
     },
     "variables": {
-      "VNETname" : "[concat(toLower(parameters('customerprefix')),'prod-vnet')]",
+      "VNETname" : "[concat(toLower(parameters('customerprefix')),'-prod-vnet')]",
       "Subnet-fgext-name" : "[concat(toLower(parameters('customerprefix')),'-prod','-sub-fgext')]",
       "Subnet-fgint-name" : "[concat(toLower(parameters('customerprefix')),'-prod','-sub-fgint')]",
       "Subnet-rda-name" : "[concat(toLower(parameters('customerprefix')),'-prod','-sub-rda')]",

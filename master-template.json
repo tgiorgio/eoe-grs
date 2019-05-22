@@ -83,6 +83,27 @@
       "location": "[variables('deploylocation')]",
       "name": "[tolower(variables('FortigateRG'))]",
       "properties": {}
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2018-05-01",
+      "name": "GRSDeployFortigate",
+      "resourceGroup": "[variables('FortigateRG')]",
+      "dependsOn": ["Deployt-VNET",
+        "[resourceId('Microsoft.Resources/resourceGroups/', variables('FortigateRG'))]"
+      ],
+      "properties": {
+          "mode": "Incremental",
+          "templateLink": {
+              "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/Fortigate-HA-ActiveActive-LB/GRS-Fortigate-Template.json"
+          },
+          "parametersLink": {
+            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/EOE-GRS/eoe.virtualNetworks.parameters.json",
+            "contentVersion":"1.0.0.0"
+          },
+          "parameters": {
+          }
+      }
     }
    
     ],

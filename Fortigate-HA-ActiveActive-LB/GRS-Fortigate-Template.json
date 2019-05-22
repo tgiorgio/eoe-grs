@@ -20,66 +20,73 @@
     "vnetAddressPrefix":{
       "type": "string"
     },
-    "Subnet1Name":{
+    "Subnet-fgext-name":{
       "type": "string"
     },
-    "Subnet2Name":{
+    "Subnet-fgint-name":{
       "type": "string"
     },
-    "Subnet3Name":{
+    "Subnet-rda-name":{
       "type": "string"
     },
-    "Subnet4Name":{
+    "Subnet-rdh-Name":{
       "type": "string"
     },
-    "Subnet5Name":{
+    "Subnet-data-Name":{
+        "type": "string"
+    },
+    "Subnet-app-Name":{
+        "type": "string"
+    },
+    "Subnet-core-Name":{
+        "type": "string"
+    },
+    "Subnet-web-Name":{
+        "type": "string"
+    },
+    "Subnet-mgmt-Name":{
+        "type": "string"
+    },
+    "subnet-waf-name":{
+        "type": "string"
+    },
+    "subnet-test-name":{
+        "type": "string"
+    },
+    "Subnet-rda-Prefix":{
+        "type": "string"
+    },
+    "Subnet-rdh-Prefix":{
+        "type": "string"
+    },
+    "Subnet-data-Prefix":{
+        "type": "string"
+    },
+    "Subnet-app-Prefix":{
+        "type": "string"
+    },
+    "Subnet-core-Prefix":{
+        "type": "string"
+    },
+    "Subnet-web-Prefix":{
+        "type": "string"
+    },
+    "Subnet-mgmt-Prefix":{
+        "type": "string"
+    },
+    "Subnet-waf-prefix":{
+        "type": "string"
+    },
+    "Subnet-test-prefix":{
+        "type": "string"
+    },
+    "Subnet-fgext-prefix":{
       "type": "string"
     },
-    "Subnet6Name":{
+    "Subnet-fgint-prefix":{
       "type": "string"
     },
-    "Subnet7Name":{
-      "type": "string"
-    },
-    "Subnet8Name":{
-      "type": "string"
-    },
-    "Subnet9Name":{
-      "type": "string"
-    },
-    "Subnet10Name":{
-      "type": "string"
-    },
-    "Subnet1Prefix":{
-      "type": "string"
-    },
-    "Subnet2Prefix":{
-      "type": "string"
-    },
-    "Subnet3Prefix":{
-      "type": "string"
-    },
-    "Subnet4Prefix":{
-      "type": "string"
-    },
-    "Subnet5Prefix":{
-      "type": "string"
-    },
-    "Subnet6Prefix":{
-      "type": "string"
-    },
-    "Subnet7Prefix":{
-      "type": "string"
-    },
-    "Subnet8Prefix":{
-      "type": "string"
-    },
-    "Subnet9Prefix":{
-      "type": "string"
-    },
-    "Subnet10Prefix":{
-      "type": "string"
-    },
+
     "FortiGateImageSKU": {
       "type": "string",
       "defaultValue": "fortinet_fg-vm_payg",
@@ -116,25 +123,19 @@
     "compute_AvailabilitySet_FG_Name": "[concat(variables('FortiGateNamePrefix'),'-AvailabilitySet')]",
     "compute_AvailabilitySet_FG_Id": "[resourceId('Microsoft.Compute/availabilitySets', variables('compute_AvailabilitySet_FG_Name'))]",
 
-    "subnet1Ref": "[concat(variables('vnetID'),'/subnets/', parameters('Subnet1Name'))]",
-    "subnet2Ref": "[concat(variables('vnetID'),'/subnets/', parameters('Subnet2Name'))]",
-    "subnet3Ref": "[concat(variables('vnetID'),'/subnets/', parameters('Subnet3Name'))]",
-    "subnet4Ref": "[concat(variables('vnetID'),'/subnets/', parameters('Subnet4Name'))]",
-    "subnet5Ref": "[concat(variables('vnetID'),'/subnets/', parameters('Subnet5Name'))]",
-    "subnet6Ref": "[concat(variables('vnetID'),'/subnets/', parameters('Subnet6Name'))]",
-    "subnet7Ref": "[concat(variables('vnetID'),'/subnets/', parameters('Subnet7Name'))]",
-    "subnet8Ref": "[concat(variables('vnetID'),'/subnets/', parameters('Subnet8Name'))]",
-    "subnet9Ref": "[concat(variables('vnetID'),'/subnets/', parameters('Subnet9Name'))]",
-    "subnet10Ref": "[concat(variables('vnetID'),'/subnets/', parameters('Subnet10Name'))]",
+    "subnet1Ref": "[concat(variables('vnetID'),'/subnets/', parameters('Subnet-fgext-name'))]",
+    "subnet2Ref": "[concat(variables('vnetID'),'/subnets/', parameters('Subnet-fgint-name'))]",
+    "subnet3Ref": "[concat(variables('vnetID'),'/subnets/', parameters('Subnet-rda-name'))]",
+
 
     "vmName": "[concat(variables('FortiGateNamePrefix'),'-A')]",
     "vm2Name": "[concat(variables('FortiGateNamePrefix'),'-B')]",
 
-    "routeTable2Name": "[concat(parameters('Subnet2Name'),'-',variables('FortiGateNamePrefix'),'-RT')]",
+    "routeTable2Name": "[concat(parameters('Subnet-fgint-name'),'-',variables('FortiGateNamePrefix'),'-RT')]",
 
     "internalLBName": "[concat(variables('FortiGateNamePrefix'),'-InternalLoadBalancer')]",
-    "internalLBFE2Name": "[concat(variables('FortiGateNamePrefix'),'-ILB-',parameters('Subnet2Name'),'-FrontEnd')]",
-    "internalLBBE2Name": "[concat(variables('FortiGateNamePrefix'),'-ILB-',parameters('Subnet2Name'),'-BackEnd')]",
+    "internalLBFE2Name": "[concat(variables('FortiGateNamePrefix'),'-ILB-',parameters('Subnet-fgint-name'),'-FrontEnd')]",
+    "internalLBBE2Name": "[concat(variables('FortiGateNamePrefix'),'-ILB-',parameters('Subnet-fgint-name'),'-BackEnd')]",
     "internalLBid": "[resourceID('Microsoft.Network/loadBalancers',variables('internalLBName'))]",
     "internalLB_BE2Id": "[concat(variables('internalLBid'),'/backendAddressPools/',variables('internalLBBE2Name'))]",
 
@@ -157,7 +158,7 @@
 
     "NSGName": "[concat(variables('FortiGateNamePrefix'),'-',uniqueString(resourceGroup().id),'-NSG')]",
 
-    "sn1IPArray": "[split(parameters('Subnet1Prefix'),'.')]",
+    "sn1IPArray": "[split(parameters('Subnet-fgext-prefix'),'.')]",
     "sn1IPArray2ndString": "[string(variables('sn1IPArray')[3])]",
     "sn1IPArray2nd": "[split(variables('sn1IPArray2ndString'),'/')]",
     "sn1CIDRmask": "[string(int(variables('sn1IPArray2nd')[1]))]",
@@ -167,7 +168,7 @@
     "sn1IPArray0": "[string(int(variables('sn1IPArray')[0]))]",
     "sn1GatewayIP": "[concat(variables('sn1IPArray0'),'.',variables('sn1IPArray1'),'.',variables('sn1IPArray2'),'.',variables('sn1IPArray3'))]",
 
-    "sn2IPArray": "[split(parameters('Subnet2Prefix'),'.')]",
+    "sn2IPArray": "[split(parameters('Subnet-fgint-prefix'),'.')]",
     "sn2IPArray2ndString": "[string(variables('sn2IPArray')[3])]",
     "sn2IPArray2nd": "[split(variables('sn2IPArray2ndString'),'/')]",
     "sn2CIDRmask": "[string(int(variables('sn2IPArray2nd')[1]))]",

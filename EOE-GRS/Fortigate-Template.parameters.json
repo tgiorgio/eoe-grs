@@ -2,11 +2,20 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "onpremNetPrefix": {
-            "value": "192.168.0.0/18"
-        },
         "location": {
             "value": "uksouth"
+        },
+        "adminPassword": {
+            "value": "N0stra7a2019!"
+        },
+        "customerprefix": {
+            "value": "eoe"
+        },
+        "VNetName": {
+            "value": "eoe-prod-vnet"
+        },
+        "vnetResourceGroup": {
+            "value": "eoeuksouthvnet-rg"
         },
         "VNETaddressPrefix": {
             "value": "172.25.0.0/16"
@@ -38,6 +47,12 @@
         "Subnet-waf-prefix": {
           "value": "172.25.14.192/27"
         },
+        "Subnet-fgext-prefix": {
+            "value": "172.25.1.0/27"
+        },
+        "Subnet-fgint-prefix": {
+            "value": "172.25.1.32/27"
+        },
         "Subnet-rda-name":{
             "value": "eoe-prod-sub-rda"
         },
@@ -61,9 +76,26 @@
         },
         "Subnet-mgmt-name":{
           "value": "eoe-prod-sub-mgmt"
-        }    ,
+        },
         "Subnet-waf-name":{
           "value": "eoe-prod-sub-waf"
-        }      
+        },
+        "Subnet-fgext-name": {
+            "value": "eoe-prod-sub-fgext"
+        },
+        "Subnet-fgint-name": {
+            "value": "eoe-prod-sub-fgint"
+        },
+        "FortiGateImageSKU": {
+            "value": "fortinet_fg-vm_payg"
+        },
+        "instanceType": {
+            "value": "Standard_F1"
+        },
+        "FortinetTags": {
+            "value": {
+                "provider": "6EB3B02F-50E5-4A3E-8CB8-2E129258317D"
+            }
+        }
     }
 }
