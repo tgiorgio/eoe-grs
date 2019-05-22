@@ -1,0 +1,299 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+      "customerprefix":{
+        "type":"string"
+      },
+      "location": {
+          "type": "string"
+      },
+      "VNETaddressPrefix": {
+        "type": "string"
+      },
+      "Subnet-fgext-prefix": {
+        "type": "string",
+        "defaultValue": "10.0.1.0/24"
+        },
+        "Subnet-fgint-prefix": {
+          "type": "string",
+          "defaultValue": "10.0.2.0/24"
+        },
+        "Subnet-rda-prefix": {
+          "type": "string",
+          "defaultValue": "10.0.3.0/24"
+        },
+        "Subnet-rdh-prefix": {
+          "type": "string",
+          "defaultValue": "10.0.4.0/24"
+        },
+        "Subnet-data-prefix": {
+          "type": "string",
+          "defaultValue": "10.0.5.0/24"
+        },
+        "Subnet-app-prefix": {
+          "type": "string",
+          "defaultValue": "10.0.6.0/24"
+        },
+        "Subnet-core-prefix": {
+          "type": "string",
+          "defaultValue": "10.0.7.0/24"
+        },
+        "Subnet-web-prefix": {
+          "type": "string",
+          "defaultValue": "10.0.8.0/24"
+        },
+        "Subnet-test-prefix": {
+          "type": "string",
+          "defaultValue": "10.0.9.0/24"
+        },
+        "Subnet-mgmt-prefix": {
+          "type": "string",
+          "defaultValue": "10.0.11.0/24"
+        },
+        
+        "Subnet-waf-prefix": {
+          "type": "string",
+          "defaultValue": "10.0.10.0/24"
+        }
+    },
+    "variables": {
+      "VNETname" : "[concat(toLower(parameters('customerprefix')),'prod-vnet')]",
+      "Subnet-fgext-name" : "[concat(parameters('customerprefix'),'-prod','-sub-fgext')]",
+      "Subnet-fgint-name" : "[concat(parameters('customerprefix'),'-prod','-sub-fgint')]",
+      "Subnet-rda-name" : "[concat(parameters('customerprefix'),'-prod','-sub-rda')]",
+      "Subnet-rdh-name" : "[concat(parameters('customerprefix'),'-prod','-sub-rdh')]",
+      "Subnet-data-name" : "[concat(parameters('customerprefix'),'-prod','-sub-data')]",
+      "Subnet-app-name" : "[concat(parameters('customerprefix'),'-prod','-sub-app')]",
+      "Subnet-core-name" : "[concat(parameters('customerprefix'),'-prod','-sub-core')]",
+      "Subnet-web-name" : "[concat(parameters('customerprefix'),'-prod','-sub-web')]",
+      "Subnet-test-name" : "[concat(parameters('customerprefix'),'-prod','-sub-test')]",
+      "Subnet-mgmt-name" : "[concat(parameters('customerprefix'),'-prod','-sub-mgmt')]",
+      "Subnet-waf-name" : "[concat(parameters('customerprefix'),'-prod','-sub-waf')]"
+    },
+    "resources": [
+        { 
+            "apiVersion": "2018-11-01",
+            "name": "[variables('VNETname')]",
+            "type": "Microsoft.Network/virtualNetworks",
+            "location": "[parameters('location')]",
+            "dependsOn": [],
+            "properties": {
+                "addressSpace": {
+                    "addressPrefixes": [
+                        "[parameters('VNETaddressPrefix')]"
+                    ]
+                },
+                "subnets": [
+                    {
+                        "name": "[variables('Subnet-fgext-name')]",
+                        "properties": {
+                          "addressPrefix": "[parameters('Subnet-fgext-prefix')]"
+                        }
+                    },
+                      {
+                        "name": "[variables('Subnet-fgint-name')]",
+                        "properties": {
+                          "addressPrefix": "[parameters('Subnet-fgint-prefix')]"
+                        }
+                      },
+                      {
+                        "name": "[variables('Subnet-rda-name')]",
+                        "properties": {
+                          "addressPrefix": "[parameters('Subnet-rda-prefix')]",
+                          "networkSecurityGroup": {
+                            "id": "[resourceId('Microsoft.Network/networkSecurityGroups', concat(variables('Subnet-rda-name'),'-NSG'))]"
+                          },
+                          "routeTable": {
+                            "id": "[resourceId('Microsoft.Network/routeTables', concat(variables('Subnet-rda-name'),'-RT'))]"
+                          }
+                        }
+                      },
+                      {
+                        "name": "[variables('Subnet-rdh-name')]",
+                        "properties": {
+                          "addressPrefix": "[parameters('Subnet-rdh-prefix')]",
+                          "networkSecurityGroup": {
+                            "id": "[resourceId('Microsoft.Network/networkSecurityGroups', concat(variables('Subnet-rdh-name'),'-NSG'))]"
+                          },
+                          "routeTable": {
+                            "id": "[resourceId('Microsoft.Network/routeTables', concat(variables('Subnet-rdh-name'),'-RT'))]"
+                          }
+                        }
+                      },
+                      {
+                        "name": "[variables('Subnet-data-name')]",
+                        "properties": {
+                          "addressPrefix": "[parameters('Subnet-data-prefix')]",
+                          "networkSecurityGroup": {
+                            "id": "[resourceId('Microsoft.Network/networkSecurityGroups', concat(variables('Subnet-data-name'),'-NSG'))]"
+                          },
+                          "routeTable": {
+                            "id": "[resourceId('Microsoft.Network/routeTables', concat(variables('Subnet-data-name'),'-RT'))]"
+                          }
+                        }
+                      },
+                      {
+                        "name": "[variables('Subnet-app-name')]",
+                        "properties": {
+                          "addressPrefix": "[parameters('Subnet-app-prefix')]",
+                          "networkSecurityGroup": {
+                            "id": "[resourceId('Microsoft.Network/networkSecurityGroups', concat(variables('Subnet-app-name'),'-NSG'))]"
+                          },
+                          "routeTable": {
+                            "id": "[resourceId('Microsoft.Network/routeTables', concat(variables('Subnet-app-name'),'-RT'))]"
+                          }
+                        }
+                      },
+                      {
+                        "name": "[variables('Subnet-core-name')]",
+                        "properties": {
+                          "addressPrefix": "[parameters('Subnet-core-prefix')]",
+                          "networkSecurityGroup": {
+                            "id": "[resourceId('Microsoft.Network/networkSecurityGroups', concat(variables('Subnet-core-name'),'-NSG'))]"
+                          },
+                          "routeTable": {
+                            "id": "[resourceId('Microsoft.Network/routeTables', concat(variables('Subnet-core-name'),'-RT'))]"
+                          }
+                        }
+                      },
+                      {
+                        "name": "[variables('Subnet-web-name')]",
+                        "properties": {
+                          "addressPrefix": "[parameters('Subnet-web-prefix')]",
+                          "networkSecurityGroup": {
+                            "id": "[resourceId('Microsoft.Network/networkSecurityGroups', concat(variables('Subnet-web-name'),'-NSG'))]"
+                          },
+                          "routeTable": {
+                            "id": "[resourceId('Microsoft.Network/routeTables', concat(variables('Subnet-web-name'),'-RT'))]"
+                          }
+                        }
+                      },
+                      {
+                        "name": "[variables('Subnet-test-name')]",
+                        "properties": {
+                          "addressPrefix": "[parameters('Subnet-test-prefix')]"
+                        }
+                      },
+                      {
+                        "name": "[variables('Subnet-mgmt-name')]",
+                        "properties": {
+                          "addressPrefix": "[parameters('Subnet-mgmt-prefix')]",
+                          "networkSecurityGroup": {
+                            "id": "[resourceId('Microsoft.Network/networkSecurityGroups', concat(variables('Subnet-mgmt-name'),'-NSG'))]"
+                          },
+                          "routeTable": {
+                            "id": "[resourceId('Microsoft.Network/routeTables', concat(variables('Subnet-mgmt-name'),'-RT'))]"
+                          }
+                        }
+                      },
+                      
+                      {
+                        "name": "[variables('Subnet-waf-name')]",
+                        "properties": {
+                          "addressPrefix": "[parameters('Subnet-waf-prefix')]",
+                          "networkSecurityGroup": {
+                            "id": "[resourceId('Microsoft.Network/networkSecurityGroups', concat(variables('Subnet-waf-name'),'-NSG'))]"
+                          }
+                        }
+                      }
+                ]
+            }
+        }
+        
+    ],
+    "outputs": {
+      "customerprefix":{
+        "value": "[parameters('customerprefix')]",
+        "type": "string"
+      },
+      "vnetAddressPrefix":{
+        "value": "[parameters('VNETaddressPrefix')]",
+        "type": "string"
+      },
+      "VNETname":{
+        "value": "[variables('VNETname')]",
+        "type": "string"
+      },
+      "Subnet-fgext-name": {
+        "value" : "[variables('Subnet-fgext-name')]",
+        "type" : "string"
+      },
+      "Subnet-fgext-prefix": {
+        "value": "[parameters('Subnet-fgext-prefix')]",
+        "type": "string"
+      },
+      "Subnet-fgint-name": {
+        "value" : "[variables('Subnet-fgint-name')]",
+        "type" : "string"
+      },
+      "Subnet-fgint-prefix": {
+        "value": "[parameters('Subnet-fgint-prefix')]",
+        "type": "string"
+      },
+      "Subnet-rda-name": {
+        "value" : "[variables('Subnet-rda-name')]",
+        "type" : "string"
+      },
+      "Subnet-rda-prefix": {
+        "value": "[parameters('Subnet-rda-prefix')]",
+        "type": "string"
+      },
+      "Subnet-rdh-name": {
+        "value" : "[variables('Subnet-rdh-name')]",
+        "type" : "string"
+      },
+      "Subnet-rdh-prefix": {
+        "value": "[parameters('Subnet-rdh-prefix')]",
+        "type": "string"
+      },
+      "Subnet-data-name": {
+        "value" : "[variables('Subnet-data-name')]",
+        "type" : "string"
+      },
+      "Subnet-data-prefix": {
+        "value": "[parameters('Subnet-data-prefix')]",
+        "type": "string"
+      },
+      "Subnet-app-name": {
+        "value" : "[variables('Subnet-app-name')]",
+        "type" : "string"
+      },
+      "Subnet-app-prefix": {
+        "value": "[parameters('Subnet-app-prefix')]",
+        "type": "string"
+      },
+      "Subnet-core-name": {
+        "value" : "[variables('Subnet-core-name')]",
+        "type" : "string"
+      },
+      "Subnet-core-prefix": {
+        "value": "[parameters('Subnet-core-prefix')]",
+        "type": "string"
+      },
+      "Subnet-web-name": {
+        "value" : "[variables('Subnet-web-name')]",
+        "type" : "string"
+      },
+      "Subnet-web-prefix": {
+        "value": "[parameters('Subnet-web-prefix')]",
+        "type": "string"
+      },
+      "Subnet-test-name": {
+        "value" : "[variables('Subnet-test-name')]",
+        "type" : "string"
+      },
+      "Subnet-test-prefix": {
+        "value": "[parameters('Subnet-test-prefix')]",
+        "type": "string"
+      },
+      "Subnet-mgmt-name": {
+        "value" : "[variables('Subnet-test-name')]",
+        "type" : "string"
+      },
+      "Subnet-mgmt-prefix": {
+        "value": "[parameters('Subnet-test-prefix')]",
+        "type": "string"
+      }
+    }
+}

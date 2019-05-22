@@ -1,0 +1,69 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "onpremNetPrefix": {
+            "value": "192.168.0.0/18"
+        },
+        "location": {
+            "value": "uksouth"
+        },
+        "VNETaddressPrefix": {
+            "value": "172.25.0.0/16"
+        },
+        "Subnet-rda-prefix": {
+            "value": "172.25.4.128/27"
+        },
+        "Subnet-rdh-prefix": {
+            "value": "172.25.4.160/27"
+        },
+        "Subnet-data-prefix": {
+            "value": "172.25.3.128/25"
+        },
+        "Subnet-app-prefix": {
+            "value": "172.25.3.0/25"
+        },
+        "Subnet-core-prefix": {
+            "value": "172.25.2.0/24"
+        },
+        "Subnet-web-prefix": {
+            "value": "172.25.4.0/25"
+        },
+        "Subnet-test-prefix": {
+            "value": "172.25.1.192/26"
+        },
+        "Subnet-mgmt-prefix": {
+            "value": "172.25.1.128/26"
+        },
+        "Subnet-waf-prefix": {
+          "value": "172.25.14.192/27"
+      },
+        "Subnet-rda-name":{
+            "value": "eoe-prod-sub-rda"
+        },
+        "Subnet-rdh-name":{
+          "value": "eoe-prod-sub-rdh"
+        },
+        "Subnet-data-name":{
+          "value": "eoe-prod-sub-data"
+        },
+        "Subnet-app-name":{
+          "value": "eoe-prod-sub-app"
+        },
+        "Subnet-core-name":{
+          "value": "eoe-prod-sub-core"
+        },
+        "Subnet-web-name":{
+          "value": "eoe-prod-sub-web"
+        },
+        "Subnet-test-name":{
+          "value": "eoe-prod-sub-test"
+        },
+        "Subnet-mgmt-name":{
+          "value": "eoe-prod-sub-mgmt"
+        }    ,
+        "Subnet-waf-name":{
+          "value": "eoe-prod-sub-waf"
+        }      
+    }
+}

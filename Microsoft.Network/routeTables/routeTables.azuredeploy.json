@@ -1,0 +1,296 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "type": "string"
+            },
+          "vnetAddressPrefix":{
+            "type": "string"
+          },
+          "Subnet-rda-name":{
+            "type": "string"
+          },
+          "Subnet-rdh-name":{
+            "type": "string"
+          },
+          "Subnet-data-name":{
+            "type": "string"
+          },
+          "Subnet-app-name":{
+            "type": "string"
+          },
+          "Subnet-core-name":{
+            "type": "string"
+          },
+          "Subnet-web-name":{
+            "type": "string"
+          },
+          "Subnet-test-name":{
+            "type": "string"
+          },
+          "Subnet-mgmt-name":{
+            "type": "string"
+          },
+          "Subnet-rda-Prefix":{
+            "type": "string"
+          },
+          "Subnet-rdh-Prefix":{
+            "type": "string"
+          },
+          "Subnet-data-Prefix":{
+            "type": "string"
+          },
+          "Subnet-app-Prefix":{
+            "type": "string"
+          },
+          "Subnet-core-Prefix":{
+            "type": "string"
+          },
+          "Subnet-web-Prefix":{
+            "type": "string"
+          },
+          "Subnet-test-Prefix":{
+            "type": "string"
+          },
+          "Subnet-mgmt-Prefix":{
+            "type": "string"
+          }
+    },
+    "variables": {
+        "RT-rda-name" : "[concat(parameters('Subnet-rda-name'),'-RT')]",
+        "RT-rdh-name" : "[concat(parameters('Subnet-rdh-name'),'-RT')]",
+        "RT-data-name" : "[concat(parameters('Subnet-data-name'),'-RT')]",
+        "RT-app-name" : "[concat(parameters('Subnet-app-name'),'-RT')]",
+        "RT-core-name" : "[concat(parameters('Subnet-core-name'),'-RT')]",
+        "RT-web-name" : "[concat(parameters('Subnet-web-name'),'-RT')]",
+        "RT-test-name" : "[concat(parameters('Subnet-test-name'),'-RT')]",
+        "RT-mgmt-name" : "[concat(parameters('Subnet-mgmt-name'),'-RT')]"
+    },
+    "resources": [
+        {
+            "type": "Microsoft.Network/routeTables",
+            "apiVersion": "2018-12-01",
+            "name": "[variables('RT-rda-name')]",
+            "location": "[parameters('location')]",
+            "tags": {
+                "Project": "GRS"
+            },
+            "properties": {
+                "disableBgpRoutePropagation": true,
+                "routes": [
+                    {
+                        "name": "Inside-VNET",
+                        "properties": {
+                            "addressPrefix": "[parameters('vnetAddressPrefix')]",
+                            "nextHopType": "VnetLocal"
+                        }
+                    },
+                    {
+                        "name": "Inside-Subnet",
+                        "properties": {
+                            "addressPrefix": "[parameters('Subnet-rda-Prefix')]",
+                            "nextHopType": "VnetLocal"
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "type": "Microsoft.Network/routeTables",
+            "apiVersion": "2018-12-01",
+            "name": "[variables('RT-rdh-name')]",
+            "location": "[parameters('location')]",
+            "tags": {
+                "Project": "GRS"
+            },
+            "properties": {
+                "disableBgpRoutePropagation": true,
+                "routes": [
+                    {
+                        "name": "Inside-VNET",
+                        "properties": {
+                            "addressPrefix": "[parameters('vnetAddressPrefix')]",
+                            "nextHopType": "VnetLocal"
+                        }
+                    },
+                    {
+                        "name": "Inside-Subnet",
+                        "properties": {
+                            "addressPrefix": "[parameters('Subnet-rdh-Prefix')]",
+                            "nextHopType": "VnetLocal"
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "type": "Microsoft.Network/routeTables",
+            "apiVersion": "2018-12-01",
+            "name": "[variables('RT-data-name')]",
+            "location": "[parameters('location')]",
+            "tags": {
+                "Project": "GRS"
+            },
+            "properties": {
+                "disableBgpRoutePropagation": true,
+                "routes": [
+                    {
+                        "name": "Inside-VNET",
+                        "properties": {
+                            "addressPrefix": "[parameters('vnetAddressPrefix')]",
+                            "nextHopType": "VnetLocal"
+                        }
+                    },
+                    {
+                        "name": "Inside-Subnet",
+                        "properties": {
+                            "addressPrefix": "[parameters('Subnet-data-Prefix')]",
+                            "nextHopType": "VnetLocal"
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "type": "Microsoft.Network/routeTables",
+            "apiVersion": "2018-12-01",
+            "name": "[variables('RT-app-name')]",
+            "location": "[parameters('location')]",
+            "tags": {
+                "Project": "GRS"
+            },
+            "properties": {
+                "disableBgpRoutePropagation": true,
+                "routes": [
+                    {
+                        "name": "Inside-VNET",
+                        "properties": {
+                            "addressPrefix": "[parameters('vnetAddressPrefix')]",
+                            "nextHopType": "VnetLocal"
+                        }
+                    },
+                    {
+                        "name": "Inside-Subnet",
+                        "properties": {
+                            "addressPrefix": "[parameters('Subnet-app-Prefix')]",
+                            "nextHopType": "VnetLocal"
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "type": "Microsoft.Network/routeTables",
+            "apiVersion": "2018-12-01",
+            "name": "[variables('RT-core-name')]",
+            "location": "[parameters('location')]",
+            "tags": {
+                "Project": "GRS"
+            },
+            "properties": {
+                "disableBgpRoutePropagation": true,
+                "routes": [
+                    {
+                        "name": "Inside-VNET",
+                        "properties": {
+                            "addressPrefix": "[parameters('vnetAddressPrefix')]",
+                            "nextHopType": "VnetLocal"
+                        }
+                    },
+                    {
+                        "name": "Inside-Subnet",
+                        "properties": {
+                            "addressPrefix": "[parameters('Subnet-core-Prefix')]",
+                            "nextHopType": "VnetLocal"
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "type": "Microsoft.Network/routeTables",
+            "apiVersion": "2018-12-01",
+            "name": "[variables('RT-web-name')]",
+            "location": "[parameters('location')]",
+            "tags": {
+                "Project": "GRS"
+            },
+            "properties": {
+                "disableBgpRoutePropagation": true,
+                "routes": [
+                    {
+                        "name": "Inside-VNET",
+                        "properties": {
+                            "addressPrefix": "[parameters('vnetAddressPrefix')]",
+                            "nextHopType": "VnetLocal"
+                        }
+                    },
+                    {
+                        "name": "Inside-Subnet",
+                        "properties": {
+                            "addressPrefix": "[parameters('Subnet-web-Prefix')]",
+                            "nextHopType": "VnetLocal"
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "type": "Microsoft.Network/routeTables",
+            "apiVersion": "2018-12-01",
+            "name": "[variables('RT-test-name')]",
+            "location": "[parameters('location')]",
+            "tags": {
+                "Project": "GRS"
+            },
+            "properties": {
+                "disableBgpRoutePropagation": true,
+                "routes": [
+                    {
+                        "name": "Inside-VNET",
+                        "properties": {
+                            "addressPrefix": "[parameters('vnetAddressPrefix')]",
+                            "nextHopType": "VnetLocal"
+                        }
+                    },
+                    {
+                        "name": "Inside-Subnet",
+                        "properties": {
+                            "addressPrefix": "[parameters('Subnet-test-Prefix')]",
+                            "nextHopType": "VnetLocal"
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "type": "Microsoft.Network/routeTables",
+            "apiVersion": "2018-12-01",
+            "name": "[variables('RT-mgmt-name')]",
+            "location": "[parameters('location')]",
+            "tags": {
+                "Project": "GRS"
+            },
+            "properties": {
+                "disableBgpRoutePropagation": true,
+                "routes": [
+                    {
+                        "name": "Inside-VNET",
+                        "properties": {
+                            "addressPrefix": "[parameters('vnetAddressPrefix')]",
+                            "nextHopType": "VnetLocal"
+                        }
+                    },
+                    {
+                        "name": "Inside-Subnet",
+                        "properties": {
+                            "addressPrefix": "[parameters('Subnet-mgmt-Prefix')]",
+                            "nextHopType": "VnetLocal"
+                        }
+                    }
+                ]
+            }
+        }
+    ]
+}
