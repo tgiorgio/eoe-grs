@@ -9,7 +9,7 @@
             "value": "uksouth"
         },
         "VNETaddressPrefix": {
-            "value": "10.2.0.0/16"
+            "value": "172.25.0.0/16"
         },
         "Subnet-fgext-prefix": {
             "value": "172.25.1.0/27"
