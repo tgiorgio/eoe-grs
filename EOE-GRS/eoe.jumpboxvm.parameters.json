@@ -6,7 +6,7 @@
             "value": "uksouth"
         },
         "subnetName": {
-            "value": "EoE-prod-sub-fgint"
+            "value": "EoE-prod-sub-mgmt"
         },
         "virtualNetworkName":{
             "value": "eoe-prod-vnet"
@@ -17,7 +17,7 @@
         "virtualMachineName": {
             "value": "eoeprodjmp01",
             "metadata": {
-                "description":"indows computer name cannot be more than 15 characters long, be entirely numeric, or contain the following characters: ` ~ ! @ # $ % ^ & * ( ) = + _ [ ] { }"
+                "description":"Windows computer name cannot be more than 15 characters long, be entirely numeric, or contain the following characters: ` ~ ! @ # $ % ^ & * ( ) = + _ [ ] { }"
             }
         },
         "osDiskType": {
