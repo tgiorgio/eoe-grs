@@ -3,7 +3,10 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "storageAccountName": {
-            "value": "eoeprodstg01"
+            "value": "eoeprodstg01",
+            "metadata": {
+                "description": "Storage account name must be between 3 and 24 characters in length and use numd 24 characters in length and use numbers and lower-case letters only."
+            }
         },
         "storageAccountType": {
             "value": "Standard_LRS"
