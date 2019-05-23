@@ -17,9 +17,6 @@
         "virtualMachineName": {
             "value": "eoe-prod-mgmt-vm01"
         },
-        "virtualMachineRG": {
-            "value": "eoe-prod-mgmt-RG"
-        },
         "osDiskType": {
             "value": "Standard_LRS"
         },
