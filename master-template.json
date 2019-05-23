@@ -5,8 +5,7 @@
     "variables": {
       "deploylocation":"uksouth",
       "vnetRG":"eoe-prod-vnet-RG",
-      "FortigateRG":"eoe-prod-vnet-RG",
-      "MgmtRG":"eoe-prod-vnet-RG",
+      "MgmtRG":"eoe-prod-mgmt-RG",
       "sharedServicesRG": "eoe-prod-shared-RG"
     },  
     "resources": [
@@ -80,19 +79,12 @@
       }
     },
     {
-      "type": "Microsoft.Resources/resourceGroups",
-      "apiVersion": "2018-05-01",
-      "location": "[variables('deploylocation')]",
-      "name": "[tolower(variables('FortigateRG'))]",
-      "properties": {}
-    },
-    {
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2018-05-01",
       "name": "Deploy-Fortigate",
-      "resourceGroup": "[variables('FortigateRG')]",
+      "resourceGroup": "[variables('vnetRG')]",
       "dependsOn": ["Deployt-VNET",
-        "[resourceId('Microsoft.Resources/resourceGroups/', variables('FortigateRG'))]"
+        "[resourceId('Microsoft.Resources/resourceGroups/', variables('vnetRG'))]"
       ],
       "properties": {
           "mode": "Incremental",
