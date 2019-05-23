@@ -6,7 +6,7 @@
             "value": "uksouth"
         },
         "subnetName": {
-            "value": "EoE-uks-sub-fgint"
+            "value": "EoE-prod-sub-fgint"
         },
         "virtualNetworkName":{
             "value": "eoe-prod-vnet"
@@ -30,7 +30,7 @@
             "value": "BCe2%4@+@daY"
         },
         "diagnosticsStorageAccountName": {
-            "value": "eoe-prod-stg-01"
+            "value": "eoeprodstg01"
     }
 }
 }

@@ -8,6 +8,9 @@
         "adminPassword": {
             "value": "N0stra7a2019!"
         },
+        "environment":{
+            "value": "prod"
+        },
         "customerprefix": {
             "value": "eoe"
         },
@@ -15,7 +18,7 @@
             "value": "eoe-prod-vnet"
         },
         "vnetResourceGroup": {
-            "value": "eoeuksouthvnet-rg"
+            "value": "eoe-prod-vnet-rg"
         },
         "VNETaddressPrefix": {
             "value": "172.25.0.0/16"

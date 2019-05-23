@@ -5,6 +5,9 @@
     "location": {
       "type": "string"
       },
+    "environment":{
+      "type": "string"
+    },
     "adminPassword": {
       "type": "string"
     },
@@ -117,7 +120,7 @@
     "adminUsername": "[concat(parameters('customerprefix'),'fwadmin')]",
     
 
-    "FortiGateNamePrefix": "[concat(parameters('customerprefix'),'-',take(parameters('location'),3),'FW')]",
+    "FortiGateNamePrefix": "[concat(parameters('customerprefix'),'-',parameters('environment'),'-FW')]",
     "FortiGateImageVersion": "latest",
 
     "compute_AvailabilitySet_FG_Name": "[concat(variables('FortiGateNamePrefix'),'-AvailabilitySet')]",
