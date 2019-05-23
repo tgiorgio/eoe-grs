@@ -15,7 +15,7 @@
             "value": "eoe-prod-vnet-RG"
         },
         "virtualMachineName": {
-            "value": "testvn"
+            "value": "eoe-prod-mgmt-vm01"
         },
         "virtualMachineRG": {
             "value": "eoe-prod-mgmt-RG"
@@ -33,16 +33,6 @@
             "value": "BCe2%4@+@daY"
         },
         "diagnosticsStorageAccountName": {
-            "value": "digiorgiotsandboxrgdiag"
-        },
-        "diagnosticsStorageAccountId": {
-            "value": "Microsoft.Storage/storageAccounts/digiorgiotsandboxrgdiag"
-        },
-        "diagnosticsStorageAccountType": {
-            "value": "Standard_LRS"
-        },
-        "diagnosticsStorageAccountKind": {
-            "value": "Storage"
-        }
+            "value": "eoe-prod-stg-01"
     }
 }

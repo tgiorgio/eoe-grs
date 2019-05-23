@@ -123,11 +123,11 @@
       "properties": {
         "mode": "Incremental",
         "templateLink": {
-            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/Microsoft.Network/routeTables/routeTables.azuredeploy.json",
+            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/Microsoft.Storage/storage.azuredeploy.json",
             "contentVersion":"1.0.0.0"
           },
         "parametersLink": {
-            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/EOE-GRS/eoe.routeTables.parameters.json",
+            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/EOE-GRS/eoe.storage.azuredeploy.parameters.json",
             "contentVersion":"1.0.0.0"
           }
       }
@@ -145,16 +145,18 @@
       "name": "Deploy-Jumpbox",
       "resourceGroup": "[variables('MgmtRG')]",
       "dependsOn": [
-        "[resourceId('Microsoft.Resources/resourceGroups/',variables('MgmtRG'))]"
+        "[resourceId('Microsoft.Resources/resourceGroups/',variables('MgmtRG'))]",
+        "Deploy-StorageAccount",
+        "Deployt-VNET"
       ],
       "properties": {
         "mode": "Incremental",
         "templateLink": {
-            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/Microsoft.Network/routeTables/routeTables.azuredeploy.json",
+            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/Microsoft.Compute/vm-win-CIS-L1/jumpboxvm.azuredeploy.json",
             "contentVersion":"1.0.0.0"
           },
         "parametersLink": {
-            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/EOE-GRS/eoe.routeTables.parameters.json",
+            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/EOE-GRS/eoe.jumpboxvm.parameters.json",
             "contentVersion":"1.0.0.0"
           }
       }
