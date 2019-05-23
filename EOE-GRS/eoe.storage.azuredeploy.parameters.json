@@ -3,7 +3,7 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "storageAccountName": {
-            "value": "eoe-prod-stg-01"
+            "value": "eoeprodstg01"
         },
         "storageAccountType": {
             "value": "Standard_LRS"
