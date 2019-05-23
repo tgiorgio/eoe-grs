@@ -4,8 +4,10 @@
     "parameters": {},
     "variables": {
       "deploylocation":"uksouth",
-      "vnetRG":"EoEUKSOUTHVNET-RG",
-      "FortigateRG":"EoEUKSOUTHFG-RG"
+      "vnetRG":"eoe-prod-vnet-RG",
+      "FortigateRG":"eoe-prod-vnet-RG",
+      "MgmtRG":"eoe-prod-vnet-RG",
+      "sharedServicesRG": "eoe-prod-shared-RG"
     },  
     "resources": [
     {
@@ -87,7 +89,7 @@
     {
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2018-05-01",
-      "name": "GRSDeployFortigate",
+      "name": "Deploy-Fortigate",
       "resourceGroup": "[variables('FortigateRG')]",
       "dependsOn": ["Deployt-VNET",
         "[resourceId('Microsoft.Resources/resourceGroups/', variables('FortigateRG'))]"
@@ -98,14 +100,65 @@
               "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/Fortigate-HA-ActiveActive-LB/GRS-Fortigate-Template.json"
           },
           "parametersLink": {
-            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/EOE-GRS/eoe.virtualNetworks.parameters.json",
+            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/EOE-GRS/Fortigate-Template.parameters.json",
+            "contentVersion":"1.0.0.0"
+          }
+      }
+    },
+    {
+      "type": "Microsoft.Resources/resourceGroups",
+      "apiVersion": "2018-05-01",
+      "location": "[variables('deploylocation')]",
+      "name": "[tolower(variables('sharedServicesRG'))]",
+      "properties": {}
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2018-05-01",
+      "name": "Deploy-StorageAccount",
+      "resourceGroup": "[variables('sharedServicesRG')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Resources/resourceGroups/',variables('sharedServicesRG'))]"
+      ],
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/Microsoft.Network/routeTables/routeTables.azuredeploy.json",
             "contentVersion":"1.0.0.0"
           },
-          "parameters": {
+        "parametersLink": {
+            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/EOE-GRS/eoe.routeTables.parameters.json",
+            "contentVersion":"1.0.0.0"
+          }
+      }
+    },
+    {
+      "type": "Microsoft.Resources/resourceGroups",
+      "apiVersion": "2018-05-01",
+      "location": "[variables('deploylocation')]",
+      "name": "[tolower(variables('MgmtRG'))]",
+      "properties": {}
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2018-05-01",
+      "name": "Deploy-Jumpbox",
+      "resourceGroup": "[variables('MgmtRG')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Resources/resourceGroups/',variables('MgmtRG'))]"
+      ],
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/Microsoft.Network/routeTables/routeTables.azuredeploy.json",
+            "contentVersion":"1.0.0.0"
+          },
+        "parametersLink": {
+            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/EOE-GRS/eoe.routeTables.parameters.json",
+            "contentVersion":"1.0.0.0"
           }
       }
     }
-   
     ],
     "outputs": {
     }

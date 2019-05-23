@@ -8,67 +8,70 @@
       "location": {
           "type": "string"
       },
+      "environment":{
+        "type": "string"
+      },
       "VNETaddressPrefix": {
         "type": "string"
       },
       "Subnet-fgext-prefix": {
         "type": "string",
         "defaultValue": "10.0.1.0/24"
-        },
-        "Subnet-fgint-prefix": {
-          "type": "string",
-          "defaultValue": "10.0.2.0/24"
-        },
-        "Subnet-rda-prefix": {
-          "type": "string",
-          "defaultValue": "10.0.3.0/24"
-        },
-        "Subnet-rdh-prefix": {
-          "type": "string",
-          "defaultValue": "10.0.4.0/24"
-        },
-        "Subnet-data-prefix": {
-          "type": "string",
-          "defaultValue": "10.0.5.0/24"
-        },
-        "Subnet-app-prefix": {
-          "type": "string",
-          "defaultValue": "10.0.6.0/24"
-        },
-        "Subnet-core-prefix": {
-          "type": "string",
-          "defaultValue": "10.0.7.0/24"
-        },
-        "Subnet-web-prefix": {
-          "type": "string",
-          "defaultValue": "10.0.8.0/24"
-        },
-        "Subnet-test-prefix": {
-          "type": "string",
-          "defaultValue": "10.0.9.0/24"
-        },
-        "Subnet-mgmt-prefix": {
-          "type": "string",
-          "defaultValue": "10.0.11.0/24"
-        },
-        "Subnet-waf-prefix": {
-          "type": "string",
-          "defaultValue": "10.0.10.0/24"
-        }
+      },
+      "Subnet-fgint-prefix": {
+        "type": "string",
+        "defaultValue": "10.0.2.0/24"
+      },
+      "Subnet-rda-prefix": {
+        "type": "string",
+        "defaultValue": "10.0.3.0/24"
+      },
+      "Subnet-rdh-prefix": {
+        "type": "string",
+        "defaultValue": "10.0.4.0/24"
+      },
+      "Subnet-data-prefix": {
+        "type": "string",
+        "defaultValue": "10.0.5.0/24"
+      },
+      "Subnet-app-prefix": {
+        "type": "string",
+        "defaultValue": "10.0.6.0/24"
+      },
+      "Subnet-core-prefix": {
+        "type": "string",
+        "defaultValue": "10.0.7.0/24"
+      },
+      "Subnet-web-prefix": {
+        "type": "string",
+        "defaultValue": "10.0.8.0/24"
+      },
+      "Subnet-test-prefix": {
+        "type": "string",
+        "defaultValue": "10.0.9.0/24"
+      },
+      "Subnet-mgmt-prefix": {
+        "type": "string",
+        "defaultValue": "10.0.11.0/24"
+      },
+      "Subnet-waf-prefix": {
+        "type": "string",
+        "defaultValue": "10.0.10.0/24"
+      }
     },
     "variables": {
-      "VNETname" : "[concat(toLower(parameters('customerprefix')),'-prod-vnet')]",
-      "Subnet-fgext-name" : "[concat(toLower(parameters('customerprefix')),'-prod','-sub-fgext')]",
-      "Subnet-fgint-name" : "[concat(toLower(parameters('customerprefix')),'-prod','-sub-fgint')]",
-      "Subnet-rda-name" : "[concat(toLower(parameters('customerprefix')),'-prod','-sub-rda')]",
-      "Subnet-rdh-name" : "[concat(toLower(parameters('customerprefix')),'-prod','-sub-rdh')]",
-      "Subnet-data-name" : "[concat(toLower(parameters('customerprefix')),'-prod','-sub-data')]",
-      "Subnet-app-name" : "[concat(toLower(parameters('customerprefix')),'-prod','-sub-app')]",
-      "Subnet-core-name" : "[concat(toLower(parameters('customerprefix')),'-prod','-sub-core')]",
-      "Subnet-web-name" : "[concat(toLower(parameters('customerprefix')),'-prod','-sub-web')]",
-      "Subnet-test-name" : "[concat(toLower(parameters('customerprefix')),'-prod','-sub-test')]",
-      "Subnet-mgmt-name" : "[concat(toLower(parameters('customerprefix')),'-prod','-sub-mgmt')]",
-      "Subnet-waf-name" : "[concat(toLower(parameters('customerprefix')),'-prod','-sub-waf')]"
+      "VNETname" : "[concat(toLower(parameters('customerprefix')),'-',tolower(parameters('environment')),'-vnet')]",
+      "Subnet-fgext-name" : "[concat(toLower(parameters('customerprefix')),'-',tolower(parameters('environment')),'-sub-fgext')]",
+      "Subnet-fgint-name" : "[concat(toLower(parameters('customerprefix')),'-',tolower(parameters('environment')),'-sub-fgint')]",
+      "Subnet-rda-name" : "[concat(toLower(parameters('customerprefix')),'-',tolower(parameters('environment')),'-sub-rda')]",
+      "Subnet-rdh-name" : "[concat(toLower(parameters('customerprefix')),'-',tolower(parameters('environment')),'-sub-rdh')]",
+      "Subnet-data-name" : "[concat(toLower(parameters('customerprefix')),'-',tolower(parameters('environment')),'-sub-data')]",
+      "Subnet-app-name" : "[concat(toLower(parameters('customerprefix')),'-',tolower(parameters('environment')),'-sub-app')]",
+      "Subnet-core-name" : "[concat(toLower(parameters('customerprefix')),'-',tolower(parameters('environment')),'-sub-core')]",
+      "Subnet-web-name" : "[concat(toLower(parameters('customerprefix')),'-',tolower(parameters('environment')),'-sub-web')]",
+      "Subnet-test-name" : "[concat(toLower(parameters('customerprefix')),'-',tolower(parameters('environment')),'-sub-test')]",
+      "Subnet-mgmt-name" : "[concat(toLower(parameters('customerprefix')),'-',tolower(parameters('environment')),'-sub-mgmt')]",
+      "Subnet-waf-name" : "[concat(toLower(parameters('customerprefix')),'-',tolower(parameters('environment')),'-sub-waf')]"
     },
     "resources": [
         { 

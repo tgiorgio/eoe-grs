@@ -5,19 +5,16 @@
         "location": {
             "type": "string"
         },
-        "networkInterfaceName": {
-            "type": "string"
-        },
         "subnetName": {
             "type": "string"
         },
-        "virtualNetworkId": {
+        "virtualNetworkName": {
+            "type": "string"
+        },
+        "virtualNetworkRG": {
             "type": "string"
         },
         "virtualMachineName": {
-            "type": "string"
-        },
-        "virtualMachineRG": {
             "type": "string"
         },
         "osDiskType": {
@@ -30,28 +27,20 @@
             "type": "string"
         },
         "adminPassword": {
-            "type": "secureString"
+            "type": "string"
         },
         "diagnosticsStorageAccountName": {
-            "type": "string"
-        },
-        "diagnosticsStorageAccountId": {
-            "type": "string"
-        },
-        "diagnosticsStorageAccountType": {
-            "type": "string"
-        },
-        "diagnosticsStorageAccountKind": {
             "type": "string"
         }
     },
     "variables": {
-        "vnetId": "[parameters('virtualNetworkId')]",
-        "subnetRef": "[concat(variables('vnetId'), '/subnets/', parameters('subnetName'))]"
+        "vnetId": "[resourceId(parameters('virtualNetworkRG'),'Microsoft.Network/virtualNetworks', parameters('virtualNetworkName'))]",
+        "subnetRef": "[concat(variables('vnetId'), '/subnets/', parameters('subnetName'))]",
+        "networkInterfaceName": "[concat(parameters('virtualMachineName'),'-NIC')]"
     },
     "resources": [
         {
-            "name": "[parameters('networkInterfaceName')]",
+            "name": "[variables('networkInterfaceName')]",
             "type": "Microsoft.Network/networkInterfaces",
             "apiVersion": "2018-10-01",
             "location": "[parameters('location')]",
@@ -76,7 +65,7 @@
             "apiVersion": "2018-06-01",
             "location": "[parameters('location')]",
             "dependsOn": [
-                "[concat('Microsoft.Network/networkInterfaces/', parameters('networkInterfaceName'))]",
+                "[concat('Microsoft.Network/networkInterfaces/', variables('networkInterfaceName'))]",
                 "[concat('Microsoft.Storage/storageAccounts/', parameters('diagnosticsStorageAccountName'))]"
             ],
             "properties": {
@@ -100,7 +89,7 @@
                 "networkProfile": {
                     "networkInterfaces": [
                         {
-                            "id": "[resourceId('Microsoft.Network/networkInterfaces', parameters('networkInterfaceName'))]"
+                            "id": "[resourceId('Microsoft.Network/networkInterfaces', variables('networkInterfaceName'))]"
                         }
                     ]
                 },
@@ -125,23 +114,16 @@
                 "publisher": "center-for-internet-security-inc",
                 "product": "cis-windows-server-2016-v1-0-0-l1"
             }
-        },
-        {
-            "name": "[parameters('diagnosticsStorageAccountName')]",
-            "type": "Microsoft.Storage/storageAccounts",
-            "apiVersion": "2018-07-01",
-            "location": "[parameters('location')]",
-            "properties": {},
-            "kind": "[parameters('diagnosticsStorageAccountKind')]",
-            "sku": {
-                "name": "[parameters('diagnosticsStorageAccountType')]"
-            }
         }
     ],
     "outputs": {
         "adminUsername": {
             "type": "string",
             "value": "[parameters('adminUsername')]"
+        },
+        "adminPassword": {
+            "type": "string",
+            "value": "[parameters('adminPassword')]"
         }
     }
 }
