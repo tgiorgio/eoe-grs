@@ -15,7 +15,7 @@
             "value": "eoe-prod-vnet-RG"
         },
         "virtualMachineName": {
-            "value": "eoe-prod-mgmt-vm01"
+            "value": "eoe-prod-mgmt-01"
         },
         "osDiskType": {
             "value": "Standard_LRS"
