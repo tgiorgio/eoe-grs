@@ -15,7 +15,7 @@
             "value": "eoe-prod-vnet-RG"
         },
         "virtualMachineName": {
-            "value": "eoe-prod-mgmt-01",
+            "value": "eoeprodjmp01",
             "metadata": {
                 "description":"indows computer name cannot be more than 15 characters long, be entirely numeric, or contain the following characters: ` ~ ! @ # $ % ^ & * ( ) = + _ [ ] { }"
             }
