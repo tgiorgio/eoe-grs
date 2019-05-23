@@ -56,7 +56,6 @@
       },
       "Subnet-mgmt-name":{
         "value": "eoe-prod-sub-mgmt"
-      }    ,
- 
+      } 
     }
 }
