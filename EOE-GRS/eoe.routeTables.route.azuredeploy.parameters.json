@@ -6,28 +6,28 @@
             "value": "172.25.1.36"
         },
         "RT-rda-name":{
-            "value": "eoe-prod-sub-rda"
+            "value": "eoe-prod-sub-rda-RT"
         },
         "RT-rdh-name":{
-          "value": "eoe-prod-sub-rdh"
+          "value": "eoe-prod-sub-rdh-RT"
         },
         "RT-data-name":{
-          "value": "eoe-prod-sub-data"
+          "value": "eoe-prod-sub-data-RT"
         },
         "RT-app-name":{
-          "value": "eoe-prod-sub-app"
+          "value": "eoe-prod-sub-app-RT"
         },
         "RT-core-name":{
-          "value": "eoe-prod-sub-core"
+          "value": "eoe-prod-sub-core-RT"
         },
         "RT-web-name":{
-          "value": "eoe-prod-sub-web"
+          "value": "eoe-prod-sub-web-RT"
         },
         "RT-test-name":{
-          "value": "eoe-prod-sub-test"
+          "value": "eoe-prod-sub-test-RT"
         },
         "RT-mgmt-name":{
-          "value": "eoe-prod-sub-mgmt"
+          "value": "eoe-prod-sub-mgmt-RT"
         },
         "vNetPrefix": {
             "value": "172.25.0.0/16"

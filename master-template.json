@@ -114,7 +114,7 @@
     {
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2018-05-01",
-      "name": "Deploy-StorageAccount",
+      "name": "Deploy-DefaultRoutes",
       "resourceGroup": "[variables('vnetRG')]",
       "dependsOn": [
         "[resourceId('Microsoft.Resources/resourceGroups/',variables('vnetRG'))]",
