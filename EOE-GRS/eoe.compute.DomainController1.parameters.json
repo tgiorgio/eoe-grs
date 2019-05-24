@@ -6,7 +6,7 @@
             "value": "EOE-AZDC01"
         },
         "storageAccountName": {
-            "value": "eoe-prod-stg-01"
+            "value": "eoeprodstg01"
         },
         "vmSize": {
             "value": "Standard_D1_V2"
