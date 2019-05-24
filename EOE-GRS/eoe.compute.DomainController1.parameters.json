@@ -45,7 +45,7 @@
             "value": "uksouth"
         },
         "osDiskType":{
-            "value": "Standard_SSD"
+            "value": "StandardSSD_LRS"
         }
     }
 }
