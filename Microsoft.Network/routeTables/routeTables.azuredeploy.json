@@ -55,6 +55,9 @@
           },
           "Subnet-mgmt-Prefix":{
             "type": "string"
+          },
+          "onPremAddressPrefix":{
+              "type": "string"
           }
     },
     "variables": {
@@ -87,6 +90,13 @@
                         }
                     },
                     {
+                        "name": "To-OnPrem",
+                        "properties": {
+                            "addressPrefix": "[parameters('onPremAddressPrefix')]",
+                            "nextHopType": "VirtualNetworkGateway"
+                        }
+                    },
+                    {
                         "name": "Inside-Subnet",
                         "properties": {
                             "addressPrefix": "[parameters('Subnet-rda-Prefix')]",
@@ -112,6 +122,13 @@
                         "properties": {
                             "addressPrefix": "[parameters('vnetAddressPrefix')]",
                             "nextHopType": "VnetLocal"
+                        }
+                    },
+                    {
+                        "name": "To-OnPrem",
+                        "properties": {
+                            "addressPrefix": "[parameters('onPremAddressPrefix')]",
+                            "nextHopType": "VirtualNetworkGateway"
                         }
                     },
                     {
@@ -143,6 +160,13 @@
                         }
                     },
                     {
+                        "name": "To-OnPrem",
+                        "properties": {
+                            "addressPrefix": "[parameters('onPremAddressPrefix')]",
+                            "nextHopType": "VirtualNetworkGateway"
+                        }
+                    },
+                    {
                         "name": "Inside-Subnet",
                         "properties": {
                             "addressPrefix": "[parameters('Subnet-data-Prefix')]",
@@ -168,6 +192,13 @@
                         "properties": {
                             "addressPrefix": "[parameters('vnetAddressPrefix')]",
                             "nextHopType": "VnetLocal"
+                        }
+                    },
+                    {
+                        "name": "To-OnPrem",
+                        "properties": {
+                            "addressPrefix": "[parameters('onPremAddressPrefix')]",
+                            "nextHopType": "VirtualNetworkGateway"
                         }
                     },
                     {
@@ -199,6 +230,13 @@
                         }
                     },
                     {
+                        "name": "To-OnPrem",
+                        "properties": {
+                            "addressPrefix": "[parameters('onPremAddressPrefix')]",
+                            "nextHopType": "VirtualNetworkGateway"
+                        }
+                    },
+                    {
                         "name": "Inside-Subnet",
                         "properties": {
                             "addressPrefix": "[parameters('Subnet-core-Prefix')]",
@@ -224,6 +262,13 @@
                         "properties": {
                             "addressPrefix": "[parameters('vnetAddressPrefix')]",
                             "nextHopType": "VnetLocal"
+                        }
+                    },
+                    {
+                        "name": "To-OnPrem",
+                        "properties": {
+                            "addressPrefix": "[parameters('onPremAddressPrefix')]",
+                            "nextHopType": "VirtualNetworkGateway"
                         }
                     },
                     {
@@ -255,6 +300,13 @@
                         }
                     },
                     {
+                        "name": "To-OnPrem",
+                        "properties": {
+                            "addressPrefix": "[parameters('onPremAddressPrefix')]",
+                            "nextHopType": "VirtualNetworkGateway"
+                        }
+                    },
+                    {
                         "name": "Inside-Subnet",
                         "properties": {
                             "addressPrefix": "[parameters('Subnet-test-Prefix')]",
@@ -280,6 +332,13 @@
                         "properties": {
                             "addressPrefix": "[parameters('vnetAddressPrefix')]",
                             "nextHopType": "VnetLocal"
+                        }
+                    },
+                    {
+                        "name": "To-OnPrem",
+                        "properties": {
+                            "addressPrefix": "[parameters('onPremAddressPrefix')]",
+                            "nextHopType": "VirtualNetworkGateway"
                         }
                     },
                     {
