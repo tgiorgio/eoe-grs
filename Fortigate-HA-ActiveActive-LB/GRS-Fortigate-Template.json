@@ -120,7 +120,7 @@
     "adminUsername": "[concat(parameters('customerprefix'),'fwadmin')]",
     
 
-    "FortiGateNamePrefix": "[concat(parameters('customerprefix'),'-',parameters('environment'),'-FW')]",
+    "FortiGateNamePrefix": "[concat(parameters('customerprefix'),'-',parameters('environment'),'FW')]",
     "FortiGateImageVersion": "latest",
 
     "compute_AvailabilitySet_FG_Name": "[concat(variables('FortiGateNamePrefix'),'-AvailabilitySet')]",
@@ -131,10 +131,10 @@
     "subnet3Ref": "[concat(variables('vnetID'),'/subnets/', parameters('Subnet-rda-name'))]",
 
 
-    "vmName": "[concat(variables('FortiGateNamePrefix'),'-A')]",
-    "vm2Name": "[concat(variables('FortiGateNamePrefix'),'-B')]",
+    "vmName": "[concat(variables('FortiGateNamePrefix'),'01')]",
+    "vm2Name": "[concat(variables('FortiGateNamePrefix'),'02')]",
 
-    "routeTable2Name": "[concat(parameters('Subnet-fgint-name'),'-',variables('FortiGateNamePrefix'),'-RT')]",
+    "routeTable2Name": "[concat(parameters('Subnet-fgint-name'),'-RT')]",
 
     "internalLBName": "[concat(variables('FortiGateNamePrefix'),'-InternalLoadBalancer')]",
     "internalLBFE2Name": "[concat(variables('FortiGateNamePrefix'),'-ILB-',parameters('Subnet-fgint-name'),'-FrontEnd')]",

@@ -15,7 +15,7 @@
             "value": "eoe-prod-vnet-RG"
         },
         "virtualMachineName": {
-            "value": "eoeprodjmp01",
+            "value": "EOE-AZJMP01",
             "metadata": {
                 "description":"Windows computer name cannot be more than 15 characters long, be entirely numeric, or contain the following characters: ` ~ ! @ # $ % ^ & * ( ) = + _ [ ] { }"
             }
@@ -30,7 +30,7 @@
             "value": "eoeadmin"
         },
         "adminPassword": {
-            "value": "BCe2%4@+@daY"
+            "value": "BCe2%4@+@daYeoe!"  
         },
         "diagnosticsStorageAccountName": {
             "value": "eoeprodstg01"

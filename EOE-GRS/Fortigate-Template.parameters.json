@@ -6,13 +6,13 @@
             "value": "uksouth"
         },
         "adminPassword": {
-            "value": "N0stra7a2019!"
+            "value": "R?NagJ^2H4s7"
         },
         "environment":{
-            "value": "prod"
+            "value": "AZ"
         },
         "customerprefix": {
-            "value": "eoe"
+            "value": "EOE"
         },
         "VNetName": {
             "value": "eoe-prod-vnet"
