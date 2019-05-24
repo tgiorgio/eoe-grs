@@ -8,6 +8,9 @@
     "storageAccountName":{
       "type": "string"
     },
+    "osDiskType":{
+      "type": "string"
+    },
     "vmSize":{
       "defaultValue": "Standard_A2",
       "type": "string"
@@ -118,7 +121,10 @@
             "version": "latest"
           },
           "osDisk": {
-            "createOption": "FromImage"
+            "createOption": "FromImage",
+            "managedDisk": {
+              "storageAccountType": "[parameters('osDiskType')]"
+          }
           },
           "dataDisks": [
           ]
@@ -133,7 +139,7 @@
         "diagnosticsProfile": {
           "bootDiagnostics": {
             "enabled": true,
-            "storageUri": "[reference(resourceId('Microsoft.Storage/storageAccounts/', parameters('storageAccountName'))).primaryEndpoints.blob]"
+            "storageUri": "[concat('https://', parameters('storageAccountName'), '.blob.core.windows.net/')]"
           }
         }
       }

@@ -40,6 +40,9 @@
         },
         "location": {
             "value": "uksouth"
+        },
+        "osDiskType":{
+            "value": "Standard_SSD"
         }
     }
 }
