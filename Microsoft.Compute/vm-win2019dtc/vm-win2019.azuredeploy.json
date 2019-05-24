@@ -76,7 +76,6 @@
       "location": "[parameters('location')]",
       "tags": "[parameters('environmentConfiguration').tags.value]",
       "dependsOn": [
-        "[resourceId('Microsoft.Network/virtualNetworks/', parameters('virtualNetworkName'))]"
       ],
       "properties": {
         "ipConfigurations": [
