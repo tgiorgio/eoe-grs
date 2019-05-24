@@ -23,9 +23,6 @@
         "RT-test-name":{
             "type": "string"
         },
-        "RT-gateway-name":{
-            "type": "string"
-        },
         "RT-app-name":{
             "type": "string"
         },
@@ -111,7 +108,7 @@
         {
             "type": "Microsoft.Network/routeTables/routes",
             "apiVersion": "2018-12-01",
-            "name": "[concat(parameters('RT-gateway-name'),'/Default')]",
+            "name": "GatewaySubnet/Default",
             "properties": {
                 "addressPrefix": "0.0.0.0/0",
                 "nextHopType": "VirtualAppliance",
@@ -131,7 +128,7 @@
         {
             "type": "Microsoft.Network/routeTables/routes",
             "apiVersion": "2018-12-01",
-            "name": "[concat(parameters('RT-gateway-name'),'/Default')]",
+            "name": "GatewaySubnet/Default",
             "properties": {
                 "addressPrefix": "[parameters('vNetPrefix')]",
                 "nextHopType": "VirtualAppliance",
