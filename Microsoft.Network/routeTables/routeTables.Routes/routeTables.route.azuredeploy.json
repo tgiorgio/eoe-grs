@@ -108,7 +108,7 @@
         {
             "type": "Microsoft.Network/routeTables/routes",
             "apiVersion": "2018-12-01",
-            "name": "GatewaySubnet/Default",
+            "name": "GatewaySubnet-RT/Default",
             "properties": {
                 "addressPrefix": "0.0.0.0/0",
                 "nextHopType": "VirtualAppliance",
@@ -128,7 +128,7 @@
         {
             "type": "Microsoft.Network/routeTables/routes",
             "apiVersion": "2018-12-01",
-            "name": "GatewaySubnet/InsideVnet",
+            "name": "GatewaySubnet-RT/InsideVnet",
             "properties": {
                 "addressPrefix": "[parameters('vNetPrefix')]",
                 "nextHopType": "VirtualAppliance",
