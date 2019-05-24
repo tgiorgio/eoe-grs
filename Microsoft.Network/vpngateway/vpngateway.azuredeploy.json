@@ -51,7 +51,7 @@
       "name": "[variables('gatewayPublicIPName')]",
       "location": "[resourceGroup().location]",
       "properties": {
-        "publicIPAllocationMethod": "Static"
+        "publicIPAllocationMethod": "Dynamic"
       }
     },
     {
