@@ -188,6 +188,27 @@
             "contentVersion":"1.0.0.0"
           }
       }
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2018-05-01",
+      "name": "Deploy-Gateway",
+      "resourceGroup": "[variables('vnetRG')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Resources/resourceGroups/',variables('vnetRG'))]",
+        "Deployt-VNET"
+      ],
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/Microsoft.Network/vpngateway/vpngateway.azuredeploy.json",
+            "contentVersion":"1.0.0.0"
+          },
+        "parametersLink": {
+            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/EOE-GRS/vpngateway.azuredeploy.parameters.json",
+            "contentVersion":"1.0.0.0"
+          }
+      }
     }
     ],
     "outputs": {
