@@ -42,6 +42,9 @@
         "description":"Static internal IP of the VM."
       }
     },
+    "virtualNetworkRG":{
+      "type": "string"
+    },
     "windowsOSVersion": {
       "type": "string",
       "defaultValue": "2019-Datacenter",
@@ -69,7 +72,8 @@
   "variables": {
 
     "nicName": "[concat(parameters('vmName'),'-NIC')]",
-    "subnetRef": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworkName'), parameters('subnetName'))]"
+    "vnetId": "[resourceId(parameters('virtualNetworkRG'),'Microsoft.Network/virtualNetworks', parameters('virtualNetworkName'))]",
+    "subnetRef": "[concat(variables('vnetId'), '/subnets/', parameters('subnetName'))]"
   },
   "resources": [
     {
