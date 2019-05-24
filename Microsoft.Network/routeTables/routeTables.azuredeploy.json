@@ -53,9 +53,6 @@
           "Subnet-test-Prefix":{
             "type": "string"
           },
-          "Subnet-gateway-Prefix":{
-            "type": "string"
-          },
           "Subnet-mgmt-Prefix":{
             "type": "string"
           }
@@ -93,27 +90,6 @@
                         "name": "Inside-Subnet",
                         "properties": {
                             "addressPrefix": "[parameters('Subnet-rda-Prefix')]",
-                            "nextHopType": "VnetLocal"
-                        }
-                    }
-                ]
-            }
-        },
-        {
-            "type": "Microsoft.Network/routeTables",
-            "apiVersion": "2018-12-01",
-            "name": "GatewaySubnet-RT",
-            "location": "[parameters('location')]",
-            "tags": {
-                "Project": "GRS"
-            },
-            "properties": {
-                "disableBgpRoutePropagation": true,
-                "routes": [
-                    {
-                        "name": "Inside-Subnet",
-                        "properties": {
-                            "addressPrefix": "[parameters('Subnet-gateway-Prefix')]",
                             "nextHopType": "VnetLocal"
                         }
                     }

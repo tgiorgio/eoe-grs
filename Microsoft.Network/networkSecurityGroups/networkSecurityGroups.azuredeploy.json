@@ -1900,6 +1900,23 @@
                         }
                     },
                     {
+                        "name": "Allow-OnPrem-RDP-In",
+                        "properties": {
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "3389",
+                            "sourceAddressPrefix": "[parameters('onpremNetPrefix')]",
+                            "destinationAddressPrefix": "[parameters('Subnet-mgmt-Prefix')]",
+                            "access": "Allow",
+                            "priority": 1001,
+                            "direction": "Inbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    },
+                    {
                         "name": "Deny-AllInBound",
                         "properties": {
                             "protocol": "*",
@@ -1931,6 +1948,23 @@
                             "destinationPortRanges": [],
                             "sourceAddressPrefixes": [],
                             "destinationAddressPrefixes": []
+                        }
+                    },
+                    {
+                        "name": "Allow-All-OnPrem",
+                        "properties": {
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "*",
+                            "sourceAddressPrefix": "[parameters('Subnet-mgmt-Prefix')]",
+                            "access": "Allow",
+                            "priority": 1001,
+                            "direction": "Outbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": [],
+                            "destinationAddressPrefix": "[parameters('onpremNetPrefix')]"
                         }
                     },
                     {
