@@ -5,28 +5,28 @@
         "fw-internal-ip": {
             "value": "172.25.1.36"
         },
-        "Subnet-rda-name":{
+        "RT-rda-name":{
             "value": "eoe-prod-sub-rda"
         },
-        "Subnet-rdh-name":{
+        "RT-rdh-name":{
           "value": "eoe-prod-sub-rdh"
         },
-        "Subnet-data-name":{
+        "RT-data-name":{
           "value": "eoe-prod-sub-data"
         },
-        "Subnet-app-name":{
+        "RT-app-name":{
           "value": "eoe-prod-sub-app"
         },
-        "Subnet-core-name":{
+        "RT-core-name":{
           "value": "eoe-prod-sub-core"
         },
-        "Subnet-web-name":{
+        "RT-web-name":{
           "value": "eoe-prod-sub-web"
         },
-        "Subnet-test-name":{
+        "RT-test-name":{
           "value": "eoe-prod-sub-test"
         },
-        "Subnet-mgmt-name":{
+        "RT-mgmt-name":{
           "value": "eoe-prod-sub-mgmt"
         },
         "vNetPrefix": {

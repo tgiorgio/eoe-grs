@@ -124,11 +124,11 @@
       "properties": {
         "mode": "Incremental",
         "templateLink": {
-            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/Microsoft.Storage/storage.azuredeploy.json",
+            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/Microsoft.Network/routeTables/routeTables.Routes/routeTables.route.azuredeploy.json",
             "contentVersion":"1.0.0.0"
           },
         "parametersLink": {
-            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/EOE-GRS/eoe.storage.azuredeploy.parameters.json",
+            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/EOE-GRS/eoe.routeTables.route.azuredeploy.parameters.json",
             "contentVersion":"1.0.0.0"
           }
       }
