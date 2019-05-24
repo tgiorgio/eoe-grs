@@ -7,6 +7,33 @@
         },
         "RT-rda-name":{
             "type": "string"
+        },
+        "RT-rdh-name":{
+            "type": "string"
+        },
+        "RT-data-name":{
+            "type": "string"
+        },
+        "RT-web-name":{
+            "type": "string"
+        },
+        "RT-core-name":{
+            "type": "string"
+        },
+        "RT-test-name":{
+            "type": "string"
+        },
+        "RT-gateway-name":{
+            "type": "string"
+        },
+        "RT-app-name":{
+            "type": "string"
+        },
+        "RT-mgmt-name":{
+            "type": "string"
+        },
+        "vNetPrefix":{
+            "type": "string"
         }
     },
     "variables": {},
@@ -14,16 +41,103 @@
         {
             "type": "Microsoft.Network/routeTables/routes",
             "apiVersion": "2018-12-01",
-            "name": "parameters('RT-rda-name')/Default",
-            "dependsOn": [
-                "[resourceId('Microsoft.Network/routeTables', parameters('RT-rda-name'))]"
-            ],
+            "name": "[concat(parameters('RT-rda-name'),'/Default')]",
             "properties": {
                 "addressPrefix": "0.0.0.0/0",
                 "nextHopType": "VirtualAppliance",
                 "nextHopIpAddress": "[parameters('fw-internal-ip')]"
             }
         },
+        {
+            "type": "Microsoft.Network/routeTables/routes",
+            "apiVersion": "2018-12-01",
+            "name": "[concat(parameters('RT-rdh-name'),'/Default')]",
+            "properties": {
+                "addressPrefix": "0.0.0.0/0",
+                "nextHopType": "VirtualAppliance",
+                "nextHopIpAddress": "[parameters('fw-internal-ip')]"
+            }
+        },
+        {
+            "type": "Microsoft.Network/routeTables/routes",
+            "apiVersion": "2018-12-01",
+            "name": "[concat(parameters('RT-data-name'),'/Default')]",
+            "properties": {
+                "addressPrefix": "0.0.0.0/0",
+                "nextHopType": "VirtualAppliance",
+                "nextHopIpAddress": "[parameters('fw-internal-ip')]"
+            }
+        },
+        {
+            "type": "Microsoft.Network/routeTables/routes",
+            "apiVersion": "2018-12-01",
+            "name": "[concat(parameters('RT-web-name'),'/Default')]",
+            "properties": {
+                "addressPrefix": "0.0.0.0/0",
+                "nextHopType": "VirtualAppliance",
+                "nextHopIpAddress": "[parameters('fw-internal-ip')]"
+            }
+        },
+        {
+            "type": "Microsoft.Network/routeTables/routes",
+            "apiVersion": "2018-12-01",
+            "name": "[concat(parameters('RT-core-name'),'/Default')]",
+            "properties": {
+                "addressPrefix": "0.0.0.0/0",
+                "nextHopType": "VirtualAppliance",
+                "nextHopIpAddress": "[parameters('fw-internal-ip')]"
+            }
+        },
+        {
+            "type": "Microsoft.Network/routeTables/routes",
+            "apiVersion": "2018-12-01",
+            "name": "[concat(parameters('RT-test-name'),'/Default')]",
+            "properties": {
+                "addressPrefix": "0.0.0.0/0",
+                "nextHopType": "VirtualAppliance",
+                "nextHopIpAddress": "[parameters('fw-internal-ip')]"
+            }
+        },
+        {
+            "type": "Microsoft.Network/routeTables/routes",
+            "apiVersion": "2018-12-01",
+            "name": "[concat(parameters('RT-app-name'),'/Default')]",
+            "properties": {
+                "addressPrefix": "0.0.0.0/0",
+                "nextHopType": "VirtualAppliance",
+                "nextHopIpAddress": "[parameters('fw-internal-ip')]"
+            }
+        },
+        {
+            "type": "Microsoft.Network/routeTables/routes",
+            "apiVersion": "2018-12-01",
+            "name": "[concat(parameters('RT-gateway-name'),'/Default')]",
+            "properties": {
+                "addressPrefix": "0.0.0.0/0",
+                "nextHopType": "VirtualAppliance",
+                "nextHopIpAddress": "[parameters('fw-internal-ip')]"
+            }
+        },
+        {
+            "type": "Microsoft.Network/routeTables/routes",
+            "apiVersion": "2018-12-01",
+            "name": "[concat(parameters('RT-mgmt-name'),'/Default')]",
+            "properties": {
+                "addressPrefix": "0.0.0.0/0",
+                "nextHopType": "VirtualAppliance",
+                "nextHopIpAddress": "[parameters('fw-internal-ip')]"
+            }
+        },
+        {
+            "type": "Microsoft.Network/routeTables/routes",
+            "apiVersion": "2018-12-01",
+            "name": "[concat(parameters('RT-gateway-name'),'/Default')]",
+            "properties": {
+                "addressPrefix": "[parameters('vNetPrefix')]",
+                "nextHopType": "VirtualAppliance",
+                "nextHopIpAddress": "[parameters('fw-internal-ip')]"
+            }
+        }
     ],
     "outputs": {}
 }

@@ -57,6 +57,10 @@
       "Subnet-waf-prefix": {
         "type": "string",
         "defaultValue": "10.0.10.0/24"
+      },
+      "Subnet-gateway-prefix": {
+        "type": "string",
+        "defaultValue": "10.0.10.0/24"
       }
     },
     "variables": {
@@ -72,6 +76,7 @@
       "Subnet-test-name" : "[concat(toLower(parameters('customerprefix')),'-',tolower(parameters('environment')),'-sub-test')]",
       "Subnet-mgmt-name" : "[concat(toLower(parameters('customerprefix')),'-',tolower(parameters('environment')),'-sub-mgmt')]",
       "Subnet-waf-name" : "[concat(toLower(parameters('customerprefix')),'-',tolower(parameters('environment')),'-sub-waf')]"
+      
     },
     "resources": [
         { 
@@ -189,7 +194,15 @@
                           }
                         }
                       },
-                      
+                      {
+                        "name": "GatewaySubnet",
+                        "properties": {
+                          "addressPrefix": "[parameters('Subnet-gateway-prefix')]",
+                          "routeTable": {
+                            "id": "[resourceId('Microsoft.Network/routeTables', 'GatewaySubnet-RT')]"
+                          }
+                        }
+                      },                      
                       {
                         "name": "[variables('Subnet-waf-name')]",
                         "properties": {
@@ -204,98 +217,5 @@
         }
         
     ],
-    "outputs": {
-      "customerprefix":{
-        "value": "[parameters('customerprefix')]",
-        "type": "string"
-      },
-      "vnetAddressPrefix":{
-        "value": "[parameters('VNETaddressPrefix')]",
-        "type": "string"
-      },
-      "VNETname":{
-        "value": "[variables('VNETname')]",
-        "type": "string"
-      },
-      "Subnet-fgext-name": {
-        "value" : "[variables('Subnet-fgext-name')]",
-        "type" : "string"
-      },
-      "Subnet-fgext-prefix": {
-        "value": "[parameters('Subnet-fgext-prefix')]",
-        "type": "string"
-      },
-      "Subnet-fgint-name": {
-        "value" : "[variables('Subnet-fgint-name')]",
-        "type" : "string"
-      },
-      "Subnet-fgint-prefix": {
-        "value": "[parameters('Subnet-fgint-prefix')]",
-        "type": "string"
-      },
-      "Subnet-rda-name": {
-        "value" : "[variables('Subnet-rda-name')]",
-        "type" : "string"
-      },
-      "Subnet-rda-prefix": {
-        "value": "[parameters('Subnet-rda-prefix')]",
-        "type": "string"
-      },
-      "Subnet-rdh-name": {
-        "value" : "[variables('Subnet-rdh-name')]",
-        "type" : "string"
-      },
-      "Subnet-rdh-prefix": {
-        "value": "[parameters('Subnet-rdh-prefix')]",
-        "type": "string"
-      },
-      "Subnet-data-name": {
-        "value" : "[variables('Subnet-data-name')]",
-        "type" : "string"
-      },
-      "Subnet-data-prefix": {
-        "value": "[parameters('Subnet-data-prefix')]",
-        "type": "string"
-      },
-      "Subnet-app-name": {
-        "value" : "[variables('Subnet-app-name')]",
-        "type" : "string"
-      },
-      "Subnet-app-prefix": {
-        "value": "[parameters('Subnet-app-prefix')]",
-        "type": "string"
-      },
-      "Subnet-core-name": {
-        "value" : "[variables('Subnet-core-name')]",
-        "type" : "string"
-      },
-      "Subnet-core-prefix": {
-        "value": "[parameters('Subnet-core-prefix')]",
-        "type": "string"
-      },
-      "Subnet-web-name": {
-        "value" : "[variables('Subnet-web-name')]",
-        "type" : "string"
-      },
-      "Subnet-web-prefix": {
-        "value": "[parameters('Subnet-web-prefix')]",
-        "type": "string"
-      },
-      "Subnet-test-name": {
-        "value" : "[variables('Subnet-test-name')]",
-        "type" : "string"
-      },
-      "Subnet-test-prefix": {
-        "value": "[parameters('Subnet-test-prefix')]",
-        "type": "string"
-      },
-      "Subnet-mgmt-name": {
-        "value" : "[variables('Subnet-test-name')]",
-        "type" : "string"
-      },
-      "Subnet-mgmt-prefix": {
-        "value": "[parameters('Subnet-test-prefix')]",
-        "type": "string"
-      }
-    }
+    "outputs": {  }
 }

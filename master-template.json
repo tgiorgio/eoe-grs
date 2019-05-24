@@ -10,9 +10,10 @@
     },  
     "resources": [
     {
-      "apiVersion": "2018-02-01",
+      "apiVersion": "2018-05-01",
       "name": "pid-66f8425a-e532-50f2-be7a-95259b5d6238",
       "type": "Microsoft.Resources/deployments",
+      "location": "uksouth",
       "properties": {
           "mode": "Incremental",
           "template": {
@@ -106,6 +107,28 @@
           },
           "parametersLink": {
             "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/EOE-GRS/Fortigate-Template.parameters.json",
+            "contentVersion":"1.0.0.0"
+          }
+      }
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2018-05-01",
+      "name": "Deploy-StorageAccount",
+      "resourceGroup": "[variables('vnetRG')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Resources/resourceGroups/',variables('vnetRG'))]",
+        "Deploy-Fortigate",
+        "Deployt-RT"
+      ],
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/Microsoft.Storage/storage.azuredeploy.json",
+            "contentVersion":"1.0.0.0"
+          },
+        "parametersLink": {
+            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/EOE-GRS/eoe.storage.azuredeploy.parameters.json",
             "contentVersion":"1.0.0.0"
           }
       }
