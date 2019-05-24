@@ -33,9 +33,6 @@
       "Subnet-mgmt-prefix": {
           "value": "172.25.1.128/26"
       },
-      "Subnet-gateway-prefix": {
-        "value": "172.25.1.64/27"
-      },
       "Subnet-rda-name":{
           "value": "eoe-prod-sub-rda"
       },
