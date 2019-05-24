@@ -46,6 +46,9 @@
         },
         "Subnet-waf-prefix": {
           "value": "172.25.14.192/27"
-        }   
+        },
+        "Subnet-gateway-prefix":{
+            "value": "172.25.1.64/27"
+        }
     }
 }

@@ -16,51 +16,39 @@
       },
       "Subnet-fgext-prefix": {
         "type": "string",
-        "defaultValue": "10.0.1.0/24"
       },
       "Subnet-fgint-prefix": {
         "type": "string",
-        "defaultValue": "10.0.2.0/24"
       },
       "Subnet-rda-prefix": {
         "type": "string",
-        "defaultValue": "10.0.3.0/24"
       },
       "Subnet-rdh-prefix": {
         "type": "string",
-        "defaultValue": "10.0.4.0/24"
       },
       "Subnet-data-prefix": {
         "type": "string",
-        "defaultValue": "10.0.5.0/24"
       },
       "Subnet-app-prefix": {
         "type": "string",
-        "defaultValue": "10.0.6.0/24"
       },
       "Subnet-core-prefix": {
         "type": "string",
-        "defaultValue": "10.0.7.0/24"
       },
       "Subnet-web-prefix": {
         "type": "string",
-        "defaultValue": "10.0.8.0/24"
       },
       "Subnet-test-prefix": {
         "type": "string",
-        "defaultValue": "10.0.9.0/24"
       },
       "Subnet-mgmt-prefix": {
         "type": "string",
-        "defaultValue": "10.0.11.0/24"
       },
       "Subnet-waf-prefix": {
         "type": "string",
-        "defaultValue": "10.0.10.0/24"
       },
       "Subnet-gateway-prefix": {
         "type": "string",
-        "defaultValue": "10.0.10.0/24"
       }
     },
     "variables": {
