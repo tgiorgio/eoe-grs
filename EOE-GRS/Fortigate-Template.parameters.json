@@ -5,6 +5,12 @@
         "location": {
             "value": "uksouth"
         },
+        "onpremisesnetwork":{
+            "value": "192.168.0.0/16"
+        },
+        "jumpboxIP":{
+            "value": "172.25.1.132"
+        },
         "adminPassword": {
             "value": "R?NagJ^2H4s7"
         },
