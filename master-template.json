@@ -7,7 +7,11 @@
       "vnetRG":"eoe-prod-vnet-RG",
       "MgmtRG":"eoe-prod-mgmt-RG",
       "sharedServicesRG": "eoe-prod-shared-RG",
-      "coreRG": "eoe-prod-core-RG"
+      "coreRG": "eoe-prod-core-RG",
+      "webRG": "eoe-prod-web-RG",
+      "dataRG": "eoe-prod-data-RG",
+      "appRG": "eoe-prod-app-RG",
+      "rdsRG": "eoe-prod-rds-RG"      
     },  
     "resources": [
     {
@@ -235,7 +239,190 @@
             "contentVersion":"1.0.0.0"
           },
         "parametersLink": {
-            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/EOE-GRS/eoe.compute.DomainController1.parameters.json",
+            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/EOE-GRS/eoe.compute.DC01.parameters.json",
+            "contentVersion":"1.0.0.0"
+          }
+      }
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2018-05-01",
+      "name": "Deploy-DC02",
+      "resourceGroup": "[variables('coreRG')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Resources/resourceGroups/',variables('coreRG'))]",
+        "Deploy-StorageAccount",
+        "Deployt-VNET"
+      ],
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/Microsoft.Compute/vm-win2019dtc/vm-win2019.azuredeploy.json",
+            "contentVersion":"1.0.0.0"
+          },
+        "parametersLink": {
+            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/EOE-GRS/eoe.compute.DC02.parameters.json",
+            "contentVersion":"1.0.0.0"
+          }
+      }
+    },
+    {
+      "type": "Microsoft.Resources/resourceGroups",
+      "apiVersion": "2018-05-01",
+      "location": "[variables('deploylocation')]",
+      "name": "[tolower(variables('rdsRG'))]",
+      "properties": {}
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2018-05-01",
+      "name": "Deploy-RDL",
+      "resourceGroup": "[variables('rdsRG')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Resources/resourceGroups/',variables('rdsRG'))]",
+        "Deploy-StorageAccount",
+        "Deployt-VNET"
+      ],
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/Microsoft.Compute/vm-win2019dtc/vm-win2019.azuredeploy.json",
+            "contentVersion":"1.0.0.0"
+          },
+        "parametersLink": {
+            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/EOE-GRS/eoe.compute.RDL01.parameters.json",
+            "contentVersion":"1.0.0.0"
+          }
+      }
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2018-05-01",
+      "name": "Deploy-RDB",
+      "resourceGroup": "[variables('rdsRG')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Resources/resourceGroups/',variables('rdsRG'))]",
+        "Deploy-StorageAccount",
+        "Deployt-VNET"
+      ],
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/Microsoft.Compute/vm-win2019dtc/vm-win2019.azuredeploy.json",
+            "contentVersion":"1.0.0.0"
+          },
+        "parametersLink": {
+            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/EOE-GRS/eoe.compute.RDB01.parameters.json",
+            "contentVersion":"1.0.0.0"
+          }
+      }
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2018-05-01",
+      "name": "Deploy-RDG",
+      "resourceGroup": "[variables('rdsRG')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Resources/resourceGroups/',variables('rdsRG'))]",
+        "Deploy-StorageAccount",
+        "Deployt-VNET"
+      ],
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/Microsoft.Compute/vm-win2019dtc/vm-win2019.azuredeploy.json",
+            "contentVersion":"1.0.0.0"
+          },
+        "parametersLink": {
+            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/EOE-GRS/eoe.compute.RDG01.parameters.json",
+            "contentVersion":"1.0.0.0"
+          }
+      }
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2018-05-01",
+      "name": "Deploy-RDH01",
+      "resourceGroup": "[variables('rdsRG')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Resources/resourceGroups/',variables('rdsRG'))]",
+        "Deploy-StorageAccount",
+        "Deployt-VNET"
+      ],
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/Microsoft.Compute/vm-win2019dtc/vm-win2019.azuredeploy.json",
+            "contentVersion":"1.0.0.0"
+          },
+        "parametersLink": {
+            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/EOE-GRS/eoe.compute.RDH01.parameters.json",
+            "contentVersion":"1.0.0.0"
+          }
+      }
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2018-05-01",
+      "name": "Deploy-RDH02",
+      "resourceGroup": "[variables('rdsRG')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Resources/resourceGroups/',variables('rdsRG'))]",
+        "Deploy-StorageAccount",
+        "Deployt-VNET"
+      ],
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/Microsoft.Compute/vm-win2019dtc/vm-win2019.azuredeploy.json",
+            "contentVersion":"1.0.0.0"
+          },
+        "parametersLink": {
+            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/EOE-GRS/eoe.compute.RDH02.parameters.json",
+            "contentVersion":"1.0.0.0"
+          }
+      }
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2018-05-01",
+      "name": "Deploy-RDH03",
+      "resourceGroup": "[variables('rdsRG')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Resources/resourceGroups/',variables('rdsRG'))]",
+        "Deploy-StorageAccount",
+        "Deployt-VNET"
+      ],
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/Microsoft.Compute/vm-win2019dtc/vm-win2019.azuredeploy.json",
+            "contentVersion":"1.0.0.0"
+          },
+        "parametersLink": {
+            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/EOE-GRS/eoe.compute.RDH03.parameters.json",
+            "contentVersion":"1.0.0.0"
+          }
+      }
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2018-05-01",
+      "name": "Deploy-RDH04",
+      "resourceGroup": "[variables('rdsRG')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Resources/resourceGroups/',variables('rdsRG'))]",
+        "Deploy-StorageAccount",
+        "Deployt-VNET"
+      ],
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/Microsoft.Compute/vm-win2019dtc/vm-win2019.azuredeploy.json",
+            "contentVersion":"1.0.0.0"
+          },
+        "parametersLink": {
+            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/EOE-GRS/eoe.compute.RDH04.parameters.json",
             "contentVersion":"1.0.0.0"
           }
       }

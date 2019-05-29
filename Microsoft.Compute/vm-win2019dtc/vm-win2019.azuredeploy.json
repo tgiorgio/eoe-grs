@@ -113,7 +113,7 @@
         "[resourceId('Microsoft.Network/networkInterfaces/', variables('nicName'))]"
       ],
       "zones": [
-        "[parameters('vmZone')"
+        "[parameters('vmZone')]"
       ],
       "properties": {
         "hardwareProfile": {

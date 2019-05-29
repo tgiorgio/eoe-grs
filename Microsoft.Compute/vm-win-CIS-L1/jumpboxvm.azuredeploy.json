@@ -31,6 +31,9 @@
         },
         "diagnosticsStorageAccountName": {
             "type": "string"
+        },
+        "vmZone":{
+            "type": "string"
         }
     },
     "variables": {
@@ -63,6 +66,9 @@
             "name": "[parameters('virtualMachineName')]",
             "type": "Microsoft.Compute/virtualMachines",
             "apiVersion": "2018-06-01",
+            "zones":[
+                "[parameters('vmZone')]"
+            ],
             "location": "[parameters('location')]",
             "dependsOn": [
                 "[concat('Microsoft.Network/networkInterfaces/', variables('networkInterfaceName'))]"
