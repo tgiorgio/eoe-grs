@@ -18,7 +18,7 @@
             "value": "eoe-prod-vnet"
         },
         "virtualNetworkRG":{
-            "value": "eoe-prod-app-RG"
+            "value": "eoe-prod-vnet-RG"
         },
         "subnetName": {
             "value": "eoe-prod-sub-app"
