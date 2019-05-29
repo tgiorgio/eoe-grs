@@ -441,25 +441,6 @@
             {
               "properties": {
                 "frontendIPConfiguration": {
-                  "id": "[concat(resourceId('Microsoft.Network/loadBalancers', variables('network_LB_Public_Name')), '/frontendIpConfigurations/', variables('network_LB_Public_FE2Name'))]"
-                },
-                "backendAddressPool": {
-                  "id": "[concat(resourceId('Microsoft.Network/loadBalancers', variables('network_LB_Public_Name')), '/backendAddressPools/', variables('network_LB_Public_BEName'))]"
-                },
-                "probe": {
-                  "id": "[concat(resourceId('Microsoft.Network/loadBalancers', variables('network_LB_Public_Name')), '/probes/lbprobe')]"
-                },
-                "protocol": "Tcp",
-                "frontendPort": 80,
-                "backendPort": 80,
-                "enableFloatingIP": true,
-                "idleTimeoutInMinutes": 15
-              },
-              "name": "PublicLBRule-FE2-http"
-            },
-            {
-              "properties": {
-                "frontendIPConfiguration": {
                   "id": "[concat(resourceId('Microsoft.Network/loadBalancers', variables('network_LB_Public_Name')), '/frontendIpConfigurations/', variables('network_LB_Public_FEName'))]"
                 },
                 "backendAddressPool": {
