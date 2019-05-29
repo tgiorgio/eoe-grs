@@ -134,8 +134,7 @@
 
     "subnet1Ref": "[concat(variables('vnetID'),'/subnets/', parameters('Subnet-fgext-name'))]",
     "subnet2Ref": "[concat(variables('vnetID'),'/subnets/', parameters('Subnet-fgint-name'))]",
-    "subnet3Ref": "[concat(variables('vnetID'),'/subnets/', parameters('Subnet-rda-name'))]",
-
+    
 
     "vmName": "[concat(variables('FortiGateNamePrefix'),'01')]",
     "vm2Name": "[concat(variables('FortiGateNamePrefix'),'02')]",
@@ -161,7 +160,6 @@
     "network_NIC_fg22_Id": "[resourceId('Microsoft.Network/networkInterfaces',variables('network_NIC_fg22_Name'))]",
 
     "publicIPAddressName": "[concat(variables('FortiGateNamePrefix'),'-pip1')]",
-    "publicIPAddress2Name": "[concat(variables('FortiGateNamePrefix'),'-pip2')]",
     "publicIPID": "[resourceID(resourceGroup().name,'Microsoft.Network/publicIPAddresses',variables('publicIPAddressName'))]",
     
 
@@ -188,14 +186,6 @@
     "sn2GatewayIP": "[concat(variables('sn2IPArray0'),'.',variables('sn2IPArray1'),'.',variables('sn2IPArray2'),'.',variables('sn2IPArray3'))]",
 
 
-    "network_LB_Public_NatRule_FGAdminPerm_fg1_Name": "[concat(variables('VMName'),'FGAdminPerm')]",
-    "network_LB_Public_NatRule_FGAdminPerm_fg1_Id": "[concat(variables('network_LB_Public_Id'),'/inboundNatRules/',variables('network_LB_Public_NatRule_FGAdminPerm_fg1_Name'))]",
-    "network_LB_Public_NatRule_SSH_fg1_Name": "[concat(variables('VMName'),'SSH')]",
-    "network_LB_Public_NatRule_SSH_fg1_Id": "[concat(variables('network_LB_Public_Id'),'/inboundNatRules/',variables('network_LB_Public_NatRule_SSH_fg1_Name'))]",
-    "network_LB_Public_NatRule_FGAdminPerm_fg2_Name": "[concat(variables('VM2Name'),'FGAdminPerm')]",
-    "network_LB_Public_NatRule_FGAdminPerm_fg2_Id": "[concat(variables('network_LB_Public_Id'),'/inboundNatRules/',variables('network_LB_Public_NatRule_FGAdminPerm_fg2_Name'))]",
-    "network_LB_Public_NatRule_SSH_fg2_Name": "[concat(variables('VM2Name'),'SSH')]",
-    "network_LB_Public_NatRule_SSH_fg2_Id": "[concat(variables('network_LB_Public_Id'),'/inboundNatRules/',variables('network_LB_Public_NatRule_SSH_fg2_Name'))]",
     "network_LB_Public_Name": "[concat(variables('FortiGateNamePrefix'),'-publicLoadBalancer')]",
     "network_LB_Public_Id": "[resourceId('Microsoft.Network/loadBalancers',variables('network_LB_Public_Name'))]",
     "network_LB_Public_FEName": "[concat(variables('FortiGateNamePrefix'),'publicLBFE')]",
@@ -487,12 +477,7 @@
                 }
               ],
               "loadBalancerInboundNatRules": [
-                {
-                  "id": "[variables('network_LB_Public_NatRule_SSH_fg1_Id')]"
-                },
-                {
-                  "id": "[variables('network_LB_Public_NatRule_FGAdminPerm_fg1_Id')]"
-                }
+
               ]
             }
           }
@@ -532,12 +517,7 @@
                 }
               ],
               "loadBalancerInboundNatRules": [
-                {
-                  "id": "[variables('network_LB_Public_NatRule_SSH_fg2_Id')]"
-                },
-                {
-                  "id": "[variables('network_LB_Public_NatRule_FGAdminPerm_fg2_Id')]"
-                }
+
               ]
             }
           }
@@ -641,12 +621,7 @@
           },
           "NATRules": {
             "value": [
-              {
-                "id": "[variables('network_LB_Public_NatRule_SSH_fg1_Id')]"
-              },
-              {
-                "id": "[variables('network_LB_Public_NatRule_FGAdminPerm_fg1_Id')]"
-              }
+
             ]
           },
           "FortinetTags": {
@@ -689,12 +664,7 @@
           },
           "NATRules": {
             "value": [
-              {
-                "id": "[variables('network_LB_Public_NatRule_SSH_fg2_Id')]"
-              },
-              {
-                "id": "[variables('network_LB_Public_NatRule_FGAdminPerm_fg2_Id')]"
-              }
+
             ]
           },
           "FortinetTags": {
