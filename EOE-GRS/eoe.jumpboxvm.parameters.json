@@ -5,6 +5,9 @@
         "location": {
             "value": "uksouth"
         },
+        "vmZone":{
+            "value": "1"
+        },
         "subnetName": {
             "value": "EoE-prod-sub-mgmt"
         },

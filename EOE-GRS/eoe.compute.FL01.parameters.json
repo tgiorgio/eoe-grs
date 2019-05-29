@@ -1,0 +1,54 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "vmName": {
+            "value": "EOE-AZFL01"
+        },
+        "storageAccountName": {
+            "value": "eoeprodstg01"
+        },
+        "vmZone":{
+            "value": "1"
+        },
+        "vmSize": {
+            "value": "Standard_D2_V3"
+        },
+        "virtualNetworkName": {
+            "value": "eoe-prod-vnet"
+        },
+        "virtualNetworkRG":{
+            "value": "eoe-prod-data-RG"
+        },
+        "subnetName": {
+            "value": "eoe-prod-sub-data"
+        },
+        "environmentConfiguration": {
+            "value": {
+                "tags": {
+                  "value" : {
+                    "Environment": "GRS"
+                  }
+                }
+            }
+        },
+        "adminUsername": {
+            "value": "eoeadmin"
+        },
+        "adminPassword": {
+            "value": "9xk5]<N:A4Tv4+mH"
+        },
+        "internalIP": {
+            "value": "172.25.3.135"
+        },
+        "windowsOSVersion": {
+            "value": "2019-Datacenter"
+        },
+        "location": {
+            "value": "uksouth"
+        },
+        "osDiskType":{
+            "value": "Standard_LRS"
+        }
+    }
+}

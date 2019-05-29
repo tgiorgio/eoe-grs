@@ -3,28 +3,31 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "vmName": {
-            "value": "EOE-AZDC01"
+            "value": "EOE-AZGRSTDB01"
         },
         "storageAccountName": {
             "value": "eoeprodstg01"
         },
+        "vmZone":{
+            "value": "1"
+        },
         "vmSize": {
-            "value": "Standard_D1_V2"
+            "value": "Standard_D12_V2"
         },
         "virtualNetworkName": {
             "value": "eoe-prod-vnet"
         },
         "virtualNetworkRG":{
-            "value": "eoe-prod-vnet-RG"
+            "value": "eoe-prod-test-RG"
         },
         "subnetName": {
-            "value": "eoe-prod-sub-core"
+            "value": "eoe-prod-sub-test"
         },
         "environmentConfiguration": {
             "value": {
                 "tags": {
                   "value" : {
-                    "Environment": "Core"
+                    "Environment": "GRS"
                   }
                 }
             }
@@ -33,10 +36,10 @@
             "value": "eoeadmin"
         },
         "adminPassword": {
-            "value": "M%^HW!Lx6v23"
+            "value": "pK3-mFLZFQeSp%g["
         },
         "internalIP": {
-            "value": "172.25.2.4"
+            "value": "172.25.1.200"
         },
         "windowsOSVersion": {
             "value": "2019-Datacenter"

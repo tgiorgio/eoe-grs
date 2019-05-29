@@ -5,6 +5,10 @@
     "vmName": {
       "type": "string"
     }, 
+    "vmZone":{
+      "type": "string",
+      "defaultValue": "1"
+    },
     "storageAccountName":{
       "type": "string"
     },
@@ -107,6 +111,9 @@
       "tags": "[parameters('environmentConfiguration').tags.value]",
       "dependsOn": [
         "[resourceId('Microsoft.Network/networkInterfaces/', variables('nicName'))]"
+      ],
+      "zones": [
+        "[parameters('vmZone')"
       ],
       "properties": {
         "hardwareProfile": {
