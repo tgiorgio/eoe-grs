@@ -745,11 +745,7 @@
               "value": "[variables('network_LB_Public_BEId')]"
             },
             "NATRules": {
-              "value": [
-                {
-                  "id": "[variables('network_LB_Public_NatRule_FGAdminPerm_fg2_Id')]"
-                }
-              ]
+              "value": [              ]
             },
             "FortinetTags": {
               "value": "[parameters('FortinetTags')]"
