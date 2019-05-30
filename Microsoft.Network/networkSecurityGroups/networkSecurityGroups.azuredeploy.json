@@ -121,6 +121,23 @@
                         }
                     },
                     {
+                        "name": "Allow-SameSubnet",
+                        "properties": {
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "*",
+                            "sourceAddressPrefix": "[parameters('Subnet-rda-Prefix')]",
+                            "destinationAddressPrefix": "[parameters('Subnet-rda-Prefix')]",
+                            "access": "Allow",
+                            "priority": 3999,
+                            "direction": "Inbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    },
+                    {
                         "name": "Deny-AllInBound",
                         "properties": {
                             "protocol": "*",
@@ -172,6 +189,40 @@
                         }
                     },
                     {
+                        "name": "Allow-Out-OnPremises",
+                        "properties": {
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "*",
+                            "sourceAddressPrefix": "[parameters('Subnet-rda-Prefix')]",
+                            "destinationAddressPrefix": "[parameters('onpremNetPrefix')]",
+                            "access": "Allow",
+                            "priority": 3998,
+                            "direction": "Outbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    },
+                    {
+                        "name": "Allow-Out-SameSubnet",
+                        "properties": {
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "*",
+                            "sourceAddressPrefix": "[parameters('Subnet-rda-Prefix')]",
+                            "destinationAddressPrefix": "[parameters('Subnet-rda-Prefix')]",
+                            "access": "Allow",
+                            "priority": 3999,
+                            "direction": "Outbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    },
+                    {
                         "name": "Deny-AllOutBound",
                         "properties": {
                             "protocol": "*",
@@ -179,7 +230,7 @@
                             "destinationPortRange": "*",
                             "sourceAddressPrefix": "*",
                             "destinationAddressPrefix": "*",
-                            "access": "Allow",
+                            "access": "Deny",
                             "priority": 4000,
                             "direction": "Outbound",
                             "sourcePortRanges": [],
@@ -343,6 +394,23 @@
                         }
                     },
                     {
+                        "name": "Allow-SameSubnet",
+                        "properties": {
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "*",
+                            "sourceAddressPrefix": "[parameters('Subnet-web-Prefix')]",
+                            "destinationAddressPrefix": "[parameters('Subnet-web-Prefix')]",
+                            "access": "Allow",
+                            "priority": 3999,
+                            "direction": "Inbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    },
+                    {
                         "name": "Deny-AllInBound",
                         "properties": {
                             "protocol": "*",
@@ -394,6 +462,40 @@
                         }
                     },
                     {
+                        "name": "Allow-Out-OnPremises",
+                        "properties": {
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "*",
+                            "sourceAddressPrefix": "[parameters('Subnet-web-Prefix')]",
+                            "destinationAddressPrefix": "[parameters('onpremNetPrefix')]",
+                            "access": "Allow",
+                            "priority": 3998,
+                            "direction": "Outbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    },
+                    {
+                        "name": "Allow-Out-SameSubnet",
+                        "properties": {
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "*",
+                            "sourceAddressPrefix": "[parameters('Subnet-web-Prefix')]",
+                            "destinationAddressPrefix": "[parameters('Subnet-web-Prefix')]",
+                            "access": "Allow",
+                            "priority": 3999,
+                            "direction": "Outbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    },
+                    {
                         "name": "Deny-AllOutBound",
                         "properties": {
                             "protocol": "*",
@@ -401,7 +503,7 @@
                             "destinationPortRange": "*",
                             "sourceAddressPrefix": "*",
                             "destinationAddressPrefix": "*",
-                            "access": "Allow",
+                            "access": "Deny",
                             "priority": 4000,
                             "direction": "Outbound",
                             "sourcePortRanges": [],
@@ -565,6 +667,23 @@
                         }
                     },
                     {
+                        "name": "Allow-SameSubnet",
+                        "properties": {
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "*",
+                            "sourceAddressPrefix": "[parameters('Subnet-rdh-Prefix')]",
+                            "destinationAddressPrefix": "[parameters('Subnet-rdh-Prefix')]",
+                            "access": "Allow",
+                            "priority": 3999,
+                            "direction": "Inbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    },
+                    {
                         "name": "Deny-AllInBound",
                         "properties": {
                             "protocol": "*",
@@ -650,6 +769,40 @@
                         }
                     },
                     {
+                        "name": "Allow-Out-OnPremises",
+                        "properties": {
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "*",
+                            "sourceAddressPrefix": "[parameters('Subnet-rdh-Prefix')]",
+                            "destinationAddressPrefix": "[parameters('onpremNetPrefix')]",
+                            "access": "Allow",
+                            "priority": 3998,
+                            "direction": "Outbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    },
+                    {
+                        "name": "Allow-Out-SameSubnet",
+                        "properties": {
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "*",
+                            "sourceAddressPrefix": "[parameters('Subnet-rdh-Prefix')]",
+                            "destinationAddressPrefix": "[parameters('Subnet-rdh-Prefix')]",
+                            "access": "Allow",
+                            "priority": 3999,
+                            "direction": "Outbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    },
+                    {
                         "name": "Deny-AllOutBound",
                         "properties": {
                             "protocol": "*",
@@ -657,7 +810,7 @@
                             "destinationPortRange": "*",
                             "sourceAddressPrefix": "*",
                             "destinationAddressPrefix": "*",
-                            "access": "Allow",
+                            "access": "Deny",
                             "priority": 4000,
                             "direction": "Outbound",
                             "sourcePortRanges": [],
@@ -821,6 +974,23 @@
                         }
                     },
                     {
+                        "name": "Allow-SameSubnet",
+                        "properties": {
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "*",
+                            "sourceAddressPrefix": "[parameters('Subnet-app-Prefix')]",
+                            "destinationAddressPrefix": "[parameters('Subnet-app-Prefix')]",
+                            "access": "Allow",
+                            "priority": 3999,
+                            "direction": "Inbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    },
+                    {
                         "name": "Deny-AllInBound",
                         "properties": {
                             "protocol": "*",
@@ -872,6 +1042,40 @@
                         }
                     },
                     {
+                        "name": "Allow-Out-OnPremises",
+                        "properties": {
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "*",
+                            "sourceAddressPrefix": "[parameters('Subnet-app-Prefix')]",
+                            "destinationAddressPrefix": "[parameters('onpremNetPrefix')]",
+                            "access": "Allow",
+                            "priority": 3998,
+                            "direction": "Outbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    },
+                    {
+                        "name": "Allow-Out-SameSubnet",
+                        "properties": {
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "*",
+                            "sourceAddressPrefix": "[parameters('Subnet-app-Prefix')]",
+                            "destinationAddressPrefix": "[parameters('Subnet-app-Prefix')]",
+                            "access": "Allow",
+                            "priority": 3999,
+                            "direction": "Outbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    },
+                    {
                         "name": "Deny-AllOutBound",
                         "properties": {
                             "protocol": "*",
@@ -879,7 +1083,7 @@
                             "destinationPortRange": "*",
                             "sourceAddressPrefix": "*",
                             "destinationAddressPrefix": "*",
-                            "access": "Allow",
+                            "access": "Deny",
                             "priority": 4000,
                             "direction": "Outbound",
                             "sourcePortRanges": [],
@@ -1077,6 +1281,23 @@
                         }
                     },
                     {
+                        "name": "Allow-SameSubnet",
+                        "properties": {
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "*",
+                            "sourceAddressPrefix": "[parameters('Subnet-data-Prefix')]",
+                            "destinationAddressPrefix": "[parameters('Subnet-data-Prefix')]",
+                            "access": "Allow",
+                            "priority": 3999,
+                            "direction": "Inbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    },
+                    {
                         "name": "Deny-AllInBound",
                         "properties": {
                             "protocol": "*",
@@ -1111,6 +1332,40 @@
                         }
                     },
                     {
+                        "name": "Allow-Out-OnPremises",
+                        "properties": {
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "*",
+                            "sourceAddressPrefix": "[parameters('Subnet-data-Prefix')]",
+                            "destinationAddressPrefix": "[parameters('onpremNetPrefix')]",
+                            "access": "Allow",
+                            "priority": 3998,
+                            "direction": "Outbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    },
+                    {
+                        "name": "Allow-Out-SameSubnet",
+                        "properties": {
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "*",
+                            "sourceAddressPrefix": "[parameters('Subnet-data-Prefix')]",
+                            "destinationAddressPrefix": "[parameters('Subnet-data-Prefix')]",
+                            "access": "Allow",
+                            "priority": 3999,
+                            "direction": "Outbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    },
+                    {
                         "name": "Deny-AllOutBound",
                         "properties": {
                             "protocol": "*",
@@ -1118,7 +1373,7 @@
                             "destinationPortRange": "*",
                             "sourceAddressPrefix": "*",
                             "destinationAddressPrefix": "*",
-                            "access": "Allow",
+                            "access": "Deny",
                             "priority": 4000,
                             "direction": "Outbound",
                             "sourcePortRanges": [],
@@ -1319,6 +1574,23 @@
                         }
                     },
                     {
+                        "name": "Allow-SameSubnet",
+                        "properties": {
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "*",
+                            "sourceAddressPrefix": "[parameters('Subnet-core-Prefix')]",
+                            "destinationAddressPrefix": "[parameters('Subnet-core-Prefix')]",
+                            "access": "Allow",
+                            "priority": 3999,
+                            "direction": "Inbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    },
+                    {
                         "name": "Deny-AllInBound",
                         "properties": {
                             "protocol": "*",
@@ -1353,6 +1625,40 @@
                         }
                     },
                     {
+                        "name": "Allow-Out-OnPremises",
+                        "properties": {
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "*",
+                            "sourceAddressPrefix": "[parameters('Subnet-core-Prefix')]",
+                            "destinationAddressPrefix": "[parameters('onpremNetPrefix')]",
+                            "access": "Allow",
+                            "priority": 3998,
+                            "direction": "Outbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    },
+                    {
+                        "name": "Allow-Out-SameSubnet",
+                        "properties": {
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "*",
+                            "sourceAddressPrefix": "[parameters('Subnet-core-Prefix')]",
+                            "destinationAddressPrefix": "[parameters('Subnet-core-Prefix')]",
+                            "access": "Allow",
+                            "priority": 3999,
+                            "direction": "Outbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    },
+                    {
                         "name": "Deny-AllOutBound",
                         "properties": {
                             "protocol": "*",
@@ -1360,7 +1666,7 @@
                             "destinationPortRange": "*",
                             "sourceAddressPrefix": "*",
                             "destinationAddressPrefix": "*",
-                            "access": "Allow",
+                            "access": "Deny",
                             "priority": 4000,
                             "direction": "Outbound",
                             "sourcePortRanges": [],
@@ -1712,6 +2018,23 @@
                         }
                     },
                     {
+                        "name": "Allow-SameSubnet",
+                        "properties": {
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "*",
+                            "sourceAddressPrefix": "[parameters('Subnet-test-Prefix')]",
+                            "destinationAddressPrefix": "[parameters('Subnet-test-Prefix')]",
+                            "access": "Allow",
+                            "priority": 3999,
+                            "direction": "Inbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    },
+                    {
                         "name": "Deny-AllInBound",
                         "properties": {
                             "protocol": "*",
@@ -1746,6 +2069,40 @@
                         }
                     },
                     {
+                        "name": "Allow-Out-OnPremises",
+                        "properties": {
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "*",
+                            "sourceAddressPrefix": "[parameters('Subnet-test-Prefix')]",
+                            "destinationAddressPrefix": "[parameters('onpremNetPrefix')]",
+                            "access": "Allow",
+                            "priority": 3998,
+                            "direction": "Outbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    },
+                    {
+                        "name": "Allow-Out-SameSubnet",
+                        "properties": {
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "*",
+                            "sourceAddressPrefix": "[parameters('Subnet-test-Prefix')]",
+                            "destinationAddressPrefix": "[parameters('Subnet-test-Prefix')]",
+                            "access": "Allow",
+                            "priority": 3999,
+                            "direction": "Outbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    },
+                    {
                         "name": "Deny-AllOutBound",
                         "properties": {
                             "protocol": "*",
@@ -1753,7 +2110,7 @@
                             "destinationPortRange": "*",
                             "sourceAddressPrefix": "*",
                             "destinationAddressPrefix": "*",
-                            "access": "Allow",
+                            "access": "Deny",
                             "priority": 4000,
                             "direction": "Outbound",
                             "sourcePortRanges": [],
@@ -1917,6 +2274,23 @@
                         }
                     },
                     {
+                        "name": "Allow-SameSubnet",
+                        "properties": {
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "*",
+                            "sourceAddressPrefix": "[parameters('Subnet-mgmt-Prefix')]",
+                            "destinationAddressPrefix": "[parameters('Subnet-mgmt-Prefix')]",
+                            "access": "Allow",
+                            "priority": 3999,
+                            "direction": "Inbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    },
+                    {
                         "name": "Deny-AllInBound",
                         "properties": {
                             "protocol": "*",
@@ -1968,6 +2342,40 @@
                         }
                     },
                     {
+                        "name": "Allow-Out-OnPremises",
+                        "properties": {
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "*",
+                            "sourceAddressPrefix": "[parameters('Subnet-mgmt-Prefix')]",
+                            "destinationAddressPrefix": "[parameters('onpremNetPrefix')]",
+                            "access": "Allow",
+                            "priority": 3998,
+                            "direction": "Outbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    },
+                    {
+                        "name": "Allow-Out-SameSubnet",
+                        "properties": {
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "*",
+                            "sourceAddressPrefix": "[parameters('Subnet-mgmt-Prefix')]",
+                            "destinationAddressPrefix": "[parameters('Subnet-mgmt-Prefix')]",
+                            "access": "Allow",
+                            "priority": 3999,
+                            "direction": "Outbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    },
+                    {
                         "name": "Deny-AllOutBound",
                         "properties": {
                             "protocol": "*",
@@ -1975,7 +2383,7 @@
                             "destinationPortRange": "*",
                             "sourceAddressPrefix": "*",
                             "destinationAddressPrefix": "*",
-                            "access": "Allow",
+                            "access": "Deny",
                             "priority": 4000,
                             "direction": "Outbound",
                             "sourcePortRanges": [],
