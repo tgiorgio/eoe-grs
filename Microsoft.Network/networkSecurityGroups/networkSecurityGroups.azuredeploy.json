@@ -1620,7 +1620,7 @@
                             "direction": "Outbound",
                             "sourcePortRanges": [],
                             "destinationPortRanges": [],
-                            "sourceAddressPrefixes": ["[parameters('onpremNetPrefix')]"],
+                            "sourceAddressPrefixes": ["[parameters('Subnet-core-Prefix')]"],
                             "destinationAddressPrefixes": ["[parameters('onpremNetPrefix')]"]
                         }
                     },
