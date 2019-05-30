@@ -5,6 +5,12 @@
     "location": {
       "type": "string"
       },
+    "onpremisesnetwork":{
+      "type": "string"
+    },
+    "jumpboxIP":{
+      "type": "string"
+    },
     "environment":{
       "type": "string"
     },

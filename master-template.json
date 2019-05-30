@@ -108,7 +108,7 @@
       "properties": {
           "mode": "Incremental",
           "templateLink": {
-              "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/Fortigate-HA-ActiveActive-LB/GRS-Fortigate-Template2.json"
+              "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/Fortigate-HA-ActiveActive-LB/GRS-Fortigate-Template.json"
           },
           "parametersLink": {
             "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/EOE-GRS/Fortigate-Template.parameters.json",
