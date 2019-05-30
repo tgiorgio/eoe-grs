@@ -138,6 +138,26 @@
                         }
                     },
                     {
+                        "name": "Allow-ServerManagerRDH",
+                        "properties": {
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "sourceAddressPrefix": "[parameters('Subnet-rdh-Prefix')]",
+                            "destinationAddressPrefix": "[parameters('Subnet-rda-Prefix')]",
+                            "access": "Allow",
+                            "priority": 3997,
+                            "direction": "Inbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [
+                                "5985",
+                                "5986"
+                            ],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": [],
+                            "destinationPortRange": ""
+                        }
+                    },
+                    {
                         "name": "Deny-AllInBound",
                         "properties": {
                             "protocol": "*",
@@ -795,6 +815,47 @@
                             "destinationAddressPrefix": "[parameters('Subnet-rdh-Prefix')]",
                             "access": "Allow",
                             "priority": 3999,
+                            "direction": "Outbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    },
+                    {
+                        "name": "Allow-Out-ServerManager",
+
+                        "properties": {
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "sourceAddressPrefix": "[parameters('Subnet-rdh-Prefix')]",
+                            "access": "Allow",
+                            "priority": 3997,
+                            "direction": "Outbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [
+                                "5985",
+                                "5986"
+                            ],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": [
+                                "[parameters('Subnet-rda-Prefix')]",
+                                "[parameters('Subnet-core-Prefix')]"
+                            ],
+                            "destinationPortRange": "",
+                            "destinationAddressPrefix": ""
+                        }
+                    },
+                    {
+                        "name": "Allow-Out-ServerManagerGateway",
+                        "properties": {
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "*",
+                            "sourceAddressPrefix": "[parameters('Subnet-rdh-Prefix')]",
+                            "destinationAddressPrefix": "[parameters('Subnet-rda-Prefix')]",
+                            "access": "Allow",
+                            "priority": 3996,
                             "direction": "Outbound",
                             "sourcePortRanges": [],
                             "destinationPortRanges": [],
@@ -1571,6 +1632,26 @@
                             "destinationPortRanges": [],
                             "sourceAddressPrefixes": [],
                             "destinationAddressPrefixes": []
+                        }
+                    },
+                    {
+                        "name": "Allow-ServerManagerRDH",
+                        "properties": {
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "sourceAddressPrefix": "[parameters('Subnet-rdh-Prefix')]",
+                            "destinationAddressPrefix": "[parameters('Subnet-core-Prefix')]",
+                            "access": "Allow",
+                            "priority": 3997,
+                            "direction": "Inbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [
+                                "5985",
+                                "5986"
+                            ],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": [],
+                            "destinationPortRange": ""
                         }
                     },
                     {
