@@ -193,9 +193,9 @@
     "network_LB_Public_NatRule_SSH_fg1_Name": "[concat(variables('VMName'),'SSH')]",
     "network_LB_Public_NatRule_SSH_fg1_Id": "[concat(variables('network_LB_Public_Id'),'/inboundNatRules/',variables('network_LB_Public_NatRule_SSH_fg1_Name'))]",
     "network_LB_Public_NatRule_FGAdminPerm_fg2_Name": "[concat(variables('VM2Name'),'FGAdminPerm')]",
-    "network_LB_Public_NatRule_FGAdminPerm_fg2_Id": "[concat(variables('network_LB_Public_Id'),'/inboundNatRules/',variables('network_LB_Public_NatRule_FGAdminPerm_fg2_Name'))]",
+    
     "network_LB_Public_NatRule_SSH_fg2_Name": "[concat(variables('VM2Name'),'SSH')]",
-    "network_LB_Public_NatRule_SSH_fg2_Id": "[concat(variables('network_LB_Public_Id'),'/inboundNatRules/',variables('network_LB_Public_NatRule_SSH_fg2_Name'))]",
+    
     "network_LB_Public_Name": "[concat(variables('FortiGateNamePrefix'),'-publicLoadBalancer')]",
     "network_LB_Public_Id": "[resourceId('Microsoft.Network/loadBalancers',variables('network_LB_Public_Name'))]",
     "network_LB_Public_FEName": "[concat(variables('FortiGateNamePrefix'),'publicLBFE')]",
@@ -389,22 +389,6 @@
       }
     },
     {
-      "type": "Microsoft.Network/publicIPAddresses",
-      "apiVersion": "2017-09-01",
-      "tags": {
-        "provider": "[toUpper(parameters('FortinetTags').provider)]"
-      },
-      "name": "[variables('publicIPAddress2Name')]",
-      "location": "[parameters('location')]",
-      "sku": 
-      {
-        "name": "Standard"
-      },
-      "properties": {
-        "publicIPAllocationMethod": "[variables('publicIPAddressType')]"
-      }
-    },
-    {
       "type": "Microsoft.Network/loadBalancers",
       "name": "[variables('network_LB_Public_Name')]",
       "apiVersion": "2017-09-01",
@@ -417,8 +401,7 @@
         "name": "Standard"
       },
       "dependsOn": [
-        "[variables('publicIPID')]",
-        "[variables('publicIP2ID')]"
+        "[variables('publicIPID')]"
       ],
       "properties": {
         "frontendIPConfigurations": [
@@ -429,14 +412,6 @@
                 "id": "[variables('publicIPID')]"
               }
             }
-          },
-          {
-            "name": "[variables('network_LB_Public_FE2Name')]",
-            "properties": {
-              "publicIPAddress": {
-                "id": "[variables('publicIP2ID')]"
-              }
-            }
           }
         ],
         "backendAddressPools": [
@@ -445,25 +420,6 @@
           }
         ],
         "loadBalancingRules": [
-          {
-            "properties": {
-              "frontendIPConfiguration": {
-                "id": "[concat(resourceId('Microsoft.Network/loadBalancers', variables('network_LB_Public_Name')), '/frontendIpConfigurations/', variables('network_LB_Public_FEName'))]"
-              },
-              "backendAddressPool": {
-                "id": "[concat(resourceId('Microsoft.Network/loadBalancers', variables('network_LB_Public_Name')), '/backendAddressPools/', variables('network_LB_Public_BEName'))]"
-              },
-              "probe": {
-                "id": "[concat(resourceId('Microsoft.Network/loadBalancers', variables('network_LB_Public_Name')), '/probes/lbprobe')]"
-              },
-              "protocol": "Tcp",
-              "frontendPort": 80,
-              "backendPort": 80,
-              "enableFloatingIP": true,
-              "idleTimeoutInMinutes": 15
-            },
-            "name": "PublicLBRule-FE1-http"
-          },
           {
             "name": "RDP",
             "properties": {
@@ -486,95 +442,10 @@
                   "id": "[concat(resourceId('Microsoft.Network/loadBalancers', variables('network_LB_Public_Name')), '/probes/lbprobe')]"
                 }
             }
-        },
-          {
-            "properties": {
-              "frontendIPConfiguration": {
-                "id": "[concat(resourceId('Microsoft.Network/loadBalancers', variables('network_LB_Public_Name')), '/frontendIpConfigurations/', variables('network_LB_Public_FE2Name'))]"
-              },
-              "backendAddressPool": {
-                "id": "[concat(resourceId('Microsoft.Network/loadBalancers', variables('network_LB_Public_Name')), '/backendAddressPools/', variables('network_LB_Public_BEName'))]"
-              },
-              "probe": {
-                "id": "[concat(resourceId('Microsoft.Network/loadBalancers', variables('network_LB_Public_Name')), '/probes/lbprobe')]"
-              },
-              "protocol": "Tcp",
-              "frontendPort": 80,
-              "backendPort": 80,
-              "enableFloatingIP": true,
-              "idleTimeoutInMinutes": 15
-            },
-            "name": "PublicLBRule-FE2-http"
-          },
-          {
-            "properties": {
-              "frontendIPConfiguration": {
-                "id": "[concat(resourceId('Microsoft.Network/loadBalancers', variables('network_LB_Public_Name')), '/frontendIpConfigurations/', variables('network_LB_Public_FEName'))]"
-              },
-              "backendAddressPool": {
-                "id": "[concat(resourceId('Microsoft.Network/loadBalancers', variables('network_LB_Public_Name')), '/backendAddressPools/', variables('network_LB_Public_BEName'))]"
-              },
-              "probe": {
-                "id": "[concat(resourceId('Microsoft.Network/loadBalancers', variables('network_LB_Public_Name')), '/probes/lbprobe')]"
-              },
-              "protocol": "Udp",
-              "frontendPort": 10551,
-              "backendPort": 10551,
-              "enableFloatingIP": false,
-              "idleTimeoutInMinutes": 15
-            },
-            "name": "PublicLBRule-FE1-udp10551"
-          }
+        }
         ],
         "inboundNatRules": [
-          {
-            "name": "[variables('network_LB_Public_NatRule_SSH_fg1_Name')]",
-            "properties": {
-              "frontendIPConfiguration": {
-                "id": "[variables('network_LB_Public_FEId')]"
-              },
-              "protocol": "Tcp",
-              "frontendPort": 22,
-              "backendPort": 22,
-              "enableFloatingIP": false
-            }
-          },
-          {
-            "name": "[variables('network_LB_Public_NatRule_FGAdminPerm_fg1_Name')]",
-            "properties": {
-              "frontendIPConfiguration": {
-                "id": "[variables('network_LB_Public_FEId')]"
-              },
-              "protocol": "Tcp",
-              "frontendPort": 8443,
-              "backendPort": 8443,
-              "enableFloatingIP": false
-            }
-          },
-          {
-            "name": "[variables('network_LB_Public_NatRule_SSH_fg2_Name')]",
-            "properties": {
-              "frontendIPConfiguration": {
-                "id": "[variables('network_LB_Public_FE2Id')]"
-              },
-              "protocol": "Tcp",
-              "frontendPort": 22,
-              "backendPort": 22,
-              "enableFloatingIP": false
-            }
-          },
-          {
-            "name": "[variables('network_LB_Public_NatRule_FGAdminPerm_fg2_Name')]",
-            "properties": {
-              "frontendIPConfiguration": {
-                "id": "[variables('network_LB_Public_FE2Id')]"
-              },
-              "protocol": "Tcp",
-              "frontendPort": 8443,
-              "backendPort": 8443,
-              "enableFloatingIP": false
-            }
-          }
+          
         ],
         "probes": [
           {
@@ -617,12 +488,7 @@
                 }
               ],
               "loadBalancerInboundNatRules": [
-                {
-                  "id": "[variables('network_LB_Public_NatRule_SSH_fg1_Id')]"
-                },
-                {
-                  "id": "[variables('network_LB_Public_NatRule_FGAdminPerm_fg1_Id')]"
-                }
+
               ]
             }
           }
@@ -662,12 +528,7 @@
                 }
               ],
               "loadBalancerInboundNatRules": [
-                {
-                  "id": "[variables('network_LB_Public_NatRule_SSH_fg2_Id')]"
-                },
-                {
-                  "id": "[variables('network_LB_Public_NatRule_FGAdminPerm_fg2_Id')]"
-                }
+
               ]
             }
           }
@@ -771,12 +632,6 @@
           },
           "NATRules": {
             "value": [
-              {
-                "id": "[variables('network_LB_Public_NatRule_SSH_fg1_Id')]"
-              },
-              {
-                "id": "[variables('network_LB_Public_NatRule_FGAdminPerm_fg1_Id')]"
-              }
             ]
           },
           "FortinetTags": {
@@ -819,12 +674,7 @@
           },
           "NATRules": {
             "value": [
-              {
-                "id": "[variables('network_LB_Public_NatRule_SSH_fg2_Id')]"
-              },
-              {
-                "id": "[variables('network_LB_Public_NatRule_FGAdminPerm_fg2_Id')]"
-              }
+
             ]
           },
           "FortinetTags": {
@@ -867,7 +717,7 @@
           "computerName": "[variables('compute_VM_fg1_Name')]",
           "adminUsername": "[variables('adminUsername')]",
           "adminPassword": "[parameters('adminPassword')]",
-          "customData": "[base64(concat('config system global\n set admin-sport 8443\n end\n config router static\n edit 1\n set gateway ', variables('sn1GatewayIP'), '\n set device port1\n next\n edit 2\n set dst ', parameters('vnetAddressPrefix'), '\n set gateway ', variables('sn2GatewayIP'), '\n set device port2\n next\n edit 3\nset dst 168.63.129.16 255.255.255.255\nset device port2\n set gateway ', variables ('sn2GatewayIP'), '\n next\nedit 4\nset dst 168.63.129.16 255.255.255.255\nset device port1\n set gateway ', variables ('sn1GatewayIP'), '\n next\n end\n config system interface\n edit port1\n set mode static\n set allowaccess ping\n set ip ', reference(concat('Microsoft.Network/networkInterfaces/', variables('network_NIC_fg11_Name'))).ipConfigurations[0].properties.privateIPAddress, '/', variables('sn1CIDRmask'), '\n set description external\n next\n edit port2\n set mode static\n set ip ', reference(concat('Microsoft.Network/networkInterfaces/', variables('network_NIC_fg12_Name'))).ipConfigurations[0].properties.privateIPAddress, '/', variables('sn2CIDRmask'), '\n set description internal\n set allowaccess https ping ssh\n next\n end\n config firewall address\n edit InternalVNET \n set associated-interface port2\n set subnet',parameters('vnetAddressPrefix'),'\n end\n edit OnPremises-network\n set associated-interface port2\n set subnet ',parameters('onpremisesnetwork'),'\n end\n config firewall vip\n edit Jumpbox\n set extip ',reference(variables('publicIPID')).ipaddress,'\n set extintf port1\n set portforward enable\n set mappedip ',parameters('jumpboxIP'),'\n set extport 5500\n set mappedport 3389\n end\n config firewall policy\n edit 1\n set name Allow-RDP-Mgmt\n set srcintf port1\n set dstintf port2\n set srcaddr all\n set dstaddr Jumpbox\n set action accept\n set schedule always\n set service RDP\n set logtraffic all\n set fsso disable\n set nat enable\n end'))]"
+          "customData": "[base64(concat('config system global\n set admin-sport 8443\n end\n config router static\n edit 1\n set gateway ', variables('sn1GatewayIP'), '\n set device port1\n next\n edit 2\n set dst ', parameters('vnetAddressPrefix'), '\n set gateway ', variables('sn2GatewayIP'), '\n set device port2\n next\n edit 3\nset dst 168.63.129.16 255.255.255.255\nset device port2\n set gateway ', variables ('sn2GatewayIP'), '\n next\nedit 4\nset dst 168.63.129.16 255.255.255.255\nset device port1\n set gateway ', variables ('sn1GatewayIP'), '\n next\n end\n config system interface\n edit port1\n set mode static\n set allowaccess ssh ping\n set ip ', reference(concat('Microsoft.Network/networkInterfaces/', variables('network_NIC_fg11_Name'))).ipConfigurations[0].properties.privateIPAddress, '/', variables('sn1CIDRmask'), '\n set description external\n next\n edit port2\n set mode static\n set ip ', reference(concat('Microsoft.Network/networkInterfaces/', variables('network_NIC_fg12_Name'))).ipConfigurations[0].properties.privateIPAddress, '/', variables('sn2CIDRmask'), '\n set description internal\n set allowaccess https ping ssh\n next\n end\n config firewall address\n edit InternalVNET \n set associated-interface port2\n set subnet',parameters('vnetAddressPrefix'),'\n end\n edit OnPremises-network\n set associated-interface port2\n set subnet ',parameters('onpremisesnetwork'),'\n end\n config firewall vip\n edit Jumpbox\n set extip ',reference(variables('publicIPID')).ipaddress,'\n set extintf port1\n set portforward enable\n set mappedip ',parameters('jumpboxIP'),'\n set extport 5500\n set mappedport 3389\n end\n config firewall policy\n edit 1\n set name Allow-RDP-Mgmt\n set srcintf port1\n set dstintf port2\n set srcaddr all\n set dstaddr Jumpbox\n set action accept\n set schedule always\n set service RDP\n set logtraffic all\n set fsso disable\n set nat enable\n end'))]"
         },
         "storageProfile": {
           "imageReference": {
@@ -933,7 +783,7 @@
           "computerName": "[variables('compute_VM_fg2_Name')]",
           "adminUsername": "[variables('adminUsername')]",
           "adminPassword": "[parameters('adminPassword')]",
-          "customData": "[base64(concat('config system global\n set admin-sport 8443\n end\n config router static\n edit 1\n set gateway ', variables('sn1GatewayIP'), '\n set device port1\n next\n edit 2\n set dst ', parameters('vnetAddressPrefix'), '\n set gateway ', variables('sn2GatewayIP'), '\n set device port2\n next\n edit 3\nset dst 168.63.129.16 255.255.255.255\nset device port2\n set gateway ', variables ('sn2GatewayIP'), '\n next\nedit 4\nset dst 168.63.129.16 255.255.255.255\nset device port1\n set gateway ', variables ('sn1GatewayIP'), '\n next\n end\n config system interface\n edit port1\n set mode static\n set allowaccess ping\n set ip ', reference(concat('Microsoft.Network/networkInterfaces/', variables('network_NIC_fg21_Name'))).ipConfigurations[0].properties.privateIPAddress, '/', variables('sn1CIDRmask'), '\n set description external\n next\n edit port2\n set mode static\n set ip ', reference(concat('Microsoft.Network/networkInterfaces/', variables('network_NIC_fg22_Name'))).ipConfigurations[0].properties.privateIPAddress, '/', variables('sn2CIDRmask'), '\n set description internal\n set allowaccess https ping ssh\n next\n end\n config firewall address\n edit InternalVNET \n set associated-interface port2\n set subnet',parameters('vnetAddressPrefix'),'\n end\n edit OnPremises-network\n set associated-interface port2\n set subnet ',parameters('onpremisesnetwork'),'\n end\n config firewall vip\n edit Jumpbox\n set extip ',reference(variables('publicIPID')).ipaddress,'\n set extintf port1\n set portforward enable\n set mappedip ',parameters('jumpboxIP'),'\n set extport 5500\n set mappedport 3389\n end\n config firewall policy\n edit 1\n set name Allow-RDP-Mgmt\n set srcintf port1\n set dstintf port2\n set srcaddr all\n set dstaddr Jumpbox\n set action accept\n set schedule always\n set service RDP\n set logtraffic all\n set fsso disable\n set nat enable\n end'))]"
+          "customData": "[base64(concat('config system global\n set admin-sport 8443\n end\n config router static\n edit 1\n set gateway ', variables('sn1GatewayIP'), '\n set device port1\n next\n edit 2\n set dst ', parameters('vnetAddressPrefix'), '\n set gateway ', variables('sn2GatewayIP'), '\n set device port2\n next\n edit 3\nset dst 168.63.129.16 255.255.255.255\nset device port2\n set gateway ', variables ('sn2GatewayIP'), '\n next\nedit 4\nset dst 168.63.129.16 255.255.255.255\nset device port1\n set gateway ', variables ('sn1GatewayIP'), '\n next\n end\n config system interface\n edit port1\n set mode static\n set allowaccess ssh ping\n set ip ', reference(concat('Microsoft.Network/networkInterfaces/', variables('network_NIC_fg21_Name'))).ipConfigurations[0].properties.privateIPAddress, '/', variables('sn1CIDRmask'), '\n set description external\n next\n edit port2\n set mode static\n set ip ', reference(concat('Microsoft.Network/networkInterfaces/', variables('network_NIC_fg22_Name'))).ipConfigurations[0].properties.privateIPAddress, '/', variables('sn2CIDRmask'), '\n set description internal\n set allowaccess https ping ssh\n next\n end\n config firewall address\n edit InternalVNET \n set associated-interface port2\n set subnet',parameters('vnetAddressPrefix'),'\n end\n edit OnPremises-network\n set associated-interface port2\n set subnet ',parameters('onpremisesnetwork'),'\n end\n config firewall vip\n edit Jumpbox\n set extip ',reference(variables('publicIPID')).ipaddress,'\n set extintf port1\n set portforward enable\n set mappedip ',parameters('jumpboxIP'),'\n set extport 5500\n set mappedport 3389\n end\n config firewall policy\n edit 1\n set name Allow-RDP-Mgmt\n set srcintf port1\n set dstintf port2\n set srcaddr all\n set dstaddr Jumpbox\n set action accept\n set schedule always\n set service RDP\n set logtraffic all\n set fsso disable\n set nat enable\n end'))]"
         },
         "storageProfile": {
           "imageReference": {
