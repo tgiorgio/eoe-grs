@@ -8,6 +8,9 @@
         "location": {
             "value": "uksouth"
         },
+        "FileServerIP":{
+          "value": "172.25.3.135"
+        },
         "VNETaddressPrefix": {
             "value": "172.25.0.0/16"
         },

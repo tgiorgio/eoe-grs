@@ -10,3 +10,8 @@ Get-AzMarketplaceTerms -Publisher center-for-internet-security-inc -Product "cis
 Test-AzDeployment  -Location "uksouth" -TemplateFile ".\master-template.json" -Verbose 
 
 New-AzDeployment  -Location "uksouth" -TemplateFile ".\master-template.json" -Verbose
+
+
+Test-AzDeployment  -Location "uksouth" -TemplateFile ".\master-template.2.json" -Verbose 
+
+New-AzDeployment  -Location "uksouth" -TemplateFile ".\master-template.2.json" -Verbose

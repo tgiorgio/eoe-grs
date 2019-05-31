@@ -5,6 +5,9 @@
         "location": {
             "type": "string"
         },
+        "FileServerIP":{
+            "type": "string"
+        },
         "onpremNetPrefix":{
             "type": "string"
         },
@@ -772,13 +775,13 @@
                         }
                     },
                     {
-                        "name": "Allow-SMB-FS",
+                        "name": "Allow-FS-All",
                         "properties": {
                             "protocol": "*",
                             "sourcePortRange": "*",
-                            "destinationPortRange": "445",
+                            "destinationPortRange": "*",
                             "sourceAddressPrefix": "[parameters('Subnet-rdh-Prefix')]",
-                            "destinationAddressPrefix": "[parameters('Subnet-data-Prefix')]",
+                            "destinationAddressPrefix": "[parameters('FileServerIP')]",
                             "access": "Allow",
                             "priority": 1003,
                             "direction": "Outbound",
@@ -1296,7 +1299,7 @@
                             "protocol": "*",
                             "sourcePortRange": "*",
                             "destinationPortRange": "1433",
-                            "sourceAddressPrefix": "[parameters('Subnet-data-Prefix')]",
+                            "sourceAddressPrefix": "[parameters('Subnet-rdh-Prefix')]",
                             "destinationAddressPrefix": "[parameters('Subnet-data-Prefix')]",
                             "access": "Allow",
                             "priority": 1001,
@@ -1308,13 +1311,13 @@
                         }
                     },
                     {
-                        "name": "Allow-SMB-Rdh",
+                        "name": "Allow-Rdh-All",
                         "properties": {
                             "protocol": "*",
                             "sourcePortRange": "*",
-                            "destinationPortRange": "445",
-                            "sourceAddressPrefix": "[parameters('Subnet-data-Prefix')]",
-                            "destinationAddressPrefix": "[parameters('Subnet-data-Prefix')]",
+                            "destinationPortRange": "*",
+                            "sourceAddressPrefix": "[parameters('Subnet-rdh-Prefix')]",
+                            "destinationAddressPrefix": "[parameters('FileServerIP')]",
                             "access": "Allow",
                             "priority": 1002,
                             "direction": "Inbound",
