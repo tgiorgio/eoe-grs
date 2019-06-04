@@ -18,7 +18,7 @@
             "value": "eoe-prod-vnet-RG"
         },
         "virtualMachineName": {
-            "value": "EOE-AZJMP01",
+            "value": "EOE-AZMGMT01",
             "metadata": {
                 "description":"Windows computer name cannot be more than 15 characters long, be entirely numeric, or contain the following characters: ` ~ ! @ # $ % ^ & * ( ) = + _ [ ] { }"
             }
