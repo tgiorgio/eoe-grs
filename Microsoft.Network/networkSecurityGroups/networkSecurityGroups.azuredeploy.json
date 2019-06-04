@@ -182,14 +182,14 @@
                         "properties": {
                             "protocol": "*",
                             "sourcePortRange": "*",
-                            "destinationPortRange": "443",
+                            "destinationPortRange": "",
                             "sourceAddressPrefix": "[parameters('Subnet-rda-Prefix')]",
                             "destinationAddressPrefix": "[parameters('Subnet-rdh-Prefix')]",
                             "access": "Allow",
                             "priority": 1001,
                             "direction": "Outbound",
                             "sourcePortRanges": [],
-                            "destinationPortRanges": [],
+                            "destinationPortRanges": ["443","80"],
                             "sourceAddressPrefixes": [],
                             "destinationAddressPrefixes": []
                         }
@@ -660,14 +660,14 @@
                         "properties": {
                             "protocol": "*",
                             "sourcePortRange": "*",
-                            "destinationPortRange": "443",
+                            "destinationPortRange": "",
                             "sourceAddressPrefix": "[parameters('Subnet-rda-Prefix')]",
                             "destinationAddressPrefix": "[parameters('Subnet-rdh-Prefix')]",
                             "access": "Allow",
                             "priority": 1000,
                             "direction": "Inbound",
                             "sourcePortRanges": [],
-                            "destinationPortRanges": [],
+                            "destinationPortRanges": ["443","80"],
                             "sourceAddressPrefixes": [],
                             "destinationAddressPrefixes": []
                         }
