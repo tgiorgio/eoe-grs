@@ -1,0 +1,205 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+      "vmName": {
+        "type": "string"
+      }, 
+      "vmZone":{
+        "type": "string",
+        "defaultValue": "1"
+      },
+      "dataDisks": {
+        "type": "array",
+        "defaultValue": []
+      },
+      "dataDiskResources": {
+          "type": "array",
+          "defaultValue": []
+      },
+      "storageAccountName":{
+        "type": "string"
+      },
+      "osDiskType":{
+        "type": "string"
+      },
+      "vmSize":{
+        "defaultValue": "Standard_A2",
+        "type": "string"
+      },
+      "virtualNetworkName":{
+        "type": "string"
+      },
+      "subnetName":{
+        "type": "string"
+      },
+      "environmentConfiguration": {
+        "type": "object"
+      },
+      "adminUsername": {
+        "type": "string",
+        "metadata": {
+          "description": "Username for the Virtual Machine."
+        }
+      },
+      "adminPassword": {
+        "type": "securestring",
+        "metadata": {
+          "description": "Password for the Virtual Machine."
+        }
+      },
+      "internalIP":{
+        "type": "string",
+        "metadata": {
+          "description":"Static internal IP of the VM."
+        }
+      },
+      "virtualNetworkRG":{
+        "type": "string"
+      },
+      "windowsOSVersion": {
+        "type": "string",
+        "defaultValue": "2019-Datacenter",
+        "allowedValues": [
+          "2008-R2-SP1",
+          "2012-Datacenter",
+          "2012-R2-Datacenter",
+          "2016-Nano-Server",
+          "2016-Datacenter-with-Containers",
+          "2016-Datacenter",
+          "2019-Datacenter"
+        ],
+        "metadata": {
+          "description": "The Windows version for the VM. This will pick a fully patched image of this given Windows version."
+        }
+      },
+      "location": {
+        "type": "string",
+        "defaultValue": "[resourceGroup().location]",
+        "metadata": {
+          "description": "Location for all resources."
+        }
+      }
+    },
+    "variables": {
+  
+      "nicName": "[concat(parameters('vmName'),'-NIC')]",
+      "vnetId": "[resourceId(parameters('virtualNetworkRG'),'Microsoft.Network/virtualNetworks', parameters('virtualNetworkName'))]",
+      "subnetRef": "[concat(variables('vnetId'), '/subnets/', parameters('subnetName'))]",
+      "copy": [
+        {
+            "name": "dataDisks",
+            "count": "[length(parameters('dataDisks'))]",
+            "input": {
+                "lun": "[parameters('dataDisks')[copyIndex('dataDisks')].lun]",
+                "createOption": "[parameters('dataDisks')[copyIndex('dataDisks')].createOption]",
+                "caching": "[parameters('dataDisks')[copyIndex('dataDisks')].caching]",
+                "writeAcceleratorEnabled": "[parameters('dataDisks')[copyIndex('dataDisks')].writeAcceleratorEnabled]",
+                "diskSizeGB": "[parameters('dataDisks')[copyIndex('dataDisks')].diskSizeGB]",
+                "managedDisk": {
+                    "id": "[coalesce(parameters('dataDisks')[copyIndex('dataDisks')].id, if(equals(parameters('dataDisks')[copyIndex('dataDisks')].name, json('null')), json('null'), resourceId('Microsoft.Compute/disks', parameters('dataDisks')[copyIndex('dataDisks')].name)))]",
+                    "storageAccountType": "[parameters('dataDisks')[copyIndex('dataDisks')].storageAccountType]"
+                }
+            }
+        }
+      ]
+    },
+    "resources": [
+      {
+        "apiVersion": "2018-08-01",
+        "type": "Microsoft.Network/networkInterfaces",
+        "name": "[variables('nicName')]",
+        "location": "[parameters('location')]",
+        "tags": "[parameters('environmentConfiguration').tags.value]",
+        "dependsOn": [
+        ],
+        "properties": {
+          "ipConfigurations": [
+            {
+              "name": "ipconfig1",
+              "properties": {
+                "privateIPAllocationMethod": "Static",
+                "privateIPAddress": "[parameters('internalIP')]",
+                "subnet": {
+                  "id": "[variables('subnetRef')]"
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "condition": "[greater(length(parameters('dataDiskResources')),0)]",
+        "name": "[concat(parameters('vmname'),copyIndex('dataDiskResources'))]",
+        "type": "Microsoft.Compute/disks",
+        "apiVersion": "2018-06-01",
+        "location": "[parameters('location')]",
+        "properties": {
+            "diskSizeGB": "[parameters('dataDiskResources')[copyIndex()].diskSizeGB]",
+            "creationData": "[parameters('dataDiskResources')[copyIndex()].creationData]"
+        },
+        "sku": {
+            "name": "[parameters('dataDiskResources')[copyIndex()].sku]"
+        },
+        "copy": {
+            "name": "managedDiskResources",
+            "count": "[length(parameters('dataDiskResources'))]"
+        }
+      },
+      {
+        "apiVersion": "2018-06-01",
+        "type": "Microsoft.Compute/virtualMachines",
+        "name": "[parameters('vmName')]",
+        "location": "[parameters('location')]",
+        "tags": "[parameters('environmentConfiguration').tags.value]",
+        "dependsOn": [
+          "[resourceId('Microsoft.Network/networkInterfaces/', variables('nicName'))]",
+          "managedDiskResources"
+        ],
+        "zones": [
+          "[parameters('vmZone')]"
+        ],
+        "properties": {
+          "hardwareProfile": {
+            "vmSize": "[parameters('vmSize')]"
+          },
+          "osProfile": {
+            "computerName": "[parameters('vmName')]",
+            "adminUsername": "[parameters('adminUsername')]",
+            "adminPassword": "[parameters('adminPassword')]"
+          },
+          "storageProfile": {
+            "imageReference": {
+              "publisher": "MicrosoftWindowsServer",
+              "offer": "WindowsServer",
+              "sku": "[parameters('windowsOSVersion')]",
+              "version": "latest"
+            },
+            "osDisk": {
+              "createOption": "FromImage",
+              "managedDisk": {
+                "storageAccountType": "[parameters('osDiskType')]"
+            },
+            "dataDisks": "[if(equals(length(parameters('dataDisks')),0),json('null'),variables('dataDisks'))]"
+            },
+          "networkProfile": {
+            "networkInterfaces": [
+              {
+                "id": "[resourceId('Microsoft.Network/networkInterfaces',variables('nicName'))]"
+              }
+            ]
+          },
+          "diagnosticsProfile": {
+            "bootDiagnostics": {
+              "enabled": true,
+              "storageUri": "[concat('https://', parameters('storageAccountName'), '.blob.core.windows.net/')]"
+            }
+          }
+        }
+      }
+    }
+    ],
+  
+    "outputs": {
+    }
+  }
