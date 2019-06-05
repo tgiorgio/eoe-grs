@@ -1573,7 +1573,7 @@
                             "sourcePortRange": "*",
                             "destinationPortRange": "*",
                             "sourceAddressPrefix": "[parameters('onpremNetPrefix')]",
-                            "destinationAddressPrefix": "[parameters('Subnet-mgmt-Prefix')]",
+                            "destinationAddressPrefix": "[parameters('Subnet-core-Prefix')]",
                             "access": "Allow",
                             "priority": 1000,
                             "direction": "Inbound",
