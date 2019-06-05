@@ -130,6 +130,7 @@
       }
     },
     {
+      "condition": "[if(equals(length(parameters('dataDiskResources')), 0), bool('false'), bool('true'))]",
       "name": "[concat(parameters('vmname'),copyIndex('dataDiskResources'))]",
       "type": "Microsoft.Compute/disks",
       "apiVersion": "2018-06-01",
