@@ -10,12 +10,10 @@
         "defaultValue": "1"
       },
       "dataDisks": {
-        "type": "array",
-        "defaultValue": []
+        "type": "array"
       },
       "dataDiskResources": {
-          "type": "array",
-          "defaultValue": []
+          "type": "array"
       },
       "storageAccountName":{
         "type": "string"
@@ -85,24 +83,8 @@
   
       "nicName": "[concat(parameters('vmName'),'-NIC')]",
       "vnetId": "[resourceId(parameters('virtualNetworkRG'),'Microsoft.Network/virtualNetworks', parameters('virtualNetworkName'))]",
-      "subnetRef": "[concat(variables('vnetId'), '/subnets/', parameters('subnetName'))]",
-      "copy": [
-        {
-            "name": "dataDisks",
-            "count": "[length(parameters('dataDisks'))]",
-            "input": {
-                "lun": "[parameters('dataDisks')[copyIndex('dataDisks')].lun]",
-                "createOption": "[parameters('dataDisks')[copyIndex('dataDisks')].createOption]",
-                "caching": "[parameters('dataDisks')[copyIndex('dataDisks')].caching]",
-                "writeAcceleratorEnabled": "[parameters('dataDisks')[copyIndex('dataDisks')].writeAcceleratorEnabled]",
-                "diskSizeGB": "[parameters('dataDisks')[copyIndex('dataDisks')].diskSizeGB]",
-                "managedDisk": {
-                    "id": "[coalesce(parameters('dataDisks')[copyIndex('dataDisks')].id, if(equals(parameters('dataDisks')[copyIndex('dataDisks')].name, json('null')), json('null'), resourceId('Microsoft.Compute/disks', parameters('dataDisks')[copyIndex('dataDisks')].name)))]",
-                    "storageAccountType": "[parameters('dataDisks')[copyIndex('dataDisks')].storageAccountType]"
-                }
-            }
-        }
-      ]
+      "subnetRef": "[concat(variables('vnetId'), '/subnets/', parameters('subnetName'))]"
+      
     },
     "resources": [
       {
@@ -129,7 +111,6 @@
         }
       },
       {
-        "condition": "[greater(length(parameters('dataDiskResources')),0)]",
         "name": "[concat(parameters('vmname'),copyIndex('dataDiskResources'))]",
         "type": "Microsoft.Compute/disks",
         "apiVersion": "2018-06-01",
@@ -180,7 +161,23 @@
               "managedDisk": {
                 "storageAccountType": "[parameters('osDiskType')]"
             },
-            "dataDisks": "[if(equals(length(parameters('dataDisks')),0),json('null'),variables('dataDisks'))]"
+            "copy": [
+              {
+                  "name": "dataDisks",
+                  "count": "[length(parameters('dataDisks'))]",
+                  "input": {
+                      "lun": "[parameters('dataDisks')[copyIndex('dataDisks')].lun]",
+                      "createOption": "[parameters('dataDisks')[copyIndex('dataDisks')].createOption]",
+                      "caching": "[parameters('dataDisks')[copyIndex('dataDisks')].caching]",
+                      "writeAcceleratorEnabled": "[parameters('dataDisks')[copyIndex('dataDisks')].writeAcceleratorEnabled]",
+                      "diskSizeGB": "[parameters('dataDisks')[copyIndex('dataDisks')].diskSizeGB]",
+                      "managedDisk": {
+                          "id": "[coalesce(parameters('dataDisks')[copyIndex('dataDisks')].id, if(equals(parameters('dataDisks')[copyIndex('dataDisks')].name, json('null')), json('null'), resourceId('Microsoft.Compute/disks', parameters('dataDisks')[copyIndex('dataDisks')].name)))]",
+                          "storageAccountType": "[parameters('dataDisks')[copyIndex('dataDisks')].storageAccountType]"
+                      }
+                  }
+              }
+            ]
             },
           "networkProfile": {
             "networkInterfaces": [

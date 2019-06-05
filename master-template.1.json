@@ -347,7 +347,7 @@
       "properties": {
         "mode": "Incremental",
         "templateLink": {
-            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/Microsoft.Compute/vm-win2019dtc/vm-win2019.azuredeploy.json",
+            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/Microsoft.Compute/vm-win2019dtc/vm-win2019-datadisk.azuredeploy.json",
             "contentVersion":"1.0.0.0"
           },
         "parametersLink": {
@@ -368,7 +368,7 @@
       "properties": {
         "mode": "Incremental",
         "templateLink": {
-            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/Microsoft.Compute/vm-win2019dtc/vm-win2019.azuredeploy.json",
+            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/Microsoft.Compute/vm-win2019dtc/vm-win2019-datadisk.azuredeploy.json",
             "contentVersion":"1.0.0.0"
           },
         "parametersLink": {
