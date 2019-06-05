@@ -86,6 +86,7 @@
     "nicName": "[concat(parameters('vmName'),'-NIC')]",
     "vnetId": "[resourceId(parameters('virtualNetworkRG'),'Microsoft.Network/virtualNetworks', parameters('virtualNetworkName'))]",
     "subnetRef": "[concat(variables('vnetId'), '/subnets/', parameters('subnetName'))]",
+    "dataDisks":"[if(equals(length(parameters('dataDisks')),0),json('null'),variables('copy'))]",
     "copy": [
       {
           "name": "dataDisks",
@@ -128,7 +129,24 @@
         ]
       }
     },
-  
+    {
+      "condition": "[greater(length(parameters('dataDiskResources')),0)]",
+      "name": "[concat(parameters('vmname'),copyIndex('dataDiskResources'))]",
+      "type": "Microsoft.Compute/disks",
+      "apiVersion": "2018-06-01",
+      "location": "[parameters('location')]",
+      "properties": {
+          "diskSizeGB": "[parameters('dataDiskResources')[copyIndex()].diskSizeGB]",
+          "creationData": "[parameters('dataDiskResources')[copyIndex()].creationData]"
+      },
+      "sku": {
+          "name": "[parameters('dataDiskResources')[copyIndex()].sku]"
+      },
+      "copy": {
+          "name": "managedDiskResources",
+          "count": "[length(parameters('dataDiskResources'))]"
+      }
+    },
     {
       "apiVersion": "2018-06-01",
       "type": "Microsoft.Compute/virtualMachines",
@@ -163,7 +181,7 @@
             "managedDisk": {
               "storageAccountType": "[parameters('osDiskType')]"
           },
-          "dataDisks": "[if(equals(length(parameters('dataDisks')),0),json('null'),variables('dataDisks'))]"
+          "dataDisks": "[if(equals(length(parameters('dataDisks')),0),json('null'),variables('copy'))]"
           },
         "networkProfile": {
           "networkInterfaces": [
