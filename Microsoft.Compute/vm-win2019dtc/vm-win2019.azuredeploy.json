@@ -11,11 +11,11 @@
     },
     "dataDisks": {
       "type": "array",
-      "defaultValue": null
+      "defaultValue": []
     },
     "dataDiskResources": {
         "type": "array",
-        "defaultValue": null
+        "defaultValue": []
     },
     "storageAccountName":{
       "type": "string"
