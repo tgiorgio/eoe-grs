@@ -127,7 +127,7 @@
           "name": "managedDiskResources",
           "count": "[length(parameters('dataDiskResources'))]"
       }
-  },
+    },
     {
       "apiVersion": "2018-06-01",
       "type": "Microsoft.Compute/virtualMachines",
@@ -179,7 +179,7 @@
                     }
                 }
             }
-        ],
+          ],
         "networkProfile": {
           "networkInterfaces": [
             {
@@ -195,7 +195,9 @@
         }
       }
     }
+  }
   ],
+
   "outputs": {
   }
 }
