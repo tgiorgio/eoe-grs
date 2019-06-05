@@ -12,6 +12,6 @@ Test-AzDeployment  -Location "uksouth" -TemplateFile ".\master-template.json" -V
 New-AzDeployment  -Location "uksouth" -TemplateFile ".\master-template.json" -Verbose
 
 
-Test-AzDeployment  -Location "uksouth" -TemplateFile ".\master-template.2.json" -Verbose 
+Test-AzDeployment  -Location "uksouth" -TemplateFile ".\master-template.1.json" -Verbose 
 
-New-AzDeployment  -Location "uksouth" -TemplateFile ".\master-template.2.json" -Verbose
+New-AzDeployment  -Location "uksouth" -TemplateFile ".\master-template.1.json" -Verbose
