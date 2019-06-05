@@ -1692,23 +1692,6 @@
                         }
                     },
                     {
-                        "name": "Allow-All-out-DCrep-OnPrem",
-                        "properties": {
-                            "protocol": "*",
-                            "sourcePortRange": "*",
-                            "destinationPortRange": "*",
-                            "sourceAddressPrefix": "",
-                            "destinationAddressPrefix": "",
-                            "access": "Allow",
-                            "priority": 1001,
-                            "direction": "Outbound",
-                            "sourcePortRanges": [],
-                            "destinationPortRanges": [],
-                            "sourceAddressPrefixes": ["[parameters('Subnet-core-Prefix')]"],
-                            "destinationAddressPrefixes": ["[parameters('onpremNetPrefix')]"]
-                        }
-                    },
-                    {
                         "name": "Allow-Out-OnPremises",
                         "properties": {
                             "protocol": "*",
