@@ -172,7 +172,7 @@
                       "writeAcceleratorEnabled": "[parameters('dataDisks')[copyIndex('dataDisks')].writeAcceleratorEnabled]",
                       "diskSizeGB": "[parameters('dataDisks')[copyIndex('dataDisks')].diskSizeGB]",
                       "managedDisk": {
-                          "id": "[coalesce(parameters('dataDisks')[copyIndex('dataDisks')].id, if(equals(parameters('dataDisks')[copyIndex('dataDisks')].name, json('null')), json('null'), resourceId('Microsoft.Compute/disks',concat(parameters('vmname'),'_datadisk',copyIndex()))))]",
+                          "id": "[coalesce(parameters('dataDisks')[copyIndex('dataDisks')].id, if(equals(parameters('dataDisks')[copyIndex('dataDisks')].name, json('null')),resourceId('Microsoft.Compute/disks',concat(parameters('vmname'),'_datadisk',copyIndex())),json('null')))]",
                           "storageAccountType": "[parameters('dataDisks')[copyIndex('dataDisks')].storageAccountType]"
                       }
                   }
