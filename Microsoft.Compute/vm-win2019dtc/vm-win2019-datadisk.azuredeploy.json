@@ -111,7 +111,7 @@
         }
       },
       {
-        "name": "[concat(parameters('vmname'),'_datadisk',copyIndex())]",
+        "name": "[parameters('dataDiskResources')[copyIndex()].name]",
         "type": "Microsoft.Compute/disks",
         "apiVersion": "2018-06-01",
         "location": "[parameters('location')]",
@@ -172,7 +172,7 @@
                       "writeAcceleratorEnabled": "[parameters('dataDisks')[copyIndex('dataDisks')].writeAcceleratorEnabled]",
                       "diskSizeGB": "[parameters('dataDisks')[copyIndex('dataDisks')].diskSizeGB]",
                       "managedDisk": {
-                          "id": "[coalesce(parameters('dataDisks')[copyIndex('dataDisks')].id, resourceId('Microsoft.Compute/disks',concat(parameters('vmname'),'_datadisk',copyIndex())))]",
+                        "id": "[coalesce(parameters('dataDisks')[copyIndex('dataDisks')].id, if(equals(parameters('dataDisks')[copyIndex('dataDisks')].name, json('null')), json('null'), resourceId('Microsoft.Compute/disks', parameters('dataDisks')[copyIndex('dataDisks')].name)))]",
                           "storageAccountType": "[parameters('dataDisks')[copyIndex('dataDisks')].storageAccountType]"
                       }
                   }
