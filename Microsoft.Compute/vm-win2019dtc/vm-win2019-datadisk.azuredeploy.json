@@ -111,7 +111,7 @@
         }
       },
       {
-        "name": "[concat(parameters('vmname'),'_datadisk',parameters('dataDiskResources')[copyIndex()])]",
+        "name": "[concat(parameters('vmname'),'_datadisk',copyIndex())]",
         "type": "Microsoft.Compute/disks",
         "apiVersion": "2018-06-01",
         "location": "[parameters('location')]",
