@@ -2399,13 +2399,13 @@
                         "properties": {
                             "protocol": "*",
                             "sourcePortRange": "*",
-                            "destinationPortRange": "*",
+                            "destinationPortRange": "8443",
                             "sourceAddressPrefix": "[parameters('Subnet-mgmt-Prefix')]",
                             "access": "Allow",
                             "priority": 1001,
                             "direction": "Outbound",
                             "sourcePortRanges": [],
-                            "destinationPortRanges": ["8443"],
+                            "destinationPortRanges": [],
                             "sourceAddressPrefixes": [],
                             "destinationAddressPrefixes": [],
                             "destinationAddressPrefix": "[parameters('firewallInternalSubnet')]"
