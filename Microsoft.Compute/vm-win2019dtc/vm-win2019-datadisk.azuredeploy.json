@@ -115,6 +115,9 @@
         "type": "Microsoft.Compute/disks",
         "apiVersion": "2018-06-01",
         "location": "[parameters('location')]",
+        "zones": [
+          "[parameters('vmZone')]"
+        ],
         "properties": {
             "diskSizeGB": "[parameters('dataDiskResources')[copyIndex()].diskSizeGB]",
             "creationData": "[parameters('dataDiskResources')[copyIndex()].creationData]"
