@@ -132,6 +132,9 @@
         "type": "Microsoft.Compute/virtualMachines",
         "apiVersion": "2018-10-01",
         "location": "[parameters('location')]",
+        "zones": [
+          "[parameters('vmZone')]"
+        ],
         "dependsOn": [
           "[resourceId('Microsoft.Network/networkInterfaces/', variables('nicName'))]",
           "managedDiskResources"
@@ -140,9 +143,6 @@
             "hardwareProfile": {
                 "vmSize": "[parameters('vmSize')]"
             },
-            "zones": [
-              "[parameters('vmZone')]"
-            ],
             "storageProfile": {
                 "osDisk": {
                     "createOption": "FromImage",
