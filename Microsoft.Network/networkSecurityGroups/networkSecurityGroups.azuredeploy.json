@@ -8,6 +8,9 @@
         "FileServerIP":{
             "type": "string"
         },
+        "firewallInternalSubnet":{
+            "type": "string"
+        },
         "onpremNetPrefix":{
             "type": "string"
         },
@@ -2392,7 +2395,7 @@
                         }
                     },
                     {
-                        "name": "Allow-All-OnPrem",
+                        "name": "Allow-FirewallManagement",
                         "properties": {
                             "protocol": "*",
                             "sourcePortRange": "*",
@@ -2402,10 +2405,10 @@
                             "priority": 1001,
                             "direction": "Outbound",
                             "sourcePortRanges": [],
-                            "destinationPortRanges": [],
+                            "destinationPortRanges": ["8443"],
                             "sourceAddressPrefixes": [],
                             "destinationAddressPrefixes": [],
-                            "destinationAddressPrefix": "[parameters('onpremNetPrefix')]"
+                            "destinationAddressPrefix": "[parameters('firewallInternalSubnet')]"
                         }
                     },
                     {

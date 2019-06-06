@@ -11,6 +11,9 @@
         "FileServerIP":{
           "value": "172.25.3.135"
         },
+        "firewallInternalSubnet":{
+          "value": "172.25.1.37/27"
+        },
         "VNETaddressPrefix": {
             "value": "172.25.0.0/16"
         },

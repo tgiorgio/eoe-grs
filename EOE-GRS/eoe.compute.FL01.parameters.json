@@ -8,6 +8,32 @@
         "storageAccountName": {
             "value": "eoeprodstg01"
         },
+        "dataDiskResources": {
+            "value": [
+                {
+                    "diskSizeGB": 128,
+                    "name": "EOE-AZFL01-DataDisk1",
+                    "sku": "StandardSSD_LRS",
+                    "creationData": {
+                        "createOption": "empty"
+                    }
+                }
+            ]
+        },
+        "dataDisks": {
+            "value": [
+                {
+                    "lun": 0,
+                    "name": "EOE-AZFL01-DataDisk1",
+                    "createOption": "attach",
+                    "caching": "None",
+                    "writeAcceleratorEnabled": false,
+                    "id": null,
+                    "storageAccountType": null,
+                    "diskSizeGB": null
+                }
+            ]
+        },
         "vmZone":{
             "value": "1"
         },
