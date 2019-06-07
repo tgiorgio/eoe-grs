@@ -12,7 +12,7 @@
             "value": [
                 {
                     "diskSizeGB": 128,
-                    "sku": "StandardSSD_LRS",
+                    "sku": "Premium_LRS",
                     "name": "EOE-AZGRSTDB01_datadisk0",
                     "creationData": {
                         "createOption": "empty"
@@ -20,7 +20,7 @@
                 },
                 {
                     "diskSizeGB": 128,
-                    "sku": "StandardSSD_LRS",
+                    "sku": "Premium_LRS",
                     "name": "EOE-AZGRSTDB01_datadisk1",
                     "creationData": {
                         "createOption": "empty"
@@ -28,7 +28,7 @@
                 },
                 {
                     "diskSizeGB": 256,
-                    "sku": "StandardSSD_LRS",
+                    "sku": "Premium_LRS",
                     "name": "EOE-AZGRSTDB01_datadisk2",
                     "creationData": {
                         "createOption": "empty"
@@ -36,7 +36,7 @@
                 },
                 {
                     "diskSizeGB": 256,
-                    "sku": "StandardSSD_LRS",
+                    "sku": "Premium_LRS",
                     "name": "EOE-AZGRSTDB01_datadisk3",
                     "creationData": {
                         "createOption": "empty"
