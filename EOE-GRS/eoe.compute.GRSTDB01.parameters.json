@@ -12,28 +12,8 @@
             "value": [
                 {
                     "diskSizeGB": 128,
-                    "sku": "Premium_LRS",
-                    "creationData": {
-                        "createOption": "empty"
-                    }
-                },
-                {
-                    "diskSizeGB": 128,
-                    "sku": "Premium_LRS",
-                    "creationData": {
-                        "createOption": "empty"
-                    }
-                },
-                {
-                    "diskSizeGB": 256,
-                    "sku": "Premium_LRS",
-                    "creationData": {
-                        "createOption": "empty"
-                    }
-                },
-                {
-                    "diskSizeGB": 256,
-                    "sku": "Premium_LRS",
+                    "sku": "StandardSSD_LRS",
+                    "name": "EOE-AZGRSTDB01_datadisk0",
                     "creationData": {
                         "createOption": "empty"
                     }
@@ -41,6 +21,31 @@
                 {
                     "diskSizeGB": 128,
                     "sku": "StandardSSD_LRS",
+                    "name": "EOE-AZGRSTDB01_datadisk1",
+                    "creationData": {
+                        "createOption": "empty"
+                    }
+                },
+                {
+                    "diskSizeGB": 256,
+                    "sku": "StandardSSD_LRS",
+                    "name": "EOE-AZGRSTDB01_datadisk2",
+                    "creationData": {
+                        "createOption": "empty"
+                    }
+                },
+                {
+                    "diskSizeGB": 256,
+                    "sku": "StandardSSD_LRS",
+                    "name": "EOE-AZGRSTDB01_datadisk3",
+                    "creationData": {
+                        "createOption": "empty"
+                    }
+                },
+                {
+                    "diskSizeGB": 128,
+                    "sku": "StandardSSD_LRS",
+                    "name": "EOE-AZGRSTDB01_datadisk4",
                     "creationData": {
                         "createOption": "empty"
                     }
@@ -48,16 +53,18 @@
                 {
                     "diskSizeGB": 256,
                     "sku": "Standard_LRS",
+                    "name": "EOE-AZGRSTDB01_datadisk5",
                     "creationData": {
                         "createOption": "empty"
                     }
-                },
+                }
             ]
         },
         "dataDisks": {
             "value": [
                 {
                     "lun": 0,
+                    "name": "EOE-AZGRSTDB01_datadisk0",
                     "createOption": "attach",
                     "caching": "None",
                     "writeAcceleratorEnabled": false,
@@ -68,6 +75,7 @@
                 {
                     "lun": 1,
                     "createOption": "attach",
+                    "name": "EOE-AZGRSTDB01_datadisk1",
                     "caching": "None",
                     "writeAcceleratorEnabled": false,
                     "id": null,
@@ -77,6 +85,7 @@
                 {
                     "lun": 2,
                     "createOption": "attach",
+                    "name": "EOE-AZGRSTDB01_datadisk2",
                     "caching": "ReadOnly",
                     "writeAcceleratorEnabled": false,
                     "id": null,
@@ -86,6 +95,7 @@
                 {
                     "lun": 3,
                     "createOption": "attach",
+                    "name": "EOE-AZGRSTDB01_datadisk3",
                     "caching": "ReadOnly",
                     "writeAcceleratorEnabled": false,
                     "id": null,
@@ -96,6 +106,7 @@
                     "lun": 4,
                     "createOption": "attach",
                     "caching": "ReadOnly",
+                    "name": "EOE-AZGRSTDB01_datadisk4",
                     "writeAcceleratorEnabled": false,
                     "id": null,
                     "storageAccountType": null,
@@ -104,6 +115,7 @@
                 {
                     "lun": 5,
                     "createOption": "attach",
+                    "name": "EOE-AZGRSTDB01_datadisk5",
                     "caching": "ReadOnly",
                     "writeAcceleratorEnabled": false,
                     "id": null,

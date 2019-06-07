@@ -3,16 +3,42 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "vmName": {
-            "value": "EOE-AZWEBI99"
+            "value": "EOE-AZGRSWEBX01"
         },
         "storageAccountName": {
             "value": "eoeprodstg01"
+        },
+        "dataDiskResources": {
+            "value": [
+                {
+                    "diskSizeGB": 32,
+                    "name": "EOE-AZGRSWEBX01_datadisk0",
+                    "sku": "StandardSSD_LRS",
+                    "creationData": {
+                        "createOption": "empty"
+                    }
+                }
+            ]
+        },
+        "dataDisks": {
+            "value": [
+                {
+                    "lun": 0,
+                    "createOption": "attach",
+                    "name": "EOE-AZGRSWEBX01_datadisk0",
+                    "caching": "None",
+                    "writeAcceleratorEnabled": false,
+                    "id": null,
+                    "storageAccountType": null,
+                    "diskSizeGB": null
+                }
+            ]
         },
         "vmZone":{
             "value": "1"
         },
         "vmSize": {
-            "value": "Standard_E4_V3"
+            "value": "Standard_D4_V3"
         },
         "virtualNetworkName": {
             "value": "eoe-prod-vnet"
@@ -21,7 +47,7 @@
             "value": "eoe-prod-vnet-RG"
         },
         "subnetName": {
-            "value": "eoe-prod-sub-app"
+            "value": "eoe-prod-sub-web"
         },
         "environmentConfiguration": {
             "value": {
@@ -36,10 +62,10 @@
             "value": "eoeadmin"
         },
         "adminPassword": {
-            "value": "!fc@9hWct:F]x96z"
+            "value": "^(%La$S_8&S-5p~T"
         },
         "internalIP": {
-            "value": "172.25.3.10"
+            "value": "172.25.3.6"
         },
         "windowsOSVersion": {
             "value": "2019-Datacenter"

@@ -1,0 +1,80 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "vmName": {
+            "value": "EOE-AZGRSWEBX02"
+        },
+        "storageAccountName": {
+            "value": "eoeprodstg01"
+        },
+        "dataDiskResources": {
+            "value": [
+                {
+                    "diskSizeGB": 32,
+                    "name": "EOE-AZGRSWEBX02_datadisk0",
+                    "sku": "StandardSSD_LRS",
+                    "creationData": {
+                        "createOption": "empty"
+                    }
+                }
+            ]
+        },
+        "dataDisks": {
+            "value": [
+                {
+                    "lun": 0,
+                    "createOption": "attach",
+                    "name": "EOE-AZGRSWEBX02_datadisk0",
+                    "caching": "None",
+                    "writeAcceleratorEnabled": false,
+                    "id": null,
+                    "storageAccountType": null,
+                    "diskSizeGB": null
+                }
+            ]
+        },
+        "vmZone":{
+            "value": "2"
+        },
+        "vmSize": {
+            "value": "Standard_D4_V3"
+        },
+        "virtualNetworkName": {
+            "value": "eoe-prod-vnet"
+        },
+        "virtualNetworkRG":{
+            "value": "eoe-prod-vnet-RG"
+        },
+        "subnetName": {
+            "value": "eoe-prod-sub-web"
+        },
+        "environmentConfiguration": {
+            "value": {
+                "tags": {
+                  "value" : {
+                    "Environment": "GRS"
+                  }
+                }
+            }
+        },
+        "adminUsername": {
+            "value": "eoeadmin"
+        },
+        "adminPassword": {
+            "value": "w/A:/vBsWGUY[t9"
+        },
+        "internalIP": {
+            "value": "172.25.3.6"
+        },
+        "windowsOSVersion": {
+            "value": "2019-Datacenter"
+        },
+        "location": {
+            "value": "uksouth"
+        },
+        "osDiskType":{
+            "value": "StandardSSD_LRS"
+        }
+    }
+}

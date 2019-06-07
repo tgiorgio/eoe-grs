@@ -11,7 +11,8 @@
       "webRG": "eoe-prod-web-RG",
       "dataRG": "eoe-prod-data-RG",
       "appRG": "eoe-prod-app-RG",
-      "rdsRG": "eoe-prod-rds-RG"      
+      "rdsRG": "eoe-prod-rds-RG",  
+      "testRG" : "eoe-prod-test-RG" 
     },  
     "resources": [
     {
@@ -25,61 +26,6 @@
               "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
               "contentVersion": "1.0.0.0",
               "resources": []
-          }
-      }
-    },
-    {
-      "type": "Microsoft.Resources/resourceGroups",
-      "apiVersion": "2018-05-01",
-      "location": "[variables('deploylocation')]",
-      "name": "[tolower(variables('sharedServicesRG'))]",
-      "properties": {}
-    },
-    {
-      "type": "Microsoft.Resources/deployments",
-      "apiVersion": "2018-05-01",
-      "name": "Deploy-StorageAccount",
-      "resourceGroup": "[variables('sharedServicesRG')]",
-      "dependsOn": [
-        "[resourceId('Microsoft.Resources/resourceGroups/',variables('sharedServicesRG'))]"
-      ],
-      "properties": {
-        "mode": "Incremental",
-        "templateLink": {
-            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/Microsoft.Storage/storage.azuredeploy.json",
-            "contentVersion":"1.0.0.0"
-          },
-        "parametersLink": {
-            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/EOE-GRS/eoe.storage.azuredeploy.parameters.json",
-            "contentVersion":"1.0.0.0"
-          }
-      }
-    },
-    {
-      "type": "Microsoft.Resources/resourceGroups",
-      "apiVersion": "2018-05-01",
-      "location": "[variables('deploylocation')]",
-      "name": "[tolower(variables('MgmtRG'))]",
-      "properties": {}
-    },
-    {
-      "type": "Microsoft.Resources/deployments",
-      "apiVersion": "2018-05-01",
-      "name": "Deploy-Jumpbox",
-      "resourceGroup": "[variables('MgmtRG')]",
-      "dependsOn": [
-        "[resourceId('Microsoft.Resources/resourceGroups/',variables('MgmtRG'))]",
-        "Deploy-StorageAccount"
-      ],
-      "properties": {
-        "mode": "Incremental",
-        "templateLink": {
-            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/Microsoft.Compute/vm-win-CIS-L1/jumpboxvm.azuredeploy.json",
-            "contentVersion":"1.0.0.0"
-          },
-        "parametersLink": {
-            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/EOE-GRS/eoe.jumpboxvm.parameters.json",
-            "contentVersion":"1.0.0.0"
           }
       }
     },
@@ -373,6 +319,125 @@
           },
         "parametersLink": {
             "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/EOE-GRS/eoe.compute.GRSDB02.parameters.json",
+            "contentVersion":"1.0.0.0"
+          }
+      }
+    },
+    {
+      "type": "Microsoft.Resources/resourceGroups",
+      "apiVersion": "2018-05-01",
+      "location": "[variables('deploylocation')]",
+      "name": "[tolower(variables('webRG'))]",
+      "properties": {}
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2018-05-01",
+      "name": "Deploy-GRSWEBI01",
+      "resourceGroup": "[variables('webRG')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Resources/resourceGroups/',variables('webRG'))]",
+        "Deploy-StorageAccount"
+      ],
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/Microsoft.Compute/vm-win2019dtc/vm-win2019-datadisk.azuredeploy.json",
+            "contentVersion":"1.0.0.0"
+          },
+        "parametersLink": {
+            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/EOE-GRS/eoe.compute.WEBI01.parameters.json",
+            "contentVersion":"1.0.0.0"
+          }
+      }
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2018-05-01",
+      "name": "Deploy-GRSWEBI02",
+      "resourceGroup": "[variables('webRG')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Resources/resourceGroups/',variables('webRG'))]",
+        "Deploy-StorageAccount"
+      ],
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/Microsoft.Compute/vm-win2019dtc/vm-win2019-datadisk.azuredeploy.json",
+            "contentVersion":"1.0.0.0"
+          },
+        "parametersLink": {
+            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/EOE-GRS/eoe.compute.WEBI02.parameters.json",
+            "contentVersion":"1.0.0.0"
+          }
+      }
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2018-05-01",
+      "name": "Deploy-GRSWEBX01",
+      "resourceGroup": "[variables('webRG')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Resources/resourceGroups/',variables('webRG'))]",
+        "Deploy-StorageAccount"
+      ],
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/Microsoft.Compute/vm-win2019dtc/vm-win2019-datadisk.azuredeploy.json",
+            "contentVersion":"1.0.0.0"
+          },
+        "parametersLink": {
+            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/EOE-GRS/eoe.compute.WEBX01.parameters.json",
+            "contentVersion":"1.0.0.0"
+          }
+      }
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2018-05-01",
+      "name": "Deploy-GRSWEBX02",
+      "resourceGroup": "[variables('webRG')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Resources/resourceGroups/',variables('webRG'))]",
+        "Deploy-StorageAccount"
+      ],
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/Microsoft.Compute/vm-win2019dtc/vm-win2019-datadisk.azuredeploy.json",
+            "contentVersion":"1.0.0.0"
+          },
+        "parametersLink": {
+            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/EOE-GRS/eoe.compute.WEBX02.parameters.json",
+            "contentVersion":"1.0.0.0"
+          }
+      }
+    },
+    {
+      "type": "Microsoft.Resources/resourceGroups",
+      "apiVersion": "2018-05-01",
+      "location": "[variables('deploylocation')]",
+      "name": "[tolower(variables('testRG'))]",
+      "properties": {}
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2018-05-01",
+      "name": "Deploy-GRSTDB01",
+      "resourceGroup": "[variables('dataRG')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Resources/resourceGroups/',variables('dataRG'))]",
+        "Deploy-StorageAccount"
+      ],
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/Microsoft.Compute/vm-win2019dtc/vm-win2019-datadisk.azuredeploy.json",
+            "contentVersion":"1.0.0.0"
+          },
+        "parametersLink": {
+            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/EOE-GRS/eoe.compute.GRSTDB01.parameters.json",
             "contentVersion":"1.0.0.0"
           }
       }
