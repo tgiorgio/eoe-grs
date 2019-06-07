@@ -128,7 +128,7 @@
             "value": "1"
         },
         "vmSize": {
-            "value": "Standard_D12_V2"
+            "value": "Standard_DS12_V2"
         },
         "virtualNetworkName": {
             "value": "eoe-prod-vnet"
