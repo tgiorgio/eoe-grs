@@ -263,7 +263,7 @@
     {
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2018-05-01",
-      "name": "Deploy-FL01",
+      "name": "Deploy-FILE01",
       "resourceGroup": "[variables('dataRG')]",
       "dependsOn": [
         "[resourceId('Microsoft.Resources/resourceGroups/',variables('dataRG'))]",
