@@ -42,8 +42,8 @@
       "name": "Deploy-DC01",
       "resourceGroup": "[variables('coreRG')]",
       "dependsOn": [
-        "[resourceId('Microsoft.Resources/resourceGroups/',variables('coreRG'))]",
-        "Deploy-StorageAccount"
+        "[resourceId('Microsoft.Resources/resourceGroups/',variables('coreRG'))]"
+        
       ],
       "properties": {
         "mode": "Incremental",
@@ -63,8 +63,8 @@
       "name": "Deploy-DC02",
       "resourceGroup": "[variables('coreRG')]",
       "dependsOn": [
-        "[resourceId('Microsoft.Resources/resourceGroups/',variables('coreRG'))]",
-        "Deploy-StorageAccount"
+        "[resourceId('Microsoft.Resources/resourceGroups/',variables('coreRG'))]"
+        
       ],
       "properties": {
         "mode": "Incremental",
@@ -91,8 +91,8 @@
       "name": "Deploy-RDL",
       "resourceGroup": "[variables('rdsRG')]",
       "dependsOn": [
-        "[resourceId('Microsoft.Resources/resourceGroups/',variables('rdsRG'))]",
-        "Deploy-StorageAccount"
+        "[resourceId('Microsoft.Resources/resourceGroups/',variables('rdsRG'))]"
+        
       ],
       "properties": {
         "mode": "Incremental",
@@ -112,8 +112,8 @@
       "name": "Deploy-RDB",
       "resourceGroup": "[variables('rdsRG')]",
       "dependsOn": [
-        "[resourceId('Microsoft.Resources/resourceGroups/',variables('rdsRG'))]",
-        "Deploy-StorageAccount"
+        "[resourceId('Microsoft.Resources/resourceGroups/',variables('rdsRG'))]"
+        
       ],
       "properties": {
         "mode": "Incremental",
@@ -133,8 +133,8 @@
       "name": "Deploy-RDG",
       "resourceGroup": "[variables('rdsRG')]",
       "dependsOn": [
-        "[resourceId('Microsoft.Resources/resourceGroups/',variables('rdsRG'))]",
-        "Deploy-StorageAccount"
+        "[resourceId('Microsoft.Resources/resourceGroups/',variables('rdsRG'))]"
+        
       ],
       "properties": {
         "mode": "Incremental",
@@ -154,8 +154,8 @@
       "name": "Deploy-RDH01",
       "resourceGroup": "[variables('rdsRG')]",
       "dependsOn": [
-        "[resourceId('Microsoft.Resources/resourceGroups/',variables('rdsRG'))]",
-        "Deploy-StorageAccount"
+        "[resourceId('Microsoft.Resources/resourceGroups/',variables('rdsRG'))]"
+        
       ],
       "properties": {
         "mode": "Incremental",
@@ -175,8 +175,8 @@
       "name": "Deploy-RDH02",
       "resourceGroup": "[variables('rdsRG')]",
       "dependsOn": [
-        "[resourceId('Microsoft.Resources/resourceGroups/',variables('rdsRG'))]",
-        "Deploy-StorageAccount"
+        "[resourceId('Microsoft.Resources/resourceGroups/',variables('rdsRG'))]"
+        
       ],
       "properties": {
         "mode": "Incremental",
@@ -196,8 +196,8 @@
       "name": "Deploy-RDH03",
       "resourceGroup": "[variables('rdsRG')]",
       "dependsOn": [
-        "[resourceId('Microsoft.Resources/resourceGroups/',variables('rdsRG'))]",
-        "Deploy-StorageAccount"
+        "[resourceId('Microsoft.Resources/resourceGroups/',variables('rdsRG'))]"
+        
       ],
       "properties": {
         "mode": "Incremental",
@@ -217,8 +217,8 @@
       "name": "Deploy-RDH04",
       "resourceGroup": "[variables('rdsRG')]",
       "dependsOn": [
-        "[resourceId('Microsoft.Resources/resourceGroups/',variables('rdsRG'))]",
-        "Deploy-StorageAccount"
+        "[resourceId('Microsoft.Resources/resourceGroups/',variables('rdsRG'))]"
+        
       ],
       "properties": {
         "mode": "Incremental",
@@ -228,27 +228,6 @@
           },
         "parametersLink": {
             "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/EOE-GRS/eoe.compute.RDH04.parameters.json",
-            "contentVersion":"1.0.0.0"
-          }
-      }
-    },
-    {
-      "type": "Microsoft.Resources/deployments",
-      "apiVersion": "2018-05-01",
-      "name": "Deploy-RDH04",
-      "resourceGroup": "[variables('dataRG')]",
-      "dependsOn": [
-        "[resourceId('Microsoft.Resources/resourceGroups/',variables('dataRG'))]",
-        "Deploy-StorageAccount"
-      ],
-      "properties": {
-        "mode": "Incremental",
-        "templateLink": {
-            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/Microsoft.Compute/vm-win2019dtc/vm-win2019.azuredeploy.json",
-            "contentVersion":"1.0.0.0"
-          },
-        "parametersLink": {
-            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/EOE-GRS/eoe.compute.FL01.parameters.json",
             "contentVersion":"1.0.0.0"
           }
       }
@@ -266,8 +245,8 @@
       "name": "Deploy-FILE01",
       "resourceGroup": "[variables('dataRG')]",
       "dependsOn": [
-        "[resourceId('Microsoft.Resources/resourceGroups/',variables('dataRG'))]",
-        "Deploy-StorageAccount"
+        "[resourceId('Microsoft.Resources/resourceGroups/',variables('dataRG'))]"
+        
       ],
       "properties": {
         "mode": "Incremental",
@@ -276,7 +255,7 @@
             "contentVersion":"1.0.0.0"
           },
         "parametersLink": {
-            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/EOE-GRS/eoe.compute.FL01.parameters.json",
+            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/EOE-GRS/eoe.compute.FILE01.parameters.json",
             "contentVersion":"1.0.0.0"
           }
       }
@@ -287,8 +266,8 @@
       "name": "Deploy-GRSDB01",
       "resourceGroup": "[variables('dataRG')]",
       "dependsOn": [
-        "[resourceId('Microsoft.Resources/resourceGroups/',variables('dataRG'))]",
-        "Deploy-StorageAccount"
+        "[resourceId('Microsoft.Resources/resourceGroups/',variables('dataRG'))]"
+        
       ],
       "properties": {
         "mode": "Incremental",
@@ -308,8 +287,8 @@
       "name": "Deploy-GRSDB02",
       "resourceGroup": "[variables('dataRG')]",
       "dependsOn": [
-        "[resourceId('Microsoft.Resources/resourceGroups/',variables('dataRG'))]",
-        "Deploy-StorageAccount"
+        "[resourceId('Microsoft.Resources/resourceGroups/',variables('dataRG'))]"
+        
       ],
       "properties": {
         "mode": "Incremental",
@@ -336,8 +315,8 @@
       "name": "Deploy-GRSWEBI01",
       "resourceGroup": "[variables('webRG')]",
       "dependsOn": [
-        "[resourceId('Microsoft.Resources/resourceGroups/',variables('webRG'))]",
-        "Deploy-StorageAccount"
+        "[resourceId('Microsoft.Resources/resourceGroups/',variables('webRG'))]"
+        
       ],
       "properties": {
         "mode": "Incremental",
@@ -357,8 +336,8 @@
       "name": "Deploy-GRSWEBI02",
       "resourceGroup": "[variables('webRG')]",
       "dependsOn": [
-        "[resourceId('Microsoft.Resources/resourceGroups/',variables('webRG'))]",
-        "Deploy-StorageAccount"
+        "[resourceId('Microsoft.Resources/resourceGroups/',variables('webRG'))]"
+        
       ],
       "properties": {
         "mode": "Incremental",
@@ -378,8 +357,8 @@
       "name": "Deploy-GRSWEBX01",
       "resourceGroup": "[variables('webRG')]",
       "dependsOn": [
-        "[resourceId('Microsoft.Resources/resourceGroups/',variables('webRG'))]",
-        "Deploy-StorageAccount"
+        "[resourceId('Microsoft.Resources/resourceGroups/',variables('webRG'))]"
+        
       ],
       "properties": {
         "mode": "Incremental",
@@ -399,8 +378,8 @@
       "name": "Deploy-GRSWEBX02",
       "resourceGroup": "[variables('webRG')]",
       "dependsOn": [
-        "[resourceId('Microsoft.Resources/resourceGroups/',variables('webRG'))]",
-        "Deploy-StorageAccount"
+        "[resourceId('Microsoft.Resources/resourceGroups/',variables('webRG'))]"
+        
       ],
       "properties": {
         "mode": "Incremental",
@@ -427,8 +406,8 @@
       "name": "Deploy-GRSTDB01",
       "resourceGroup": "[variables('dataRG')]",
       "dependsOn": [
-        "[resourceId('Microsoft.Resources/resourceGroups/',variables('dataRG'))]",
-        "Deploy-StorageAccount"
+        "[resourceId('Microsoft.Resources/resourceGroups/',variables('dataRG'))]"
+        
       ],
       "properties": {
         "mode": "Incremental",
