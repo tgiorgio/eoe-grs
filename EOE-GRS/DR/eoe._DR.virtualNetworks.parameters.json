@@ -1,0 +1,54 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "customerprefix":{
+            "value":"eoe"
+        },
+        "location": {
+            "value": "ukwest"
+        },
+        "environment":{
+            "value": "dr"
+        },
+        "VNETaddressPrefix": {
+            "value": "172.26.0.0/16"
+        },
+        "Subnet-fgext-prefix": {
+            "value": "172.26.1.0/27"
+        },
+        "Subnet-fgint-prefix": {
+            "value": "172.26.1.32/27"
+        },
+        "Subnet-rda-prefix": {
+            "value": "172.26.4.128/27"
+        },
+        "Subnet-rdh-prefix": {
+            "value": "172.26.4.160/27"
+        },
+        "Subnet-data-prefix": {
+            "value": "172.26.3.128/25"
+        },
+        "Subnet-app-prefix": {
+            "value": "172.26.3.0/25"
+        },
+        "Subnet-core-prefix": {
+            "value": "172.26.2.0/24"
+        },
+        "Subnet-web-prefix": {
+            "value": "172.26.4.0/25"
+        },
+        "Subnet-test-prefix": {
+            "value": "172.26.1.192/26"
+        },
+        "Subnet-mgmt-prefix": {
+            "value": "172.26.1.128/26"
+        },
+        "Subnet-waf-prefix": {
+          "value": "172.26.14.192/27"
+        },
+        "Subnet-gateway-prefix":{
+            "value": "172.26.1.64/27"
+        }
+    }
+}

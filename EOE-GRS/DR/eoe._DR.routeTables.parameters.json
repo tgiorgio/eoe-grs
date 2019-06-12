@@ -1,0 +1,64 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        
+      "location": {
+          "value": "ukwest"
+      },
+      "VNETaddressPrefix": {
+          "value": "172.26.0.0/16"
+      },
+      "Subnet-rda-prefix": {
+        "value": "172.26.4.128/27"
+      },
+      "Subnet-rdh-prefix": {
+          "value": "172.26.4.160/27"
+      },
+      "Subnet-data-prefix": {
+          "value": "172.26.3.128/25"
+      },
+      "Subnet-app-prefix": {
+          "value": "172.26.3.0/25"
+      },
+      "Subnet-core-prefix": {
+          "value": "172.26.2.0/24"
+      },
+      "Subnet-web-prefix": {
+          "value": "172.26.4.0/25"
+      },
+      "Subnet-test-prefix": {
+          "value": "172.26.1.192/26"
+      },
+      "Subnet-mgmt-prefix": {
+          "value": "172.26.1.128/26"
+      },
+      "Subnet-rda-name":{
+          "value": "eoe-dr-sub-rda"
+      },
+      "Subnet-rdh-name":{
+        "value": "eoe-dr-sub-rdh"
+      },
+      "Subnet-data-name":{
+        "value": "eoe-dr-sub-data"
+      },
+      "Subnet-app-name":{
+        "value": "eoe-dr-sub-app"
+      },
+      "Subnet-core-name":{
+        "value": "eoe-dr-sub-core"
+      },
+      "Subnet-web-name":{
+        "value": "eoe-dr-sub-web"
+      },
+      "Subnet-test-name":{
+        "value": "eoe-dr-sub-test"
+      },
+      "Subnet-mgmt-name":{
+        "value": "eoe-dr-sub-mgmt"
+      },
+      "onPremAddressPrefix":{
+        "value": "192.168.0.0/16"
+      }
+    }
+}

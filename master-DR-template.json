@@ -1,0 +1,220 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2018-05-01/subscriptionDeploymentTemplate.json#",
+    "contentVersion": "1.0.0.1",
+    "parameters": {},
+    "variables": {
+      "deploylocation":"ukwest",
+      "vnetRG":"eoe-dr-vnet-RG",
+      "MgmtRG":"eoe-dr-mgmt-RG",
+      "sharedServicesRG": "eoe-dr-shared-RG",
+      "coreRG": "eoe-dr-core-RG",
+      "webRG": "eoe-dr-web-RG",
+      "dataRG": "eoe-dr-data-RG",
+      "appRG": "eoe-dr-app-RG",
+      "rdsRG": "eoe-dr-rds-RG"      
+    },  
+    "resources": [
+    {
+      "apiVersion": "2018-05-01",
+      "name": "pid-66f8425a-e532-50f2-be7a-95259b5d6238",
+      "type": "Microsoft.Resources/deployments",
+      "location": "[variables('deploylocation')]",
+      "properties": {
+          "mode": "Incremental",
+          "template": {
+              "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+              "contentVersion": "1.0.0.0",
+              "resources": []
+          }
+      }
+    },
+    {
+      "type": "Microsoft.Resources/resourceGroups",
+      "apiVersion": "2018-05-01",
+      "location": "[variables('deploylocation')]",
+      "name": "[toLower(variables('vnetRG'))]",
+      "properties": {}
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2018-05-01",
+      "name": "Deployt-RT",
+      "resourceGroup": "[variables('vnetRG')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Resources/resourceGroups/',variables('vnetRG'))]"
+      ],
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/Microsoft.Network/routeTables/routeTables.azuredeploy.json",
+            "contentVersion":"1.0.0.0"
+          },
+        "parametersLink": {
+            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/EOE-GRS/eoe._DR.routeTables.parameters.json",
+            "contentVersion":"1.0.0.0"
+          }
+      }
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2018-05-01",
+      "name": "Deploy-NSG",
+      "resourceGroup": "[variables('vnetRG')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Resources/resourceGroups/',variables('vnetRG'))]"
+      ],
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/Microsoft.Network/networkSecurityGroups/networkSecurityGroups.azuredeploy.json",
+            "contentVersion":"1.0.0.0"
+          },
+        "parametersLink": {
+            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/EOE-GRS/eoe._DR.networkSecurityGroups.parameters.json",
+            "contentVersion":"1.0.0.0"
+          }
+      }
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2018-05-01",
+      "name": "Deployt-VNET",
+      "resourceGroup": "[variables('vnetRG')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Resources/resourceGroups/',variables('vnetRG'))]",
+        "Deploy-NSG",
+        "Deployt-RT"
+      ],
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/Microsoft.Network/virtualNetworks/virtualNetworks.azuredeploy.json",
+            "contentVersion":"1.0.0.0"
+          },
+        "parametersLink": {
+            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/EOE-GRS/eoe._DR.virtualNetworks.parameters.json",
+            "contentVersion":"1.0.0.0"
+          }
+      }
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2018-05-01",
+      "name": "Deploy-Fortigate",
+      "resourceGroup": "[variables('vnetRG')]",
+      "dependsOn": ["Deployt-VNET",
+        "[resourceId('Microsoft.Resources/resourceGroups/', variables('vnetRG'))]"
+      ],
+      "properties": {
+          "mode": "Incremental",
+          "templateLink": {
+              "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/Fortigate-HA-ActiveActive-LB/GRS-Fortigate-Template.json"
+          },
+          "parametersLink": {
+            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/EOE-GRS/Fortigate-Template.parameters.json",
+            "contentVersion":"1.0.0.0"
+          }
+      }
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2018-05-01",
+      "name": "Deploy-DefaultRoutes",
+      "resourceGroup": "[variables('vnetRG')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Resources/resourceGroups/',variables('vnetRG'))]",
+        "Deploy-Fortigate",
+        "Deployt-RT"
+      ],
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/Microsoft.Network/routeTables/routeTables.Routes/routeTables.route.azuredeploy.json",
+            "contentVersion":"1.0.0.0"
+          },
+        "parametersLink": {
+            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/EOE-GRS/eoe.routeTables.route.azuredeploy.parameters.json",
+            "contentVersion":"1.0.0.0"
+          }
+      }
+    },
+    {
+      "type": "Microsoft.Resources/resourceGroups",
+      "apiVersion": "2018-05-01",
+      "location": "[variables('deploylocation')]",
+      "name": "[tolower(variables('sharedServicesRG'))]",
+      "properties": {}
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2018-05-01",
+      "name": "Deploy-StorageAccount",
+      "resourceGroup": "[variables('sharedServicesRG')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Resources/resourceGroups/',variables('sharedServicesRG'))]"
+      ],
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/Microsoft.Storage/storage.azuredeploy.json",
+            "contentVersion":"1.0.0.0"
+          },
+        "parametersLink": {
+            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/EOE-GRS/eoe.storage.azuredeploy.parameters.json",
+            "contentVersion":"1.0.0.0"
+          }
+      }
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2018-05-01",
+      "name": "Deploy-Gateway",
+      "resourceGroup": "[variables('vnetRG')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Resources/resourceGroups/',variables('vnetRG'))]",
+        "Deployt-VNET"
+      ],
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/Microsoft.Network/vpngateway/vpngateway.azuredeploy.json",
+            "contentVersion":"1.0.0.0"
+          },
+        "parametersLink": {
+            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/EOE-GRS/vpngateway.azuredeploy.parameters.json",
+            "contentVersion":"1.0.0.0"
+          }
+      }
+    },
+    {
+      "type": "Microsoft.Resources/resourceGroups",
+      "apiVersion": "2018-05-01",
+      "location": "[variables('deploylocation')]",
+      "name": "[tolower(variables('MgmtRG'))]",
+      "properties": {}
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2018-05-01",
+      "name": "Deploy-Jumpbox",
+      "resourceGroup": "[variables('MgmtRG')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Resources/resourceGroups/',variables('MgmtRG'))]",
+        "Deploy-StorageAccount"
+      ],
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/Microsoft.Compute/vm-win-CIS-L1/jumpboxvm.azuredeploy.json",
+            "contentVersion":"1.0.0.0"
+          },
+        "parametersLink": {
+            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/EOE-GRS/eoe.jumpboxvm.parameters.json",
+            "contentVersion":"1.0.0.0"
+          }
+      }
+    }
+    ],
+    "outputs": {
+    }
+}

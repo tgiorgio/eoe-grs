@@ -154,13 +154,10 @@
                             "priority": 3997,
                             "direction": "Inbound",
                             "sourcePortRanges": [],
-                            "destinationPortRanges": [
-                                "5985",
-                                "5986"
-                            ],
+                            "destinationPortRanges": [],
                             "sourceAddressPrefixes": [],
                             "destinationAddressPrefixes": [],
-                            "destinationPortRange": ""
+                            "destinationPortRange": "*"
                         }
                     },
                     {
@@ -181,7 +178,7 @@
                         }
                     },
                     {
-                        "name": "Allow-HTTPS-RDhost",
+                        "name": "Allow-RDhost-Service",
                         "properties": {
                             "protocol": "*",
                             "sourcePortRange": "*",
@@ -192,17 +189,17 @@
                             "priority": 1001,
                             "direction": "Outbound",
                             "sourcePortRanges": [],
-                            "destinationPortRanges": ["443","80"],
+                            "destinationPortRanges": ["443","80","3389"],
                             "sourceAddressPrefixes": [],
                             "destinationAddressPrefixes": []
                         }
                     },
                     {
-                        "name": "Allow-DNS-Core",
+                        "name": "Allow-Core",
                         "properties": {
                             "protocol": "*",
                             "sourcePortRange": "*",
-                            "destinationPortRange": "53",
+                            "destinationPortRange": "*",
                             "sourceAddressPrefix": "[parameters('Subnet-rda-Prefix')]",
                             "access": "Allow",
                             "priority": 1000,
@@ -212,6 +209,23 @@
                             "sourceAddressPrefixes": [],
                             "destinationAddressPrefixes": [],
                             "destinationAddressPrefix": "[parameters('Subnet-core-Prefix')]"
+                        }
+                    },
+                    {
+                        "name": "Allow-Azure-KMS",
+                        "properties": {
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "1688",
+                            "sourceAddressPrefix": "[parameters('Subnet-rda-Prefix')]",
+                            "destinationAddressPrefix": "Internet",
+                            "access": "Allow",
+                            "priority": 3997,
+                            "direction": "Outbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
                         }
                     },
                     {
@@ -396,6 +410,23 @@
                             "access": "Allow",
                             "priority": 1000,
                             "direction": "Inbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    },
+                    {
+                        "name": "Allow-Azure-KMS",
+                        "properties": {
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "1688",
+                            "sourceAddressPrefix": "[parameters('Subnet-web-Prefix')]",
+                            "destinationAddressPrefix": "Internet",
+                            "access": "Allow",
+                            "priority": 3997,
+                            "direction": "Outbound",
                             "sourcePortRanges": [],
                             "destinationPortRanges": [],
                             "sourceAddressPrefixes": [],
@@ -659,7 +690,7 @@
             "properties": {
                 "securityRules": [
                     {
-                        "name": "Allow-HTTPS-RDaccess",
+                        "name": "Allow-RDaccess-Service",
                         "properties": {
                             "protocol": "*",
                             "sourcePortRange": "*",
@@ -670,7 +701,24 @@
                             "priority": 1000,
                             "direction": "Inbound",
                             "sourcePortRanges": [],
-                            "destinationPortRanges": ["443","80"],
+                            "destinationPortRanges": ["443","80","3389"],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    },
+                    {
+                        "name": "Allow-Azure-KMS",
+                        "properties": {
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "1688",
+                            "sourceAddressPrefix": "[parameters('Subnet-rdh-Prefix')]",
+                            "destinationAddressPrefix": "Internet",
+                            "access": "Allow",
+                            "priority": 3995,
+                            "direction": "Outbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
                             "sourceAddressPrefixes": [],
                             "destinationAddressPrefixes": []
                         }
@@ -731,24 +779,24 @@
                         "properties": {
                             "protocol": "*",
                             "sourcePortRange": "*",
-                            "destinationPortRange": "1433",
+                            "destinationPortRange": "",
                             "sourceAddressPrefix": "[parameters('Subnet-rdh-Prefix')]",
                             "destinationAddressPrefix": "[parameters('Subnet-data-Prefix')]",
                             "access": "Allow",
                             "priority": 1000,
                             "direction": "Outbound",
                             "sourcePortRanges": [],
-                            "destinationPortRanges": [],
+                            "destinationPortRanges": ["1433","1434"],
                             "sourceAddressPrefixes": [],
                             "destinationAddressPrefixes": []
                         }
                     },
                     {
-                        "name": "Allow-DNS-Core",
+                        "name": "Allow-Core",
                         "properties": {
                             "protocol": "*",
                             "sourcePortRange": "*",
-                            "destinationPortRange": "53",
+                            "destinationPortRange": "*",
                             "sourceAddressPrefix": "[parameters('Subnet-rdh-Prefix')]",
                             "access": "Allow",
                             "priority": 1001,
@@ -839,34 +887,14 @@
                             "priority": 3997,
                             "direction": "Outbound",
                             "sourcePortRanges": [],
-                            "destinationPortRanges": [
-                                "5985",
-                                "5986"
-                            ],
+                            "destinationPortRanges": [],
                             "sourceAddressPrefixes": [],
                             "destinationAddressPrefixes": [
                                 "[parameters('Subnet-rda-Prefix')]",
                                 "[parameters('Subnet-core-Prefix')]"
                             ],
-                            "destinationPortRange": "",
-                            "destinationAddressPrefix": ""
-                        }
-                    },
-                    {
-                        "name": "Allow-Out-ServerManagerGateway",
-                        "properties": {
-                            "protocol": "*",
-                            "sourcePortRange": "*",
                             "destinationPortRange": "*",
-                            "sourceAddressPrefix": "[parameters('Subnet-rdh-Prefix')]",
-                            "destinationAddressPrefix": "[parameters('Subnet-rda-Prefix')]",
-                            "access": "Allow",
-                            "priority": 3996,
-                            "direction": "Outbound",
-                            "sourcePortRanges": [],
-                            "destinationPortRanges": [],
-                            "sourceAddressPrefixes": [],
-                            "destinationAddressPrefixes": []
+                            "destinationAddressPrefix": ""
                         }
                     },
                     {
@@ -1017,6 +1045,23 @@
                             "access": "Allow",
                             "priority": 1000,
                             "direction": "Inbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    },
+                    {
+                        "name": "Allow-Azure-KMS",
+                        "properties": {
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "1688",
+                            "sourceAddressPrefix": "[parameters('Subnet-app-Prefix')]",
+                            "destinationAddressPrefix": "Internet",
+                            "access": "Allow",
+                            "priority": 3997,
+                            "direction": "Outbound",
                             "sourcePortRanges": [],
                             "destinationPortRanges": [],
                             "sourceAddressPrefixes": [],
@@ -1284,12 +1329,29 @@
                         "properties": {
                             "protocol": "*",
                             "sourcePortRange": "*",
-                            "destinationPortRange": "1433",
-                            "sourceAddressPrefix": "[parameters('Subnet-web-Prefix')]",
+                            "destinationPortRange": "",
+                            "sourceAddressPrefix": "[parameters('Subnet-app-Prefix')]",
                             "destinationAddressPrefix": "[parameters('Subnet-data-Prefix')]",
                             "access": "Allow",
                             "priority": 1000,
                             "direction": "Inbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": ["1433","1434"],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    },
+                    {
+                        "name": "Allow-Azure-KMS",
+                        "properties": {
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "1688",
+                            "sourceAddressPrefix": "[parameters('Subnet-data-Prefix')]",
+                            "destinationAddressPrefix": "Internet",
+                            "access": "Allow",
+                            "priority": 3997,
+                            "direction": "Outbound",
                             "sourcePortRanges": [],
                             "destinationPortRanges": [],
                             "sourceAddressPrefixes": [],
@@ -1301,14 +1363,14 @@
                         "properties": {
                             "protocol": "*",
                             "sourcePortRange": "*",
-                            "destinationPortRange": "1433",
+                            "destinationPortRange": "",
                             "sourceAddressPrefix": "[parameters('Subnet-rdh-Prefix')]",
                             "destinationAddressPrefix": "[parameters('Subnet-data-Prefix')]",
                             "access": "Allow",
                             "priority": 1001,
                             "direction": "Inbound",
                             "sourcePortRanges": [],
-                            "destinationPortRanges": [],
+                            "destinationPortRanges": ["1433","1434"],
                             "sourceAddressPrefixes": [],
                             "destinationAddressPrefixes": []
                         }
@@ -1382,11 +1444,11 @@
                         }
                     },
                     {
-                        "name": "Allow-DNS-CoreSvc",
+                        "name": "Allow-CoreSvc",
                         "properties": {
                             "protocol": "*",
                             "sourcePortRange": "*",
-                            "destinationPortRange": "53",
+                            "destinationPortRange": "*",
                             "sourceAddressPrefix": "[parameters('Subnet-data-Prefix')]",
                             "access": "Allow",
                             "priority": 1000,
@@ -1587,13 +1649,30 @@
                         }
                     },
                     {
+                        "name": "Allow-Azure-KMS",
+                        "properties": {
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "1688",
+                            "sourceAddressPrefix": "[parameters('Subnet-core-Prefix')]",
+                            "destinationAddressPrefix": "Internet",
+                            "access": "Allow",
+                            "priority": 3997,
+                            "direction": "Outbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    },
+                    {
                         "name": "Allow-VNET-Auth",
                         "properties": {
                             "protocol": "*",
                             "sourcePortRange": "*",
                             "destinationPortRange": "*",
                             "sourceAddressPrefix": "[parameters('vnetAddressPrefix')]",
-                            "destinationAddressPrefix": "[parameters('onpremNetPrefix')]",
+                            "destinationAddressPrefix": "[parameters('Subnet-core-Prefix')]",
                             "access": "Allow",
                             "priority": 1001,
                             "direction": "Inbound",
@@ -2071,6 +2150,23 @@
                         }
                     },
                     {
+                        "name": "Allow-Azure-KMS",
+                        "properties": {
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "1688",
+                            "sourceAddressPrefix": "[parameters('Subnet-test-Prefix')]",
+                            "destinationAddressPrefix": "Internet",
+                            "access": "Allow",
+                            "priority": 3997,
+                            "direction": "Outbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    },
+                    {
                         "name": "Allow-RDP-Mgmt",
                         "properties": {
                             "protocol": "*",
@@ -2320,6 +2416,23 @@
                             "access": "Allow",
                             "priority": 1000,
                             "direction": "Inbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    },
+                    {
+                        "name": "Allow-Azure-KMS",
+                        "properties": {
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "1688",
+                            "sourceAddressPrefix": "[parameters('Subnet-mgmt-Prefix')]",
+                            "destinationAddressPrefix": "Internet",
+                            "access": "Allow",
+                            "priority": 3997,
+                            "direction": "Outbound",
                             "sourcePortRanges": [],
                             "destinationPortRanges": [],
                             "sourceAddressPrefixes": [],

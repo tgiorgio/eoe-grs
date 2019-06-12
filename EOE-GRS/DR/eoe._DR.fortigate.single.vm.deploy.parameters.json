@@ -1,0 +1,74 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "value": "ukwest"
+        },
+        "adminUsername": {
+            "value": "eoedrfwadmin"
+        },
+        "adminPassword": {
+            "value": "R?NagJ^2H4s7"
+        },
+        "FortiGateName": {
+            "value": "EOE-AZDRFW01"
+        },
+        "FortiGateImageSKU": {
+            "value": "fortinet_fg-vm_payg"
+        },
+        "instanceType": {
+            "value": "Standard_D2_v2"
+        },
+        "publicIPNewOrExistingOrNone": {
+            "value": "new"
+        },
+        "publicIPAddressName": {
+            "value": "EOE-AZDRFW01-PIP1"
+        },
+        "publicIPResourceGroup": {
+            "value": "eoe-dr-vnet-rg"
+        },
+        "publicIPAddressType": {
+            "value": "Static"
+        },
+        "vnetNewOrExisting": {
+            "value": "existing"
+        },
+        "vnetName": {
+            "value": "eoe-dr-vnet"
+        },
+        "vnetResourceGroup": {
+            "value": "eoe-dr-vnet-rg"
+        },
+        "vnetAddressPrefix": {
+            "value": "172.26.0.0/26"
+        },
+        "Subnet1Name": {
+            "value": "eoe-dr-sub-fgext"
+        },
+        "Subnet1Prefix": {
+            "value": "172.26.1.0/27"
+        },
+        "fortiGateIP1": {
+            "value": "172.26.1.7"
+        },
+        "Subnet2Name": {
+            "value": "eoe-dr-sub-fgint"
+        },
+        "Subnet2Prefix": {
+            "value": "172.26.1.32/27"
+        },
+        "fortiGateIP2": {
+            "value": "172.26.1.37"
+        },
+        "FortinetTags": {
+            "value": {
+                "provider": "6EB3B02F-50E5-4A3E-8CB8-2E129258317D"
+            }
+        },
+        "artifactsBaseUrl": {
+            "value": "https://raw.githubusercontent.com/fortinetclouddev/FortigateAzureTemplate/5.3.7"
+        }
+    }
+}
