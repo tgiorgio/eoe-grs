@@ -172,7 +172,7 @@
                                 "id": "[concat(resourceId('Microsoft.Network/applicationGateways', parameters('applicationGateway_name')), '/backendAddressPools/GRS-WEBX')]"
                             },
                             "backendHttpSettings": {
-                                "id": "[concat(resourceId('Microsoft.Network/applicationGateways', parameters('applicationGateway_name')), '/backendHttpSettingsCollection/appGatewayBackendHttpSettings')]"
+                                "id": "[concat(resourceId('Microsoft.Network/applicationGateways', parameters('applicationGateway_name')), '/backendHttpSettingsCollection/HTTP-Setting')]"
                             }
                         },
                         "type": "Microsoft.Network/applicationGateways/requestRoutingRules"
