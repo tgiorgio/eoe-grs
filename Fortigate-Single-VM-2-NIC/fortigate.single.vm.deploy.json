@@ -199,7 +199,7 @@
     "publicIPSetupURL": "[concat(parameters('artifactsBaseUrl'),'/','publicip-',parameters('publicIPNewOrExistingOrNone'),'.json')]",
     "virtualNetworkSetupURL": "[concat(parameters('artifactsBaseUrl'),'/','vnet-',parameters('vnetNewOrExisting'),'.json')]",
 
-    "compute_AvailabilitySet_FG_Name": "[concat(parameters('FortiGateName'),'AvailSet')]",
+    "compute_AvailabilitySet_FG_Name": "[concat(parameters('FortiGateName'),'-AS')]",
     "compute_AvailabilitySet_FG_Id": "[resourceId('Microsoft.Compute/availabilitySets', variables('compute_AvailabilitySet_FG_Name'))]"
 
   },

@@ -15,20 +15,6 @@
     },  
     "resources": [
     {
-      "apiVersion": "2018-05-01",
-      "name": "pid-66f8425a-e532-50f2-be7a-95259b5d6238",
-      "type": "Microsoft.Resources/deployments",
-      "location": "[variables('deploylocation')]",
-      "properties": {
-          "mode": "Incremental",
-          "template": {
-              "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-              "contentVersion": "1.0.0.0",
-              "resources": []
-          }
-      }
-    },
-    {
       "type": "Microsoft.Resources/resourceGroups",
       "apiVersion": "2018-05-01",
       "location": "[variables('deploylocation')]",
@@ -38,7 +24,7 @@
     {
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2018-05-01",
-      "name": "Deployt-RT",
+      "name": "Deploy-DR-RT",
       "resourceGroup": "[variables('vnetRG')]",
       "dependsOn": [
         "[resourceId('Microsoft.Resources/resourceGroups/',variables('vnetRG'))]"
@@ -50,7 +36,7 @@
             "contentVersion":"1.0.0.0"
           },
         "parametersLink": {
-            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/EOE-GRS/eoe._DR.routeTables.parameters.json",
+            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/EOE-GRS/DR/eoe._DR.routeTables.parameters.json",
             "contentVersion":"1.0.0.0"
           }
       }
@@ -58,7 +44,7 @@
     {
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2018-05-01",
-      "name": "Deploy-NSG",
+      "name": "Deploy-DR-NSG",
       "resourceGroup": "[variables('vnetRG')]",
       "dependsOn": [
         "[resourceId('Microsoft.Resources/resourceGroups/',variables('vnetRG'))]"
@@ -70,7 +56,7 @@
             "contentVersion":"1.0.0.0"
           },
         "parametersLink": {
-            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/EOE-GRS/eoe._DR.networkSecurityGroups.parameters.json",
+            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/EOE-GRS/DR/eoe._DR.networkSecurityGroups.parameters.json",
             "contentVersion":"1.0.0.0"
           }
       }
@@ -78,12 +64,12 @@
     {
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2018-05-01",
-      "name": "Deployt-VNET",
+      "name": "Deploy-DR-VNET",
       "resourceGroup": "[variables('vnetRG')]",
       "dependsOn": [
         "[resourceId('Microsoft.Resources/resourceGroups/',variables('vnetRG'))]",
-        "Deploy-NSG",
-        "Deployt-RT"
+        "Deploy-DR-NSG",
+        "Deploy-DR-RT"
       ],
       "properties": {
         "mode": "Incremental",
@@ -92,7 +78,7 @@
             "contentVersion":"1.0.0.0"
           },
         "parametersLink": {
-            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/EOE-GRS/eoe._DR.virtualNetworks.parameters.json",
+            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/EOE-GRS/DR/eoe._DR.virtualNetworks.parameters.json",
             "contentVersion":"1.0.0.0"
           }
       }
@@ -100,120 +86,22 @@
     {
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2018-05-01",
-      "name": "Deploy-Fortigate",
+      "name": "Deploy-DR-Fortigate",
       "resourceGroup": "[variables('vnetRG')]",
-      "dependsOn": ["Deployt-VNET",
+      "dependsOn": ["Deploy-DR-VNET",
         "[resourceId('Microsoft.Resources/resourceGroups/', variables('vnetRG'))]"
       ],
       "properties": {
           "mode": "Incremental",
           "templateLink": {
-              "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/Fortigate-HA-ActiveActive-LB/GRS-Fortigate-Template.json"
+              "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/Fortigate-Single-VM-2-NIC/fortigate.single.vm.deploy.json"
           },
           "parametersLink": {
-            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/EOE-GRS/Fortigate-Template.parameters.json",
+            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/EOE-GRS/DR/eoe._DR.fortigate.single.vm.deploy.parameters.json",
             "contentVersion":"1.0.0.0"
           }
       }
     },
-    {
-      "type": "Microsoft.Resources/deployments",
-      "apiVersion": "2018-05-01",
-      "name": "Deploy-DefaultRoutes",
-      "resourceGroup": "[variables('vnetRG')]",
-      "dependsOn": [
-        "[resourceId('Microsoft.Resources/resourceGroups/',variables('vnetRG'))]",
-        "Deploy-Fortigate",
-        "Deployt-RT"
-      ],
-      "properties": {
-        "mode": "Incremental",
-        "templateLink": {
-            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/Microsoft.Network/routeTables/routeTables.Routes/routeTables.route.azuredeploy.json",
-            "contentVersion":"1.0.0.0"
-          },
-        "parametersLink": {
-            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/EOE-GRS/eoe.routeTables.route.azuredeploy.parameters.json",
-            "contentVersion":"1.0.0.0"
-          }
-      }
-    },
-    {
-      "type": "Microsoft.Resources/resourceGroups",
-      "apiVersion": "2018-05-01",
-      "location": "[variables('deploylocation')]",
-      "name": "[tolower(variables('sharedServicesRG'))]",
-      "properties": {}
-    },
-    {
-      "type": "Microsoft.Resources/deployments",
-      "apiVersion": "2018-05-01",
-      "name": "Deploy-StorageAccount",
-      "resourceGroup": "[variables('sharedServicesRG')]",
-      "dependsOn": [
-        "[resourceId('Microsoft.Resources/resourceGroups/',variables('sharedServicesRG'))]"
-      ],
-      "properties": {
-        "mode": "Incremental",
-        "templateLink": {
-            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/Microsoft.Storage/storage.azuredeploy.json",
-            "contentVersion":"1.0.0.0"
-          },
-        "parametersLink": {
-            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/EOE-GRS/eoe.storage.azuredeploy.parameters.json",
-            "contentVersion":"1.0.0.0"
-          }
-      }
-    },
-    {
-      "type": "Microsoft.Resources/deployments",
-      "apiVersion": "2018-05-01",
-      "name": "Deploy-Gateway",
-      "resourceGroup": "[variables('vnetRG')]",
-      "dependsOn": [
-        "[resourceId('Microsoft.Resources/resourceGroups/',variables('vnetRG'))]",
-        "Deployt-VNET"
-      ],
-      "properties": {
-        "mode": "Incremental",
-        "templateLink": {
-            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/Microsoft.Network/vpngateway/vpngateway.azuredeploy.json",
-            "contentVersion":"1.0.0.0"
-          },
-        "parametersLink": {
-            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/EOE-GRS/vpngateway.azuredeploy.parameters.json",
-            "contentVersion":"1.0.0.0"
-          }
-      }
-    },
-    {
-      "type": "Microsoft.Resources/resourceGroups",
-      "apiVersion": "2018-05-01",
-      "location": "[variables('deploylocation')]",
-      "name": "[tolower(variables('MgmtRG'))]",
-      "properties": {}
-    },
-    {
-      "type": "Microsoft.Resources/deployments",
-      "apiVersion": "2018-05-01",
-      "name": "Deploy-Jumpbox",
-      "resourceGroup": "[variables('MgmtRG')]",
-      "dependsOn": [
-        "[resourceId('Microsoft.Resources/resourceGroups/',variables('MgmtRG'))]",
-        "Deploy-StorageAccount"
-      ],
-      "properties": {
-        "mode": "Incremental",
-        "templateLink": {
-            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/Microsoft.Compute/vm-win-CIS-L1/jumpboxvm.azuredeploy.json",
-            "contentVersion":"1.0.0.0"
-          },
-        "parametersLink": {
-            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/EOE-GRS/eoe.jumpboxvm.parameters.json",
-            "contentVersion":"1.0.0.0"
-          }
-      }
-    }
     ],
     "outputs": {
     }
