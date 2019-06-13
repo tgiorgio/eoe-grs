@@ -169,7 +169,7 @@
                                 "id": "[concat(resourceId('Microsoft.Network/applicationGateways', parameters('applicationGateway_name')), '/httpListeners/appGatewayHttpListener')]"
                             },
                             "backendAddressPool": {
-                                "id": "[concat(resourceId('Microsoft.Network/applicationGateways', parameters('applicationGateway_name')), '/backendAddressPools/appGatewayBackendPool')]"
+                                "id": "[concat(resourceId('Microsoft.Network/applicationGateways', parameters('applicationGateway_name')), '/backendAddressPools/GRS-WEBX')]"
                             },
                             "backendHttpSettings": {
                                 "id": "[concat(resourceId('Microsoft.Network/applicationGateways', parameters('applicationGateway_name')), '/backendHttpSettingsCollection/appGatewayBackendHttpSettings')]"
