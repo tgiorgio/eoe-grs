@@ -420,6 +420,27 @@
             "contentVersion":"1.0.0.0"
           }
       }
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2018-05-01",
+      "name": "Deploy-WAF",
+      "resourceGroup": "[variables('webRG')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Resources/resourceGroups/',variables('webRG'))]"
+        
+      ],
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/Microsoft.Network/applicationGateways/applicationGateways.azuredeploy.json",
+            "contentVersion":"1.0.0.0"
+          },
+        "parametersLink": {
+            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/EOE-GRS/eoe.applicationGateways.azuredeploy.parameters.json",
+            "contentVersion":"1.0.0.0"
+          }
+      }
     }
     ],
     "outputs": {

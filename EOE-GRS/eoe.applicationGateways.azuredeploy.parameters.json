@@ -27,7 +27,7 @@
             "value": "172.25.4.196"
         },
         "applicationGatewaySize": {
-            "value": "Standard_Medium"
+            "value": "WAF_Medium"
         },
         "applicationGatewayInstanceCount": {
             "value": 2
