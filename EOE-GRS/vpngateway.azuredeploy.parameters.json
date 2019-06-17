@@ -12,7 +12,22 @@
             "value": "eoeprodGateway"
         },
         "gatewaySku": {
-            "value": "Standard"
+            "value": "Basic"
+        },
+        "onpremAddressPrefix":{
+            "value": ["192.168.0.0/16" , "10.129.117.0/27"]
+        },
+        "onpremGatewayIpAddress":{
+            "value": "188.39.20.162"
+        },
+        "VPNlocalGatewayName":{
+            "value": "OnPrem-Connection"
+        },
+        "VPNconnectionName":{
+            "value": "OnPrem-Connection"
+        },
+        "sharedKey":{
+            "value": "NJba58y5vHyHThraQYL2PuFeacB2bgcy"
         }
     }
 }

@@ -13,6 +13,21 @@
         "PolicyBased"
       ]
     },
+    "onpremAddressPrefix":{
+      "type": "array"
+    },
+    "onpremGatewayIpAddress":{
+      "type": "string"
+    },
+    "VPNlocalGatewayName":{
+      "type": "string"
+    },
+    "VPNconnectionName":{
+      "type": "string"
+    },
+    "sharedKey":{
+      "type": "securestring"
+    },
     "virtualNetworkName": {
       "type": "string",
       "defaultValue": "azureVnet",
@@ -45,6 +60,54 @@
     "gatewayPublicIPName": "gatewayPublicIP"
   },
   "resources": [
+    {
+      "apiVersion": "2015-06-15",
+      "type": "Microsoft.Network/localNetworkGateways",
+      "name": "[parameters('VPNlocalGatewayName')]",
+      "location": "[resourceGroup().location]",
+      "properties": {
+        "localNetworkAddressSpace": {
+          "addressPrefixes": "[parameters('onpremAddressPrefix')]"
+        },
+        "gatewayIpAddress": "[parameters('onpremGatewayIpAddress')]"
+      }
+    },
+    {
+      "apiVersion": "2015-06-15",
+      "name": "[parameters('VPNconnectionName')]",
+      "type": "Microsoft.Network/connections",
+      "location": "[resourceGroup().location]",
+      "dependsOn": [
+        "[concat('Microsoft.Network/virtualNetworkGateways/', parameters('gatewayName'))]",
+        "[concat('Microsoft.Network/localNetworkGateways/', parameters('VPNlocalGatewayName'))]"
+      ],
+      "properties": {
+        "virtualNetworkGateway1": {
+          "id": "[resourceId('Microsoft.Network/virtualNetworkGateways', parameters('gatewayName'))]"
+        },
+        "localNetworkGateway2": {
+          "id": "[resourceId('Microsoft.Network/localNetworkGateways', parameters('VPNlocalGatewayName'))]"
+        },
+        "connectionType": "IPsec",
+        "routingWeight": 0,
+        "sharedKey": "[parameters('sharedKey')]",
+        "connectionProtocol": "IKEv2",
+        "enableBgp": false,
+        "usePolicyBasedTrafficSelectors": true,
+        "ipsecPolicies": [
+            {
+                "saLifeTimeSeconds": 3600,
+                "saDataSizeKilobytes": 2048,
+                "ipsecEncryption": "AES256",
+                "ipsecIntegrity": "SHA1",
+                "ikeEncryption": "AES256",
+                "ikeIntegrity": "SHA384",
+                "dhGroup": "DHGroup24",
+                "pfsGroup": "PFS24"
+            }
+        ]
+      }
+    },
     {
       "apiVersion": "2018-07-01",
       "type": "Microsoft.Network/publicIPAddresses",

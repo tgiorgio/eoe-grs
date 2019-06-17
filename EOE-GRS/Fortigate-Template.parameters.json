@@ -99,7 +99,7 @@
             "value": "fortinet_fg-vm_payg"
         },
         "instanceType": {
-            "value": "Standard_F1"
+            "value": "Standard_F2"
         },
         "FortinetTags": {
             "value": {
