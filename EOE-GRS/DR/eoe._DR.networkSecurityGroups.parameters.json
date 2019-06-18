@@ -11,6 +11,12 @@
         "FileServerIP":{
           "value": "172.26.3.135"
         },
+        "AzureASRDestinationEndpoint":{
+          "value": "51.140.43.158"
+        },
+        "AzureASRDestinationMonitoring":{
+         "value": "51.140.189.52" 
+        },
         "firewallInternalSubnet":{
           "value": "172.26.1.32/27"
         },
