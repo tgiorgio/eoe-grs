@@ -5,6 +5,12 @@
         "location": {
             "type": "string"
         },
+        "AzureASRDestinationEndpoint":{
+            "type": "string"
+        },
+        "AzureASRDestinationMonitoring":{
+            "type": "string"
+        },
         "FileServerIP":{
             "type": "string"
         },
@@ -263,6 +269,60 @@
                         }
                     },
                     {
+                        "name": "Allow-Azure-ADAuth",
+                        "properties": {
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "443",
+                            "sourceAddressPrefix": "[parameters('Subnet-rda-Prefix')]",
+                            "destinationAddressPrefix": "AzureActiveDirectory",
+                            "access": "Allow",
+                            "priority": 2000,
+                            "direction": "Outbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    },
+                    {
+                        "name": "Allow-Azure-Storage",
+                        "properties": {
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "443",
+                            "sourceAddressPrefix": "[parameters('Subnet-rda-Prefix')]",
+                            "destinationAddressPrefix": "Storage",
+                            "access": "Allow",
+                            "priority": 2001,
+                            "direction": "Outbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    },
+                    {
+                        "name": "Allow-Azure-ASR-Endpoint",
+                        "properties": {
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "443",
+                            "sourceAddressPrefix": "[parameters('Subnet-rda-Prefix')]",
+                            "access": "Allow",
+                            "priority": 2002,
+                            "direction": "Outbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": [
+                                "[parameters('AzureASRDestinationEndpoint')]",
+                                "[parameters('AzureASRDestinationMonitoring')]"
+                            ],
+                            "destinationAddressPrefix": ""
+                        }
+                    },
+                    {
                         "name": "Deny-AllOutBound",
                         "properties": {
                             "protocol": "*",
@@ -399,6 +459,60 @@
             "location": "[parameters('location')]",
             "properties": {
                 "securityRules": [
+                    {
+                        "name": "Allow-Azure-ADAuth",
+                        "properties": {
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "443",
+                            "sourceAddressPrefix": "[parameters('Subnet-web-Prefix')]",
+                            "destinationAddressPrefix": "AzureActiveDirectory",
+                            "access": "Allow",
+                            "priority": 2000,
+                            "direction": "Outbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    },
+                    {
+                        "name": "Allow-Azure-Storage",
+                        "properties": {
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "443",
+                            "sourceAddressPrefix": "[parameters('Subnet-web-Prefix')]",
+                            "destinationAddressPrefix": "Storage",
+                            "access": "Allow",
+                            "priority": 2001,
+                            "direction": "Outbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    },
+                    {
+                        "name": "Allow-Azure-ASR-Endpoint",
+                        "properties": {
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "443",
+                            "sourceAddressPrefix": "[parameters('Subnet-web-Prefix')]",
+                            "access": "Allow",
+                            "priority": 2002,
+                            "direction": "Outbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": [
+                                "[parameters('AzureASRDestinationEndpoint')]",
+                                "[parameters('AzureASRDestinationMonitoring')]"
+                            ],
+                            "destinationAddressPrefix": ""
+                        }
+                    },
                     {
                         "name": "Allow-HTTPS-Web",
                         "properties": {
@@ -689,6 +803,60 @@
             "location": "[parameters('location')]",
             "properties": {
                 "securityRules": [
+                    {
+                        "name": "Allow-Azure-ADAuth",
+                        "properties": {
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "443",
+                            "sourceAddressPrefix": "[parameters('Subnet-rdh-Prefix')]",
+                            "destinationAddressPrefix": "AzureActiveDirectory",
+                            "access": "Allow",
+                            "priority": 2000,
+                            "direction": "Outbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    },
+                    {
+                        "name": "Allow-Azure-Storage",
+                        "properties": {
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "443",
+                            "sourceAddressPrefix": "[parameters('Subnet-rdh-Prefix')]",
+                            "destinationAddressPrefix": "Storage",
+                            "access": "Allow",
+                            "priority": 2001,
+                            "direction": "Outbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    },
+                    {
+                        "name": "Allow-Azure-ASR-Endpoint",
+                        "properties": {
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "443",
+                            "sourceAddressPrefix": "[parameters('Subnet-rdh-Prefix')]",
+                            "access": "Allow",
+                            "priority": 2002,
+                            "direction": "Outbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": [
+                                "[parameters('AzureASRDestinationEndpoint')]",
+                                "[parameters('AzureASRDestinationMonitoring')]"
+                            ],
+                            "destinationAddressPrefix": ""
+                        }
+                    },
                     {
                         "name": "Allow-RDaccess-Service",
                         "properties": {
@@ -1035,6 +1203,60 @@
             "properties": {
                 "securityRules": [
                     {
+                        "name": "Allow-Azure-ADAuth",
+                        "properties": {
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "443",
+                            "sourceAddressPrefix": "[parameters('Subnet-app-Prefix')]",
+                            "destinationAddressPrefix": "AzureActiveDirectory",
+                            "access": "Allow",
+                            "priority": 2000,
+                            "direction": "Outbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    },
+                    {
+                        "name": "Allow-Azure-Storage",
+                        "properties": {
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "443",
+                            "sourceAddressPrefix": "[parameters('Subnet-app-Prefix')]",
+                            "destinationAddressPrefix": "Storage",
+                            "access": "Allow",
+                            "priority": 2001,
+                            "direction": "Outbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    },
+                    {
+                        "name": "Allow-Azure-ASR-Endpoint",
+                        "properties": {
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "443",
+                            "sourceAddressPrefix": "[parameters('Subnet-app-Prefix')]",
+                            "access": "Allow",
+                            "priority": 2002,
+                            "direction": "Outbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": [
+                                "[parameters('AzureASRDestinationEndpoint')]",
+                                "[parameters('AzureASRDestinationMonitoring')]"
+                            ],
+                            "destinationAddressPrefix": ""
+                        }
+                    },
+                    {
                         "name": "Allow-HTTPS-RDhost",
                         "properties": {
                             "protocol": "*",
@@ -1324,6 +1546,60 @@
             "location": "[parameters('location')]",
             "properties": {
                 "securityRules": [
+                    {
+                        "name": "Allow-Azure-ADAuth",
+                        "properties": {
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "443",
+                            "sourceAddressPrefix": "[parameters('Subnet-data-Prefix')]",
+                            "destinationAddressPrefix": "AzureActiveDirectory",
+                            "access": "Allow",
+                            "priority": 2000,
+                            "direction": "Outbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    },
+                    {
+                        "name": "Allow-Azure-Storage",
+                        "properties": {
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "443",
+                            "sourceAddressPrefix": "[parameters('Subnet-data-Prefix')]",
+                            "destinationAddressPrefix": "Storage",
+                            "access": "Allow",
+                            "priority": 2001,
+                            "direction": "Outbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    },
+                    {
+                        "name": "Allow-Azure-ASR-Endpoint",
+                        "properties": {
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "443",
+                            "sourceAddressPrefix": "[parameters('Subnet-data-Prefix')]",
+                            "access": "Allow",
+                            "priority": 2002,
+                            "direction": "Outbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": [
+                                "[parameters('AzureASRDestinationEndpoint')]",
+                                "[parameters('AzureASRDestinationMonitoring')]"
+                            ],
+                            "destinationAddressPrefix": ""
+                        }
+                    },
                     {
                         "name": "Allow-SQL-App",
                         "properties": {
@@ -1631,6 +1907,60 @@
             "location": "[parameters('location')]",
             "properties": {
                 "securityRules": [
+                    {
+                        "name": "Allow-Azure-ADAuth",
+                        "properties": {
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "443",
+                            "sourceAddressPrefix": "[parameters('Subnet-core-Prefix')]",
+                            "destinationAddressPrefix": "AzureActiveDirectory",
+                            "access": "Allow",
+                            "priority": 2000,
+                            "direction": "Outbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    },
+                    {
+                        "name": "Allow-Azure-Storage",
+                        "properties": {
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "443",
+                            "sourceAddressPrefix": "[parameters('Subnet-core-Prefix')]",
+                            "destinationAddressPrefix": "Storage",
+                            "access": "Allow",
+                            "priority": 2001,
+                            "direction": "Outbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    },
+                    {
+                        "name": "Allow-Azure-ASR-Endpoint",
+                        "properties": {
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "443",
+                            "sourceAddressPrefix": "[parameters('Subnet-core-Prefix')]",
+                            "access": "Allow",
+                            "priority": 2002,
+                            "direction": "Outbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": [
+                                "[parameters('AzureASRDestinationEndpoint')]",
+                                "[parameters('AzureASRDestinationMonitoring')]"
+                            ],
+                            "destinationAddressPrefix": ""
+                        }
+                    },
                     {
                         "name": "Allow-All-in-DCrep-OnPrem",
                         "properties": {
