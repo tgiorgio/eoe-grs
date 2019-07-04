@@ -1,0 +1,106 @@
+    {
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "loadbalancer_SKU":{
+            "type": "string",
+            "defaultValue": "Standard"
+        },
+        "loadBalancer_name":{
+            "type": "string"
+        },
+        "LBprivateIPAddress":{
+            "type": "string"
+        },
+        "vnetName": {
+            "type": "string"
+        },
+        "vnetResourceGroup":{
+            "type": "string"
+        },
+        "loadbalancer_subnet_name":{
+            "type": "string"
+        },
+        "GRSWEB_Probe_Port":{
+            "type": "string"
+        },
+        "frontendListener_port":{
+            "type": "string"
+        }
+    },
+    "variables": {
+        "virtualNetworks_externalid": "[resourceId(parameters('vnetResourceGroup'),'Microsoft.Network/virtualNetworks', parameters('vnetName'))]"
+    },
+    "resources": [
+        {
+            "type": "Microsoft.Network/loadBalancers",
+            "apiVersion": "2019-04-01",
+            "name": "[parameters('loadBalancer_name')]",
+            "location": "[resourceGroup().location]",
+            "sku": {
+                "name": "[parameters('loadbalancer_SKU')]",
+                "tier": "Regional"
+            },
+            "properties": {
+                "frontendIPConfigurations": [
+                    {
+                        "name": "LoadBalancerFrontEnd",
+                        "properties": {
+                            "privateIPAddress": "[parameters('LBprivateIPAddress')]",
+                            "privateIPAllocationMethod": "Static",
+                            "subnet": {
+                                "id": "[concat(variables('virtualNetworks_externalid'), '/subnets/',parameters('loadbalancer_subnet_name'))]"
+                            },
+                            "privateIPAddressVersion": "IPv4"
+                        }
+                    }
+                ],
+                "backendAddressPools": [
+                    {
+                        "name": "GRSWEBI",
+                        "properties": {
+                        }
+                    }
+                ],
+                "loadBalancingRules": [
+                    {
+                        "name": "GRSWEBI",
+                        "properties": {
+                            "frontendIPConfiguration": {
+                                "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancer_name')), '/frontendIPConfigurations/LoadBalancerFrontEnd')]"
+                            },
+                            "frontendPort": "[parameters('frontendListener_port')]",
+                            "backendPort": "[parameters('frontendListener_port')]",
+                            "enableFloatingIP": false,
+                            "idleTimeoutInMinutes": 4,
+                            "protocol": "Tcp",
+                            "enableTcpReset": false,
+                            "loadDistribution": "Default",
+                            "disableOutboundSnat": false,
+                            "backendAddressPool": {
+                                "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancer_name')), '/backendAddressPools/GRSWEBI')]"
+                            },
+                            "probe": {
+                                "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancer_name')), '/probes/GRSWEBI')]"
+                            }
+                        }
+                    }
+                ],
+                "probes": [
+                    {
+                        "name": "GRSWEBI",
+                        "properties": {
+                            "protocol": "Tcp",
+                            "port": "[parameters('GRSWEB_Probe_Port')]",
+                            "intervalInSeconds": 5,
+                            "numberOfProbes": 2
+                        }
+                    }
+                ],
+                "inboundNatRules": [],
+                "outboundRules": [],
+                "inboundNatPools": []
+            }
+        }
+    ]
+}

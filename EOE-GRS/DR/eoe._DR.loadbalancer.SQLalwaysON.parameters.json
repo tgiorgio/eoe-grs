@@ -1,0 +1,30 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "loadbalancer_sku": {
+            "value": "Standard"
+        },
+        "loadBalancer_name": {
+            "value": "EOE-AZGRSDB-LB"
+        },
+        "LBprivateIPAddress": {
+            "value": "172.25.3.137"
+        },
+        "vnetName": {
+            "value": "eoe-prod-vnet"
+        },
+        "vnetResourceGroup": {
+            "value": "eoe-prod-vnet-rg"
+        },
+        "lb_subnet_name": {
+            "value": "eoe-prod-sub-data"
+        },
+        "GRSDB_Probe_Port": {
+            "value": "5999"
+        },
+        "SQLAlwaysOnEndPointListener_port": {
+            "value": "1433"
+        }
+    }
+}
