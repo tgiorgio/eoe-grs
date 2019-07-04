@@ -47,9 +47,6 @@
         "Subnet-mgmt-prefix": {
             "value": "172.26.1.128/26"
         },
-        "Subnet-waf-prefix": {
-          "value": "172.26.14.192/27"
-        },
         "Subnet-rda-name":{
             "value": "eoe-dr-sub-rda"
         },
@@ -73,9 +70,6 @@
         },
         "Subnet-mgmt-name":{
           "value": "eoe-dr-sub-mgmt"
-        }    ,
-        "Subnet-waf-name":{
-          "value": "eoe-dr-sub-waf"
-        }      
+        }   
     }
 }
