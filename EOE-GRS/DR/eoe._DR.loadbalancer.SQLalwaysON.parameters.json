@@ -6,19 +6,19 @@
             "value": "Standard"
         },
         "loadBalancer_name": {
-            "value": "EOE-AZGRSDB-LB"
+            "value": "EOE-AZDRGRSDB-LB"
         },
         "LBprivateIPAddress": {
-            "value": "172.25.3.137"
+            "value": "172.26.3.137"
         },
         "vnetName": {
-            "value": "eoe-prod-vnet"
+            "value": "eoe-dr-vnet"
         },
         "vnetResourceGroup": {
-            "value": "eoe-prod-vnet-rg"
+            "value": "eoe-dr-vnet-rg"
         },
         "lb_subnet_name": {
-            "value": "eoe-prod-sub-data"
+            "value": "eoe-dr-sub-data"
         },
         "GRSDB_Probe_Port": {
             "value": "5999"

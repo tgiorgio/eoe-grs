@@ -6,7 +6,7 @@
             "value": "Standard"
         },
         "loadBalancer_name": {
-            "value": "EOE-AZGRSWEBINTERNAL-LB"
+            "value": "EOE-AZGRSWEBI-LB"
         },
         "LBprivateIPAddress": {
             "value": "172.25.3.7"
