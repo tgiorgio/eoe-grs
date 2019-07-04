@@ -44,9 +44,6 @@
         "Subnet-mgmt-Name":{
             "type": "string"
         },
-        "subnet-waf-name":{
-            "type": "string"
-        },
         "subnet-test-name":{
             "type": "string"
         },
@@ -71,9 +68,6 @@
         "Subnet-mgmt-Prefix":{
             "type": "string"
         },
-        "Subnet-waf-prefix":{
-            "type": "string"
-        },
         "Subnet-test-prefix":{
             "type": "string"
         }
@@ -86,7 +80,6 @@
         "nsg-name-sub-data" : "[concat(parameters('subnet-data-name'),'-NSG')]",
         "nsg-name-sub-core" : "[concat(parameters('subnet-core-name'),'-NSG')]",
         "nsg-name-sub-mgmt" : "[concat(parameters('subnet-mgmt-name'),'-NSG')]",
-        "nsg-name-sub-waf" : "[concat(parameters('subnet-waf-name'),'-NSG')]",
         "nsg-name-sub-test" : "[concat(parameters('subnet-test-name'),'-NSG')]"
 
     },
@@ -2266,195 +2259,7 @@
                     }
                 ]
             }
-        },   
-        {
-            "type": "Microsoft.Network/networkSecurityGroups",
-            "apiVersion": "2018-12-01",
-            "name": "[variables('nsg-name-sub-waf')]",
-            "location": "[parameters('location')]",
-            "properties": {
-                "securityRules": [
-                    {
-                        "name": "Allow-HTTPS",
-                        "properties": {
-                            "protocol": "*",
-                            "sourcePortRange": "*",
-                            "destinationPortRange": "443",
-                            "sourceAddressPrefix": "*",
-                            "destinationAddressPrefix": "[parameters('Subnet-waf-prefix')]",
-                            "access": "Allow",
-                            "priority": 1000,
-                            "direction": "Inbound",
-                            "sourcePortRanges": [],
-                            "destinationPortRanges": [],
-                            "sourceAddressPrefixes": [],
-                            "destinationAddressPrefixes": []
-                        }
-                    },
-                    {
-                        "name": "Deny-AllInBound",
-                        "properties": {
-                            "protocol": "*",
-                            "sourcePortRange": "*",
-                            "destinationPortRange": "*",
-                            "sourceAddressPrefix": "*",
-                            "destinationAddressPrefix": "*",
-                            "access": "Deny",
-                            "priority": 4000,
-                            "direction": "Inbound",
-                            "sourcePortRanges": [],
-                            "destinationPortRanges": [],
-                            "sourceAddressPrefixes": [],
-                            "destinationAddressPrefixes": []
-                        }
-                    },
-                    {
-                        "name": "Allow-HTTPS-Web",
-                        "properties": {
-                            "protocol": "*",
-                            "sourcePortRange": "*",
-                            "destinationPortRange": "443",
-                            "sourceAddressPrefix": "[parameters('Subnet-waf-prefix')]",
-                            "destinationAddressPrefix": "[parameters('Subnet-web-Prefix')]",
-                            "access": "Allow",
-                            "priority": 1000,
-                            "direction": "Outbound",
-                            "sourcePortRanges": [],
-                            "destinationPortRanges": [],
-                            "sourceAddressPrefixes": [],
-                            "destinationAddressPrefixes": []
-                        }
-                    },
-                    {
-                        "name": "Deny-AllOutBound",
-                        "properties": {
-                            "protocol": "*",
-                            "sourcePortRange": "*",
-                            "destinationPortRange": "*",
-                            "sourceAddressPrefix": "*",
-                            "destinationAddressPrefix": "*",
-                            "access": "Allow",
-                            "priority": 4000,
-                            "direction": "Outbound",
-                            "sourcePortRanges": [],
-                            "destinationPortRanges": [],
-                            "sourceAddressPrefixes": [],
-                            "destinationAddressPrefixes": []
-                        }
-                    }
-                ],
-                "defaultSecurityRules": [
-                    {
-                        "name": "AllowVnetInBound",
-                        "properties": {
-                            "description": "Allow inbound traffic from all VMs in VNET",
-                            "protocol": "*",
-                            "sourcePortRange": "*",
-                            "destinationPortRange": "*",
-                            "sourceAddressPrefix": "VirtualNetwork",
-                            "destinationAddressPrefix": "VirtualNetwork",
-                            "access": "Allow",
-                            "priority": 65000,
-                            "direction": "Inbound",
-                            "sourcePortRanges": [],
-                            "destinationPortRanges": [],
-                            "sourceAddressPrefixes": [],
-                            "destinationAddressPrefixes": []
-                        }
-                    },
-                    {
-                        "name": "AllowAzureLoadBalancerInBound",
-                        "properties": {
-                            "description": "Allow inbound traffic from azure load balancer",
-                            "protocol": "*",
-                            "sourcePortRange": "*",
-                            "destinationPortRange": "*",
-                            "sourceAddressPrefix": "AzureLoadBalancer",
-                            "destinationAddressPrefix": "*",
-                            "access": "Allow",
-                            "priority": 65001,
-                            "direction": "Inbound",
-                            "sourcePortRanges": [],
-                            "destinationPortRanges": [],
-                            "sourceAddressPrefixes": [],
-                            "destinationAddressPrefixes": []
-                        }
-                    },
-                    {
-                        "name": "DenyAllInBound",
-                        "properties": {
-                            "description": "Deny all inbound traffic",
-                            "protocol": "*",
-                            "sourcePortRange": "*",
-                            "destinationPortRange": "*",
-                            "sourceAddressPrefix": "*",
-                            "destinationAddressPrefix": "*",
-                            "access": "Deny",
-                            "priority": 65500,
-                            "direction": "Inbound",
-                            "sourcePortRanges": [],
-                            "destinationPortRanges": [],
-                            "sourceAddressPrefixes": [],
-                            "destinationAddressPrefixes": []
-                        }
-                    },
-                    {
-                        "name": "AllowVnetOutBound",
-                        "properties": {
-                            "description": "Allow outbound traffic from all VMs to all VMs in VNET",
-                            "protocol": "*",
-                            "sourcePortRange": "*",
-                            "destinationPortRange": "*",
-                            "sourceAddressPrefix": "VirtualNetwork",
-                            "destinationAddressPrefix": "VirtualNetwork",
-                            "access": "Allow",
-                            "priority": 65000,
-                            "direction": "Outbound",
-                            "sourcePortRanges": [],
-                            "destinationPortRanges": [],
-                            "sourceAddressPrefixes": [],
-                            "destinationAddressPrefixes": []
-                        }
-                    },
-                    {
-                        "name": "AllowInternetOutBound",
-                        "properties": {
-                            "description": "Allow outbound traffic from all VMs to Internet",
-                            "protocol": "*",
-                            "sourcePortRange": "*",
-                            "destinationPortRange": "*",
-                            "sourceAddressPrefix": "*",
-                            "destinationAddressPrefix": "Internet",
-                            "access": "Allow",
-                            "priority": 65001,
-                            "direction": "Outbound",
-                            "sourcePortRanges": [],
-                            "destinationPortRanges": [],
-                            "sourceAddressPrefixes": [],
-                            "destinationAddressPrefixes": []
-                        }
-                    },
-                    {
-                        "name": "DenyAllOutBound",
-                        "properties": {
-                            "description": "Deny all outbound traffic",
-                            "protocol": "*",
-                            "sourcePortRange": "*",
-                            "destinationPortRange": "*",
-                            "sourceAddressPrefix": "*",
-                            "destinationAddressPrefix": "*",
-                            "access": "Deny",
-                            "priority": 65500,
-                            "direction": "Outbound",
-                            "sourcePortRanges": [],
-                            "destinationPortRanges": [],
-                            "sourceAddressPrefixes": [],
-                            "destinationAddressPrefixes": []
-                        }
-                    }
-                ]
-            }
-        },   
+        },  
         {
             "type": "Microsoft.Network/networkSecurityGroups",
             "apiVersion": "2018-12-01",

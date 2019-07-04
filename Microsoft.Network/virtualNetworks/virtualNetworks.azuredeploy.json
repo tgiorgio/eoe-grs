@@ -191,10 +191,7 @@
                       {
                         "name": "[variables('Subnet-waf-name')]",
                         "properties": {
-                          "addressPrefix": "[parameters('Subnet-waf-prefix')]",
-                          "networkSecurityGroup": {
-                            "id": "[resourceId('Microsoft.Network/networkSecurityGroups', concat(variables('Subnet-waf-name'),'-NSG'))]"
-                          }
+                          "addressPrefix": "[parameters('Subnet-waf-prefix')]"
                         }
                       }
                 ]
