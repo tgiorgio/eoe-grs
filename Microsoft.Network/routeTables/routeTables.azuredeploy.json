@@ -2,63 +2,60 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "location": {
+        "vnetAddressPrefix":{
             "type": "string"
-            },
-          "vnetAddressPrefix":{
+        },
+        "Subnet-rda-name":{
             "type": "string"
-          },
-          "Subnet-rda-name":{
+        },
+        "Subnet-rdh-name":{
             "type": "string"
-          },
-          "Subnet-rdh-name":{
+        },
+        "Subnet-data-name":{
             "type": "string"
-          },
-          "Subnet-data-name":{
+        },
+        "Subnet-app-name":{
             "type": "string"
-          },
-          "Subnet-app-name":{
+        },
+        "Subnet-core-name":{
             "type": "string"
-          },
-          "Subnet-core-name":{
+        },
+        "Subnet-web-name":{
             "type": "string"
-          },
-          "Subnet-web-name":{
+        },
+        "Subnet-test-name":{
             "type": "string"
-          },
-          "Subnet-test-name":{
+        },
+        "Subnet-mgmt-name":{
             "type": "string"
-          },
-          "Subnet-mgmt-name":{
+        },
+        "Subnet-rda-Prefix":{
             "type": "string"
-          },
-          "Subnet-rda-Prefix":{
+        },
+        "Subnet-rdh-Prefix":{
             "type": "string"
-          },
-          "Subnet-rdh-Prefix":{
+        },
+        "Subnet-data-Prefix":{
             "type": "string"
-          },
-          "Subnet-data-Prefix":{
+        },
+        "Subnet-app-Prefix":{
             "type": "string"
-          },
-          "Subnet-app-Prefix":{
+        },
+        "Subnet-core-Prefix":{
             "type": "string"
-          },
-          "Subnet-core-Prefix":{
+        },
+        "Subnet-web-Prefix":{
             "type": "string"
-          },
-          "Subnet-web-Prefix":{
+        },
+        "Subnet-test-Prefix":{
             "type": "string"
-          },
-          "Subnet-test-Prefix":{
+        },
+        "Subnet-mgmt-Prefix":{
             "type": "string"
-          },
-          "Subnet-mgmt-Prefix":{
-            "type": "string"
-          },
-          "onPremAddressPrefix":{
-              "type": "string"
-          }
+        },
+        "onPremAddressPrefix":{
+                "type": "string"
+        }
     },
     "variables": {
         "RT-rda-name" : "[concat(parameters('Subnet-rda-name'),'-RT')]",
@@ -75,7 +72,7 @@
             "type": "Microsoft.Network/routeTables",
             "apiVersion": "2018-12-01",
             "name": "[variables('RT-rda-name')]",
-            "location": "[parameters('location')]",
+            "location": "[resourceGroup().location]",
             "tags": {
                 "Project": "GRS"
             },
@@ -110,7 +107,7 @@
             "type": "Microsoft.Network/routeTables",
             "apiVersion": "2018-12-01",
             "name": "[variables('RT-rdh-name')]",
-            "location": "[parameters('location')]",
+            "location": "[resourceGroup().location]",
             "tags": {
                 "Project": "GRS"
             },
@@ -145,7 +142,7 @@
             "type": "Microsoft.Network/routeTables",
             "apiVersion": "2018-12-01",
             "name": "[variables('RT-data-name')]",
-            "location": "[parameters('location')]",
+            "location": "[resourceGroup().location]",
             "tags": {
                 "Project": "GRS"
             },
@@ -180,7 +177,7 @@
             "type": "Microsoft.Network/routeTables",
             "apiVersion": "2018-12-01",
             "name": "[variables('RT-app-name')]",
-            "location": "[parameters('location')]",
+            "location": "[resourceGroup().location]",
             "tags": {
                 "Project": "GRS"
             },
@@ -215,7 +212,7 @@
             "type": "Microsoft.Network/routeTables",
             "apiVersion": "2018-12-01",
             "name": "[variables('RT-core-name')]",
-            "location": "[parameters('location')]",
+            "location": "[resourceGroup().location]",
             "tags": {
                 "Project": "GRS"
             },
@@ -250,7 +247,7 @@
             "type": "Microsoft.Network/routeTables",
             "apiVersion": "2018-12-01",
             "name": "[variables('RT-web-name')]",
-            "location": "[parameters('location')]",
+            "location": "[resourceGroup().location]",
             "tags": {
                 "Project": "GRS"
             },
@@ -285,7 +282,7 @@
             "type": "Microsoft.Network/routeTables",
             "apiVersion": "2018-12-01",
             "name": "[variables('RT-test-name')]",
-            "location": "[parameters('location')]",
+            "location": "[resourceGroup().location]",
             "tags": {
                 "Project": "GRS"
             },
@@ -320,7 +317,7 @@
             "type": "Microsoft.Network/routeTables",
             "apiVersion": "2018-12-01",
             "name": "[variables('RT-mgmt-name')]",
-            "location": "[parameters('location')]",
+            "location": "[resourceGroup().location]",
             "tags": {
                 "Project": "GRS"
             },

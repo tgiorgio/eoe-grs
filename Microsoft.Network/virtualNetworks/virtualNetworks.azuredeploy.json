@@ -5,9 +5,6 @@
       "customerprefix":{
         "type":"string"
       },
-      "location": {
-          "type": "string"
-      },
       "environment":{
         "type": "string"
       },
@@ -71,7 +68,7 @@
             "apiVersion": "2018-11-01",
             "name": "[variables('VNETname')]",
             "type": "Microsoft.Network/virtualNetworks",
-            "location": "[parameters('location')]",
+            "location": "[resourceGroup().location]",
             "dependsOn": [],
             "properties": {
                 "addressSpace": {

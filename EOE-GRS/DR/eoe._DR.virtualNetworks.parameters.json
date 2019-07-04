@@ -5,9 +5,6 @@
         "customerprefix":{
             "value":"eoe"
         },
-        "location": {
-            "value": "ukwest"
-        },
         "environment":{
             "value": "dr"
         },

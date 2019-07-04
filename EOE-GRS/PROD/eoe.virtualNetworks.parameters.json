@@ -5,9 +5,6 @@
         "customerprefix":{
             "value":"EoE"
         },
-        "location": {
-            "value": "uksouth"
-        },
         "environment":{
             "value": "prod"
         },
