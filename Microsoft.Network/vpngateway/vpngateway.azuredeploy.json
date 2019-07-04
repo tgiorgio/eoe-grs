@@ -57,7 +57,7 @@
   },
   "variables": {
     "gatewaySubnetRef": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworkName'), 'GatewaySubnet')]",
-    "gatewayPublicIPName": "gatewayPublicIP"
+    "gatewayPublicIPName": "[concat(parameters('gatewayName'),'publicIP')]"
   },
   "resources": [
     {

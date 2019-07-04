@@ -6,28 +6,28 @@
             "value": "WAF"
         },
         "applicationGateway_name": {
-            "value": "EOE-PROD-WAF-01"
+            "value": "EOE-DR-WAF-01"
         },
         "wafMode":{
             "value": "Prevention"
         },
         "vnetName": {
-            "value": "eoe-prod-vnet"
+            "value": "eoe-dr-vnet"
         },
         "vnetResourceGroup": {
-            "value": "eoe-prod-vnet-rg"
+            "value": "eoe-dr-vnet-rg"
         },
         "GRSWEBX01-IP": {
-            "value": "172.25.4.5"
+            "value": "172.26.4.5"
         },
         "GRSWEBX02-IP": {
-            "value": "172.25.4.6"
+            "value": "172.26.4.6"
         },
         "waf_subnet_name": {
-            "value": "eoe-prod-sub-waf"
+            "value": "eoe-dr-sub-waf"
         },
         "waf_IP": {
-            "value": "172.25.4.196"
+            "value": "172.26.4.196"
         },
         "applicationGatewaySize": {
             "value": "WAF_Medium"

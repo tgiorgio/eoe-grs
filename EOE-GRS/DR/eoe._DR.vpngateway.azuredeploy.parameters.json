@@ -1,0 +1,33 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "vpnType": {
+            "value": "RouteBased"
+        },
+        "virtualNetworkName": {
+            "value": "eoe-dr-vnet"
+        },
+        "gatewayName": {
+            "value": "eoedrGateway"
+        },
+        "gatewaySku": {
+            "value": "Basic"
+        },
+        "onpremAddressPrefix":{
+            "value": ["192.168.0.0/16" , "10.129.117.0/27"]
+        },
+        "onpremGatewayIpAddress":{
+            "value": "188.39.20.162"
+        },
+        "VPNlocalGatewayName":{
+            "value": "OnPrem-DR-Connection"
+        },
+        "VPNconnectionName":{
+            "value": "OnPrem-DR-Connection"
+        },
+        "sharedKey":{
+            "value": "Fa7fajneFwtDHwwPMJCeA67yQZE3xSMJ"
+        }
+    }
+}

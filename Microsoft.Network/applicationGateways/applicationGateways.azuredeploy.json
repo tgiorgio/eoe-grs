@@ -2,7 +2,18 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "location":{
+        "wafMode": {
+            "type": "string",
+            "allowedValues": [
+              "Detection",
+              "Prevention"
+            ],
+            "defaultValue": "Detection",
+            "metadata": {
+              "description": "WAF Mode"
+            }
+          },
+        "appgatewayTier":{
             "type": "string"
         },
         "applicationGateway_name": {
@@ -14,10 +25,10 @@
         "vnetResourceGroup":{
             "type": "string"
         },
-        "Webserver_1_name": {
+        "GRSWEBX01-IP": {
             "type": "string"
         },
-        "Webserver_2_name": {
+        "GRSWEBX02-IP": {
             "type": "string"
         },
         "waf_subnet_name":{
@@ -60,20 +71,18 @@
     },
     "variables": {
 
-        "virtualNetworks_externalid": "[resourceId(parameters('vnetResourceGroup'),'Microsoft.Network/virtualNetworks', parameters('vnetName'))]",
-        "Webserver_1_NIC_id": "[resourceId('Microsoft.Network/networkInterfaces',concat(parameters('Webserver_1_name'),'-NIC'))]", 
-        "Webserver_2_NIC_id": "[resourceId('Microsoft.Network/networkInterfaces',concat(parameters('Webserver_2_name'),'-NIC'))]"
+        "virtualNetworks_externalid": "[resourceId(parameters('vnetResourceGroup'),'Microsoft.Network/virtualNetworks', parameters('vnetName'))]"
     },
     "resources": [
         {
             "type": "Microsoft.Network/applicationGateways",
             "apiVersion": "2019-04-01",
             "name": "[parameters('applicationGateway_name')]",
-            "location": "[parameters('location')]",
+            "location": "[resourceGroup().location]",
             "properties": {
                 "sku": {
                     "name": "[parameters('applicationGatewaySize')]",
-                    "tier": "WAF",
+                    "tier": "[parameters('appgatewayTier')]",
                     "capacity": "[parameters('applicationGatewayInstanceCount')]"
                 },
                 "gatewayIPConfigurations": [
@@ -116,15 +125,15 @@
                     {
                         "name": "GRS-WEBX",
                         "properties": {
-                            "backendIPConfigurations": [
+                            "backendIPConfigurations": [],
+                            "BackendAddresses": [
                                 {
-                                    "id": "[concat(variables('Webserver_1_NIC_id'), '/ipConfigurations/ipconfig1')]"
+                                  "IpAddress": "[parameters('GRSWEBX01-IP')]"
                                 },
                                 {
-                                    "id": "[concat(variables('Webserver_2_NIC_id'), '/ipConfigurations/ipconfig1')]"
+                                  "IpAddress": "[parameters('GRSWEBX02-IP')]"
                                 }
-                            ],
-                            "backendAddresses": []
+                              ]
                         },
                         "type": "Microsoft.Network/applicationGateways/backendAddressPools"
                     }
@@ -145,7 +154,7 @@
                 ],
                 "httpListeners": [
                     {
-                        "name": "appGatewayHttpListener",
+                        "name": "DefaultappGatewayHttpListener",
                         "properties": {
                             "frontendIPConfiguration": {
                                 "id": "[concat(resourceId('Microsoft.Network/applicationGateways', parameters('applicationGateway_name')), '/frontendIPConfigurations/appGatewayFrontendIP')]"
@@ -162,11 +171,11 @@
                 "urlPathMaps": [],
                 "requestRoutingRules": [
                     {
-                        "name": "rule1",
+                        "name": "GRS-WEBX-Default-rule",
                         "properties": {
                             "ruleType": "Basic",
                             "httpListener": {
-                                "id": "[concat(resourceId('Microsoft.Network/applicationGateways', parameters('applicationGateway_name')), '/httpListeners/appGatewayHttpListener')]"
+                                "id": "[concat(resourceId('Microsoft.Network/applicationGateways', parameters('applicationGateway_name')), '/httpListeners/DefaultappGatewayHttpListener')]"
                             },
                             "backendAddressPool": {
                                 "id": "[concat(resourceId('Microsoft.Network/applicationGateways', parameters('applicationGateway_name')), '/backendAddressPools/GRS-WEBX')]"
@@ -183,7 +192,7 @@
                 "redirectConfigurations": [],
                 "webApplicationFirewallConfiguration": {
                     "enabled": true,
-                    "firewallMode": "Prevention",
+                    "firewallMode": "[parameters('wafMode')]",
                     "ruleSetType": "OWASP",
                     "ruleSetVersion": "3.0",
                     "disabledRuleGroups": [],

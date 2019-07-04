@@ -1,0 +1,36 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "fw-internal-ip": {
+            "value": "172.26.1.7"
+        },
+        "RT-rda-name":{
+            "value": "eoe-prod-sub-rda-RT"
+        },
+        "RT-rdh-name":{
+          "value": "eoe-prod-sub-rdh-RT"
+        },
+        "RT-data-name":{
+          "value": "eoe-prod-sub-data-RT"
+        },
+        "RT-app-name":{
+          "value": "eoe-prod-sub-app-RT"
+        },
+        "RT-core-name":{
+          "value": "eoe-prod-sub-core-RT"
+        },
+        "RT-web-name":{
+          "value": "eoe-prod-sub-web-RT"
+        },
+        "RT-test-name":{
+          "value": "eoe-prod-sub-test-RT"
+        },
+        "RT-mgmt-name":{
+          "value": "eoe-prod-sub-mgmt-RT"
+        },
+        "vNetPrefix": {
+            "value": "172.26.0.0/16"
+        }
+    }
+}
