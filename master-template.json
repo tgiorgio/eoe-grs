@@ -7,11 +7,8 @@
       "vnetRG":"eoe-prod-vnet-RG",
       "MgmtRG":"eoe-prod-mgmt-RG",
       "sharedServicesRG": "eoe-prod-shared-RG",
-      "coreRG": "eoe-prod-core-RG",
-      "webRG": "eoe-prod-web-RG",
-      "dataRG": "eoe-prod-data-RG",
-      "appRG": "eoe-prod-app-RG",
-      "rdsRG": "eoe-prod-rds-RG"      
+      "repo_base_url_templates":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/",
+      "repo_base_url_parameters":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/EOE-GRS/PROD/"
     },  
     "resources": [
     {
@@ -38,7 +35,7 @@
     {
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2018-05-01",
-      "name": "Deployt-RT",
+      "name": "Deploy-RT",
       "resourceGroup": "[variables('vnetRG')]",
       "dependsOn": [
         "[resourceId('Microsoft.Resources/resourceGroups/',variables('vnetRG'))]"
@@ -46,11 +43,11 @@
       "properties": {
         "mode": "Incremental",
         "templateLink": {
-            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/Microsoft.Network/routeTables/routeTables.azuredeploy.json",
+            "uri":"[concat(variables('repo_base_url_templates'),'Microsoft.Network/routeTables/routeTables.azuredeploy.json')]",
             "contentVersion":"1.0.0.0"
           },
         "parametersLink": {
-            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/EOE-GRS/eoe.routeTables.parameters.json",
+            "uri":"[concat(variables('repo_base_url_parameters'),'eoe.routeTables.parameters.json')]",
             "contentVersion":"1.0.0.0"
           }
       }
@@ -66,11 +63,11 @@
       "properties": {
         "mode": "Incremental",
         "templateLink": {
-            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/Microsoft.Network/networkSecurityGroups/networkSecurityGroups.azuredeploy.json",
+            "uri":"[concat(variables('repo_base_url_templates'),'Microsoft.Network/networkSecurityGroups/networkSecurityGroups.azuredeploy.json')]",
             "contentVersion":"1.0.0.0"
           },
         "parametersLink": {
-            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/EOE-GRS/eoe.networkSecurityGroups.parameters.json",
+            "uri":"[concat(variables('repo_base_url_parameters'),'eoe.NSG.parameters.json')]",
             "contentVersion":"1.0.0.0"
           }
       }
@@ -83,16 +80,16 @@
       "dependsOn": [
         "[resourceId('Microsoft.Resources/resourceGroups/',variables('vnetRG'))]",
         "Deploy-NSG",
-        "Deployt-RT"
+        "Deploy-RT"
       ],
       "properties": {
         "mode": "Incremental",
         "templateLink": {
-            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/Microsoft.Network/virtualNetworks/virtualNetworks.azuredeploy.json",
+            "uri":"[concat(variables('repo_base_url_templates'),'Microsoft.Network/virtualNetworks/virtualNetworks.azuredeploy.json')]",
             "contentVersion":"1.0.0.0"
           },
         "parametersLink": {
-            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/EOE-GRS/eoe.virtualNetworks.parameters.json",
+            "uri":"[concat(variables('repo_base_url_parameters'),'eoe.virtualNetworks.parameters.json')]",
             "contentVersion":"1.0.0.0"
           }
       }
@@ -108,10 +105,10 @@
       "properties": {
           "mode": "Incremental",
           "templateLink": {
-              "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/Fortigate-HA-ActiveActive-LB/GRS-Fortigate-Template.json"
+              "uri":"[concat(variables('repo_base_url_templates'),'Fortigate-HA-ActiveActive-LB/GRS-Fortigate-Template.json')]"
           },
           "parametersLink": {
-            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/EOE-GRS/Fortigate-Template.parameters.json",
+            "uri":"[concat(variables('repo_base_url_parameters'),'eoe.fortigate.HA.parameters.json')]",
             "contentVersion":"1.0.0.0"
           }
       }
@@ -129,11 +126,11 @@
       "properties": {
         "mode": "Incremental",
         "templateLink": {
-            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/Microsoft.Network/routeTables/routeTables.Routes/routeTables.route.azuredeploy.json",
+            "uri":"[concat(variables('repo_base_url_templates'),'Microsoft.Network/routeTables/routeTables.Routes/routeTables.route.azuredeploy.json')]",
             "contentVersion":"1.0.0.0"
           },
         "parametersLink": {
-            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/EOE-GRS/eoe.routeTables.route.azuredeploy.parameters.json",
+            "uri":"[concat(variables('repo_base_url_parameters'),'eoe.routeTables.route.parameters.json')]",
             "contentVersion":"1.0.0.0"
           }
       }
@@ -156,11 +153,11 @@
       "properties": {
         "mode": "Incremental",
         "templateLink": {
-            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/Microsoft.Storage/storage.azuredeploy.json",
+            "uri":"[concat(variables('repo_base_url_templates'),'Microsoft.Storage/storage.azuredeploy.json')]",
             "contentVersion":"1.0.0.0"
           },
         "parametersLink": {
-            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/EOE-GRS/eoe.storage.azuredeploy.parameters.json",
+            "uri":"[concat(variables('repo_base_url_parameters'),'eoe.storage.parameters.json')]",
             "contentVersion":"1.0.0.0"
           }
       }
@@ -177,11 +174,11 @@
       "properties": {
         "mode": "Incremental",
         "templateLink": {
-            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/Microsoft.Network/vpngateway/vpngateway.azuredeploy.json",
+            "uri":"[concat(variables('repo_base_url_templates'),'Microsoft.Network/vpngateway/vpngateway.azuredeploy.json')]",
             "contentVersion":"1.0.0.0"
           },
         "parametersLink": {
-            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/EOE-GRS/vpngateway.azuredeploy.parameters.json",
+            "uri":"[concat(variables('repo_base_url_parameters'),'vpngateway.parameters.json')]",
             "contentVersion":"1.0.0.0"
           }
       }
@@ -205,11 +202,11 @@
       "properties": {
         "mode": "Incremental",
         "templateLink": {
-            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/Microsoft.Compute/vm-win-CIS-L1/jumpboxvm.azuredeploy.json",
+            "uri":"[concat(variables('repo_base_url_templates'),'Microsoft.Compute/vm-win-CIS-L1/jumpboxvm.azuredeploy.json')]",
             "contentVersion":"1.0.0.0"
           },
         "parametersLink": {
-            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/EOE-GRS/eoe.jumpboxvm.parameters.json",
+            "uri":"[concat(variables('repo_base_url_parameters'),'eoe.compute.jumpboxvm.parameters.json')]",
             "contentVersion":"1.0.0.0"
           }
       }

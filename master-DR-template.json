@@ -11,7 +11,9 @@
       "webRG": "eoe-dr-web-RG",
       "dataRG": "eoe-dr-data-RG",
       "appRG": "eoe-dr-app-RG",
-      "rdsRG": "eoe-dr-rds-RG"      
+      "rdsRG": "eoe-dr-rds-RG",
+      "repo_base_url_templates":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/",
+      "repo_base_url_parameters":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/EOE-GRS/DR/"   
     },  
     "resources": [
     {
@@ -32,11 +34,11 @@
       "properties": {
         "mode": "Incremental",
         "templateLink": {
-            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/Microsoft.Network/routeTables/routeTables.azuredeploy.json",
+            "uri":"[concat(variables('repo_base_url_templates'),'Microsoft.Network/routeTables/routeTables.azuredeploy.json')]",
             "contentVersion":"1.0.0.0"
           },
         "parametersLink": {
-            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/EOE-GRS/DR/eoe._DR.routeTables.parameters.json",
+            "uri":"[concat(variables('repo_base_url_parameters'),'eoe._DR.routeTables.parameters.json')]",
             "contentVersion":"1.0.0.0"
           }
       }
@@ -52,11 +54,11 @@
       "properties": {
         "mode": "Incremental",
         "templateLink": {
-            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/Microsoft.Network/networkSecurityGroups/networkSecurityGroups.azuredeploy.json",
+            "uri":"[concat(variables('repo_base_url_templates'),'Microsoft.Network/networkSecurityGroups/networkSecurityGroups.azuredeploy.json')]",
             "contentVersion":"1.0.0.0"
           },
         "parametersLink": {
-            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/EOE-GRS/DR/eoe._DR.networkSecurityGroups.parameters.json",
+            "uri":"[concat(variables('repo_base_url_parameters'),'eoe._DR.NSG.parameters.json')]",
             "contentVersion":"1.0.0.0"
           }
       }
@@ -74,11 +76,11 @@
       "properties": {
         "mode": "Incremental",
         "templateLink": {
-            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/Microsoft.Network/virtualNetworks/virtualNetworks.azuredeploy.json",
+            "uri":"[concat(variables('repo_base_url_templates'),'Microsoft.Network/virtualNetworks/virtualNetworks.azuredeploy.json')]",
             "contentVersion":"1.0.0.0"
           },
         "parametersLink": {
-            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/EOE-GRS/DR/eoe._DR.virtualNetworks.parameters.json",
+            "uri":"[concat(variables('repo_base_url_parameters'),'eoe._DR.virtualNetworks.parameters.json')]",
             "contentVersion":"1.0.0.0"
           }
       }
@@ -94,10 +96,81 @@
       "properties": {
           "mode": "Incremental",
           "templateLink": {
-              "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/Fortigate-Single-VM-2-NIC/fortigate.single.vm.deploy.json"
+            "uri":"[concat(variables('repo_base_url_templates'),'Fortigate-Single-VM-2-NIC/fortigate.single.vm.deploy.json')]"
           },
           "parametersLink": {
-            "uri":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/EOE-GRS/DR/eoe._DR.fortigate.single.vm.deploy.parameters.json",
+            "uri":"[concat(variables('repo_base_url_parameters'),'eoe._DR.fortigate.single.vm.deploy.parameters.json')]",
+            "contentVersion":"1.0.0.0"
+          }
+      }
+    },
+    {
+      "type": "Microsoft.Resources/resourceGroups",
+      "apiVersion": "2018-05-01",
+      "location": "[variables('deploylocation')]",
+      "name": "[toLower(variables('webRG'))]",
+      "properties": {}
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2018-05-01",
+      "name": "Deploy-DR-WEBI-LB",
+      "resourceGroup": "[variables('webRG')]",
+      "dependsOn": ["Deploy-DR-VNET",
+        "[resourceId('Microsoft.Resources/resourceGroups/', variables('webRG'))]"
+      ],
+      "properties": {
+          "mode": "Incremental",
+          "templateLink": {
+            "uri":"[concat(variables('repo_base_url_templates'),'Microsoft.Network/loadBalancers/loadbalancer.GRSWEBI.azuredeploy.json')]"
+          },
+          "parametersLink": {
+            "uri":"[concat(variables('repo_base_url_parameters'),'eoe._DR.loadbalancer.GRSWEBI.parameters.json')]",
+            "contentVersion":"1.0.0.0"
+          }
+      }
+    },
+    {
+      "type": "Microsoft.Resources/resourceGroups",
+      "apiVersion": "2018-05-01",
+      "location": "[variables('deploylocation')]",
+      "name": "[toLower(variables('dataRG'))]",
+      "properties": {}
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2018-05-01",
+      "name": "Deploy-DR-SQL-LB",
+      "resourceGroup": "[variables('dataRG')]",
+      "dependsOn": ["Deploy-DR-VNET",
+        "[resourceId('Microsoft.Resources/resourceGroups/', variables('dataRG'))]"
+      ],
+      "properties": {
+          "mode": "Incremental",
+          "templateLink": {
+            "uri":"[concat(variables('repo_base_url_templates'),'Microsoft.Network/loadBalancers/loadbalancer.SQLalwaysON.azuredeploy.json')]"
+          },
+          "parametersLink": {
+            "uri":"[concat(variables('repo_base_url_parameters'),'eoe._DR.loadbalancer.SQLalwaysON.parameters.json')]",
+            "contentVersion":"1.0.0.0"
+          }
+      }
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2018-05-01",
+      "name": "Deploy-DR-VPNGateway",
+      "resourceGroup": "[variables('vnetRG')]",
+      "dependsOn": ["Deploy-DR-VNET",
+        "[resourceId('Microsoft.Resources/resourceGroups/', variables('vnetRG'))]"
+      ],
+      "properties": {
+          "mode": "Incremental",
+          "templateLink": {
+            "uri":"[concat(variables('repo_base_url_templates'),'Microsoft.Network/vpngateway/vpngateway.azuredeploy.json')]"
+          },
+          "parametersLink": {
+            "uri":"[concat(variables('repo_base_url_parameters'),'eoe._DR.vpngateway.parameters.json')]",
             "contentVersion":"1.0.0.0"
           }
       }
