@@ -12,7 +12,7 @@
             "value": "eoedrGateway"
         },
         "gatewaySku": {
-            "value": "Basic"
+            "value": "Standard"
         },
         "onpremAddressPrefix":{
             "value": ["192.168.0.0/16" , "10.129.117.0/27"]
@@ -21,7 +21,7 @@
             "value": "188.39.20.162"
         },
         "VPNlocalGatewayName":{
-            "value": "OnPrem-DR-Connection"
+            "value": "OnPrem-DR-LocalGateway"
         },
         "VPNconnectionName":{
             "value": "OnPrem-DR-Connection"
