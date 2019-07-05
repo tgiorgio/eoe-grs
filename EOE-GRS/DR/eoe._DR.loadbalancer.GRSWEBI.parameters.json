@@ -18,7 +18,7 @@
             "value": "eoe-dr-vnet-rg"
         },
         "loadbalancer_subnet_name": {
-            "value": "eoe-dr-sub-web"
+            "value": "eoe-dr-sub-app"
         },
         "GRSWEB_Probe_Port": {
             "value": "80"
