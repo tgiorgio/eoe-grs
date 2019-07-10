@@ -19,6 +19,9 @@
       },
       "virtualNetworkRG":{
         "type": "string"
+      },
+      "vmTimeZone":{
+        "type": "string"
       }
     },
     "variables": {
@@ -131,7 +134,10 @@
             "osProfile": {
               "computerName": "[parameters('vmArray')[copyIndex()].vmName]",
               "adminUsername": "[parameters('vmArray')[copyIndex()].adminUsername]",
-              "adminPassword": "[parameters('vmArray')[copyIndex()].adminPassword]"
+              "adminPassword": "[parameters('vmArray')[copyIndex()].adminPassword]",
+              "windowsConfiguration": {
+                "timeZone": "[parameters('vmTimeZone')]"
+              }
             },
             "diagnosticsProfile": {
                 "bootDiagnostics": {

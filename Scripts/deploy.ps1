@@ -19,3 +19,14 @@ New-AzDeployment  -Location "uksouth" -TemplateFile ".\master-template.1.json" -
 Test-AzDeployment  -Location "ukwest" -TemplateFile ".\master-DR-template.json" -Verbose 
 
 New-AzDeployment  -Location "ukwest" -Name "DR-Deployment" -TemplateFile ".\master-DR-template.json" -Verbose
+
+
+
+
+
+
+
+
+Test-AzDeployment  -Location "northeurope" -TemplateFile ".\test-template.json" -Verbose 
+
+New-AzDeployment  -Location "northeurope" -Name "Deployment" -TemplateFile ".\test-template.json" -Verbose

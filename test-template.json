@@ -1,0 +1,31 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2018-05-01/subscriptionDeploymentTemplate.json#",
+    "contentVersion": "1.0.0.1",
+    "parameters": {},
+    "variables": {
+      "repo_base_url_templates":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/",
+    },  
+    "resources": [
+      {
+        "type": "Microsoft.Resources/deployments",
+        "apiVersion": "2018-05-01",
+        "name": "Deploy-RT",
+        "resourceGroup": "v1-thiago-studylab",
+        "dependsOn": [
+        ],
+        "properties": {
+          "mode": "Incremental",
+          "templateLink": {
+              "uri":"[concat(variables('repo_base_url_templates'),'Microsoft.Compute/vm-win2019dtc/Test.vm-win2019-datadisk.azuredeploy.json')]",
+              "contentVersion":"1.0.0.0"
+            },
+          "parametersLink": {
+            "uri":"[concat(variables('repo_base_url_templates'),'Microsoft.Compute/vm-win2019dtc/test.vm.parameters.json')]",
+              "contentVersion":"1.0.0.0"
+            }
+        }
+      }
+    ],
+    "outputs": {
+    }
+}
