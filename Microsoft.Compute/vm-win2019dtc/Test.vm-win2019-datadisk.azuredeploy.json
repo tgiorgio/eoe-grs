@@ -1,0 +1,147 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+      "vmArray":{
+        "type": "array"
+      },
+      "dataDisks": {
+        "type": "array"
+      },
+      "storageAccountName":{
+        "type": "string"
+      },
+      "virtualNetworkName":{
+        "type": "string"
+      },
+      "environmentConfiguration": {
+        "type": "object"
+      },
+      "virtualNetworkRG":{
+        "type": "string"
+      }
+    },
+    "variables": {
+      "vnetId": "[resourceId(parameters('virtualNetworkRG'),'Microsoft.Network/virtualNetworks', parameters('virtualNetworkName'))]",
+      "subnetRef": "[concat(variables('vnetId'), '/subnets/', parameters('vmArray')[copyIndex()].vmSubnetName)]"
+      
+    },
+    "resources": [
+      {
+        "apiVersion": "2018-08-01",
+        "type": "Microsoft.Network/networkInterfaces",
+        "name": "[concat(parameters('vmArray')[copyIndex()].vmName,'-NIC')]",
+        "location": "[resourceGroup().location]",
+        "tags": "[parameters('environmentConfiguration').tags.value]",
+        "copy": {
+          "name": "vNICarray",
+          "count": "[length(parameters('vmArray'))]"
+      },
+        "dependsOn": [
+        ],
+        "properties": {
+          "ipConfigurations": [
+            {
+              "name": "ipconfig1",
+              "properties": {
+                "privateIPAllocationMethod": "Static",
+                "privateIPAddress": "[parameters('vmArray')[copyIndex()].vmInternalIP]",
+                "subnet": {
+                  "id": "[variables('subnetRef')]"
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "[concat(parameters('vmArray')[copyIndex()].vmname,'-datadisk',copyIndex())]",
+        "type": "Microsoft.Compute/disks",
+        "apiVersion": "2018-06-01",
+        "location": "[resourceGroup().location]",
+        "zones": [
+          "[parameters('vmArray')[copyIndex()].vmZone]"
+        ],
+        "properties": {
+            "diskSizeGB": "[parameters('vmArray')[copyIndex()].dataDiskResources.diskSizeGB]",
+            "creationData": "[parameters('vmArray')[copyIndex()].dataDiskResources.creationData]"
+        },
+        "sku": {
+            "name": "[parameters('vmArray')[copyIndex()].dataDiskResources.sku]"
+        },
+        "copy": {
+            "name": "managedDiskResources",
+            "count": "[length(parameters('vmArray').dataDiskResources)]"
+        }
+      },
+      {
+        "name": "[parameters('vmArray')[copyIndex()].vmName]",
+        "type": "Microsoft.Compute/virtualMachines",
+        "apiVersion": "2018-10-01",
+        "location": "[resourceGroup().location]",
+        "zones": [
+          "[parameters('vmArray')[copyIndex()].vmZone]"
+        ],
+        "dependsOn": [
+          "vNICarray",
+          "managedDiskResources"
+        ],
+        "properties": {
+            "hardwareProfile": {
+                "vmSize": "[parameters('vmArray')[copyIndex()].vmSize]"
+            },
+            "storageProfile": {
+                "osDisk": {
+                    "createOption": "FromImage",
+                    "managedDisk": {
+                    "storageAccountType": "[parameters('vmArray')[copyIndex()].osDiskType]"
+                    }
+                },
+                "imageReference": {
+                  "publisher": "MicrosoftWindowsServer",
+                  "offer": "WindowsServer",
+                  "sku": "[parameters('vmArray')[copyIndex()].windowsOSVersion]",
+                  "version": "latest"
+                },
+                "copy": [
+                    {
+                        "name": "dataDisks",
+                        "count": "[length(parameters('vmArray')[copyIndex()].dataDisks)]",
+                        "input": {
+                            "lun": "[parameters('vmArray')[copyIndex('dataDisks')].dataDisks.lun]",
+                            "createOption": "[parameters('vmArray')[copyIndex('dataDisks')].dataDisks.createOption]",
+                            "caching": "[parameters('vmArray')[copyIndex('dataDisks')].caching]",
+                            "writeAcceleratorEnabled": "[parameters('vmArray')[copyIndex('dataDisks')].dataDisks.writeAcceleratorEnabled]",
+                            "diskSizeGB": "[parameters('vmArray')[copyIndex('dataDisks')].dataDisks.diskSizeGB]",
+                            "managedDisk": {
+                                "id": "[coalesce(parameters('vmArray')[copyIndex('dataDisks')].dataDisks.id, if(equals(parameters('dataDisks')[copyIndex('dataDisks')].name, json('null')), json('null'), resourceId('Microsoft.Compute/disks',concat(parameters('vmArray')[copyIndex()].vmname,'-datadisk',copyIndex('vmArray')))))]",
+                                "storageAccountType": "[parameters('vmArray')[copyIndex('dataDisks')].storageAccountType]"
+                            }
+                        }
+                    }
+                ]
+            },
+            "networkProfile": {
+                "networkInterfaces": [
+                    {
+                        "id": "[resourceId('Microsoft.Network/networkInterfaces',concat(parameters('vmArray')[copyIndex()].vmName,'-NIC'))]"
+                    }
+                ]
+            },
+            "osProfile": {
+              "computerName": "[parameters('vmArray')[copyIndex()].vmName]",
+              "adminUsername": "[parameters('vmArray')[copyIndex()].adminUsername]",
+              "adminPassword": "[parameters('vmArray')[copyIndex()].adminPassword]"
+            },
+            "diagnosticsProfile": {
+                "bootDiagnostics": {
+                    "enabled": true,
+                    "storageUri": "[concat('https://', parameters('storageAccountName'), '.blob.core.windows.net/')]"
+                }
+            }
+        }
+    }
+      ],
+    "outputs": {
+    }
+  }

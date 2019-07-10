@@ -1,0 +1,85 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+
+        "vmArray":{
+            "value": [
+                {
+                    "vmName":"v1-thi-vm10",
+                    "vmSize":"Standard_D1_v2",
+                    "vmZone":"1",
+                    "vmSubnetName":"prod2",
+                    "adminUsername":"version1adm",
+                    "adminPassword":"N0stra7a2019!",
+                    "vmInternalIP":"192.168.2.10",
+                    "osDiskType":"Standard_LRS",
+                    "windowsOSVersion":"2019-Datacenter",
+                    "dataDiskResources": {
+                        "value": [
+                            {
+                                "diskSizeGB": 32,
+                                "sku": "Premium_LRS",
+                                "creationData": {
+                                    "createOption": "empty"
+                                },
+                                "lun": 0,
+                                "createOption": "attach",
+                                "caching": "None",
+                                "writeAcceleratorEnabled": false,
+                                "id": null,
+                                "storageAccountType": null,
+                            }
+                        ]
+                    }
+                }, {
+                    "vmName":"v1-thi-vm20",
+                    "vmSize":"Standard_D1_v2",
+                    "vmZone":"1",
+                    "vmSubnetName":"prod1",
+                    "adminUsername":"version1adm",
+                    "adminPassword":"N0stra7a2019!",
+                    "vmInternalIP":"192.168.1.10",
+                    "osDiskType":"StandardSSD_LRS",
+                    "windowsOSVersion":"2016-Datacenter",
+                    "dataDiskResources": {
+                        "value": [
+                            {
+                                "diskSizeGB": 32,
+                                "sku": "Premium_LRS",
+                                "creationData": {
+                                    "createOption": "empty"
+                                },
+                                "lun": 0,
+                                "createOption": "attach",
+                                "caching": "None",
+                                "writeAcceleratorEnabled": false,
+                                "id": null,
+                                "storageAccountType": null,
+                            }
+                        ]
+                    }
+                }
+
+            ]
+        },
+        "storageAccountName": {
+            "value": "v1thistg01"
+        },
+        "virtualNetworkName": {
+            "value": "V1-Thiago-StudyLab2"
+        },
+        "virtualNetworkRG":{
+            "value": "v1-thiago-studylab"
+        },
+        "environmentConfiguration": {
+            "value": {
+                "tags": {
+                  "value" : {
+                    "Performance": "Thiago Test"
+                  }
+                }
+            }
+        }
+    }
+}
