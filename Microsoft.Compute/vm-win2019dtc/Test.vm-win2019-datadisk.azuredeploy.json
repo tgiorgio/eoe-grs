@@ -5,9 +5,6 @@
       "vmArray":{
         "type": "array"
       },
-      "dataDisks": {
-        "type": "array"
-      },
       "storageAccountName":{
         "type": "string"
       },
@@ -109,16 +106,16 @@
                 "copy": [
                     {
                         "name": "dataDisks",
-                        "count": "[length(parameters('vmArray')[copyIndex()].dataDisks)]",
+                        "count": "[length(parameters('vmArray')[copyIndex()].dataDiskResources)]",
                         "input": {
-                            "lun": "[parameters('vmArray')[copyIndex('dataDisks')].dataDisks.lun]",
-                            "createOption": "[parameters('vmArray')[copyIndex('dataDisks')].dataDisks.createOption]",
-                            "caching": "[parameters('vmArray')[copyIndex('dataDisks')].caching]",
-                            "writeAcceleratorEnabled": "[parameters('vmArray')[copyIndex('dataDisks')].dataDisks.writeAcceleratorEnabled]",
-                            "diskSizeGB": "[parameters('vmArray')[copyIndex('dataDisks')].dataDisks.diskSizeGB]",
+                            "lun": "[parameters('vmArray')[copyIndex('dataDiskResources')].dataDiskResources.lun]",
+                            "createOption": "[parameters('vmArray')[copyIndex('dataDiskResources')].dataDiskResources.createOption]",
+                            "caching": "[parameters('vmArray')[copyIndex('dataDiskResources')].caching]",
+                            "writeAcceleratorEnabled": "[parameters('vmArray')[copyIndex('dataDiskResources')].dataDiskResources.writeAcceleratorEnabled]",
+                            "diskSizeGB": "[parameters('vmArray')[copyIndex('dataDiskResources')].dataDiskResources.diskSizeGB]",
                             "managedDisk": {
-                                "id": "[coalesce(parameters('vmArray')[copyIndex('dataDisks')].dataDisks.id, if(equals(parameters('dataDisks')[copyIndex('dataDisks')].name, json('null')), json('null'), resourceId('Microsoft.Compute/disks',concat(parameters('vmArray')[copyIndex()].vmname,'-datadisk',copyIndex('vmArray')))))]",
-                                "storageAccountType": "[parameters('vmArray')[copyIndex('dataDisks')].storageAccountType]"
+                                "id": "[coalesce(parameters('vmArray')[copyIndex('dataDiskResources')].dataDiskResources.id, if(equals(parameters('vmArray')[copyIndex('dataDiskResources')].name, json('null')), json('null'), resourceId('Microsoft.Compute/disks',concat(parameters('vmArray')[copyIndex()].vmname,'-datadisk',copyIndex('vmArray')))))]",
+                                "storageAccountType": "[parameters('vmArray')[copyIndex('dataDiskResources')].storageAccountType]"
                             }
                         }
                     }

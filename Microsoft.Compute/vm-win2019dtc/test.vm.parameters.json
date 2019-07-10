@@ -52,7 +52,8 @@
                             }
                         ]
                     }
-                }, {
+                }, 
+                {
                     "vmName":"v1-thi-vm20",
                     "vmSize":"Standard_D1_v2",
                     "vmZone":"1",
