@@ -22,8 +22,7 @@
       }
     },
     "variables": {
-      "vnetId": "[resourceId(parameters('virtualNetworkRG'),'Microsoft.Network/virtualNetworks', parameters('virtualNetworkName'))]",
-      "subnetRef": "[concat(variables('vnetId'), '/subnets/', parameters('vmArray')[copyIndex()].vmSubnetName)]"
+      "vnetId": "[resourceId(parameters('virtualNetworkRG'),'Microsoft.Network/virtualNetworks', parameters('virtualNetworkName'))]"
       
     },
     "resources": [
@@ -47,7 +46,7 @@
                 "privateIPAllocationMethod": "Static",
                 "privateIPAddress": "[parameters('vmArray')[copyIndex()].vmInternalIP]",
                 "subnet": {
-                  "id": "[variables('subnetRef')]"
+                  "id": "[concat(variables('vnetId'), '/subnets/', parameters('vmArray')[copyIndex()].vmSubnetName)]"
                 }
               }
             }
