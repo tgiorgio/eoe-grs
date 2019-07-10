@@ -48,7 +48,7 @@
                                 "caching": "None",
                                 "writeAcceleratorEnabled": false,
                                 "id": null,
-                                "storageAccountType": null,
+                                "storageAccountType": null
                             }
                         ]
                     }
@@ -75,7 +75,7 @@
                                 "caching": "None",
                                 "writeAcceleratorEnabled": false,
                                 "id": null,
-                                "storageAccountType": null,
+                                "storageAccountType": null
                             }
                         ]
                     }
