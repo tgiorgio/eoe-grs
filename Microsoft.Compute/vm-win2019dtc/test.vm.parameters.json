@@ -2,6 +2,27 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
+        "vmTimeZone":{
+            "value": "GMT Standard Time"
+        },
+        "storageAccountName": {
+            "value": "v1thistg01"
+        },
+        "virtualNetworkName": {
+            "value": "V1-Thiago-StudyLab2"
+        },
+        "virtualNetworkRG":{
+            "value": "v1-thiago-studylab"
+        },
+        "environmentConfiguration": {
+            "value": {
+                "tags": {
+                  "value" : {
+                    "Performance": "Thiago Test"
+                  }
+                }
+            }
+        },
         "vmArray":{
             "value": [
                 {
@@ -61,27 +82,6 @@
                 }
 
             ]
-        },
-        "vmTimeZone":{
-            "value": "GMT Standard Time"
-        },
-        "storageAccountName": {
-            "value": "v1thistg01"
-        },
-        "virtualNetworkName": {
-            "value": "V1-Thiago-StudyLab2"
-        },
-        "virtualNetworkRG":{
-            "value": "v1-thiago-studylab"
-        },
-        "environmentConfiguration": {
-            "value": {
-                "tags": {
-                  "value" : {
-                    "Performance": "Thiago Test"
-                  }
-                }
-            }
         }
     }
 }
