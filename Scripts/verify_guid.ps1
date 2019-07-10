@@ -16,6 +16,6 @@ foreach ($deployment in $deployments){
 # Get deploymentOperations by deploymentName
 # then the resourceId for any create operation
 
-$operations = $deployment | Get-AzDeploymentOperation #| Where-Object{$_.properties.provisioningOperation -eq "Create" -and $_.properties.targetResource.resourceType -ne "Microsoft.Resources/deployments"}).properties.targetResource.id
+($deployments | Get-AzDeploymentOperation | Where-Object{$_.properties.provisioningOperation -eq "Create" -and $_.properties.targetResource.resourceType -ne "Microsoft.Resources/deployments"}).properties.targetResource.id
 
 }

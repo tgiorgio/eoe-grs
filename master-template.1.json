@@ -404,9 +404,9 @@
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2018-05-01",
       "name": "Deploy-GRSTDB01",
-      "resourceGroup": "[variables('dataRG')]",
+      "resourceGroup": "[variables('testRG')]",
       "dependsOn": [
-        "[resourceId('Microsoft.Resources/resourceGroups/',variables('dataRG'))]"
+        "[resourceId('Microsoft.Resources/resourceGroups/',variables('testRG'))]"
         
       ],
       "properties": {

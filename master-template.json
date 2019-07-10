@@ -12,7 +12,7 @@
     },  
     "resources": [
     {
-      "apiVersion": "2018-05-01",
+      "apiVersion": "2018-02-01",
       "name": "pid-66f8425a-e532-50f2-be7a-95259b5d6238",
       "type": "Microsoft.Resources/deployments",
       "location": "uksouth",
