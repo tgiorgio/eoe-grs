@@ -1423,7 +1423,7 @@
                             "sourceAddressPrefix": "",
                             "destinationAddressPrefix": "[parameters('Subnet-app-Prefix')]",
                             "access": "Allow",
-                            "priority": 1001,
+                            "priority": 1006,
                             "direction": "Inbound",
                             "sourcePortRanges": [],
                             "destinationPortRanges": ["80","443"],
