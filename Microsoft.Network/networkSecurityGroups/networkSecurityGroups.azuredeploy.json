@@ -15,7 +15,7 @@
             "type": "string"
         },
         "PamInterfaceNetwork":{
-            "type": "string"
+            "type": "array"
         },
         "EmailServerIP":{
             "type": "string"
@@ -1421,14 +1421,14 @@
                             "protocol": "*",
                             "sourcePortRange": "*",
                             "destinationPortRange": "",
-                            "sourceAddressPrefix": "[parameters('PamInterfaceNetwork')]",
+                            "sourceAddressPrefix": "",
                             "destinationAddressPrefix": "[parameters('Subnet-app-Prefix')]",
                             "access": "Allow",
                             "priority": 1001,
                             "direction": "Inbound",
                             "sourcePortRanges": [],
                             "destinationPortRanges": ["80","443"],
-                            "sourceAddressPrefixes": [],
+                            "sourceAddressPrefixes": ["[parameters('PamInterfaceNetwork')]"],
                             "destinationAddressPrefixes": []
                         }
                     },
