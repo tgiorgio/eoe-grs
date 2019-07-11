@@ -1104,14 +1104,14 @@
                             "sourcePortRange": "*",
                             "destinationPortRange": "*",
                             "sourceAddressPrefix": "[parameters('Subnet-rdh-Prefix')]",
-                            "destinationAddressPrefix": "[parameters('GRSWebServers')]",
+                            "destinationAddressPrefix": "",
                             "access": "Allow",
                             "priority": 3993,
                             "direction": "Outbound",
                             "sourcePortRanges": [],
                             "destinationPortRanges": [],
                             "sourceAddressPrefixes": [],
-                            "destinationAddressPrefixes": []
+                            "destinationAddressPrefixes": ["[parameters('GRSWebServers')]"]
                         }
                     },
                     {
@@ -1150,7 +1150,6 @@
                     },
                     {
                         "name": "Allow-Out-ServerManager",
-
                         "properties": {
                             "protocol": "*",
                             "sourcePortRange": "*",
@@ -1400,7 +1399,7 @@
                             "protocol": "*",
                             "sourcePortRange": "*",
                             "destinationPortRange": "",
-                            "sourceAddressPrefix": "*",
+                            "sourceAddressPrefix": "",
                             "destinationAddressPrefix": "[parameters('Subnet-app-Prefix')]",
                             "access": "Allow",
                             "priority": 1000,
@@ -1428,7 +1427,7 @@
                             "direction": "Inbound",
                             "sourcePortRanges": [],
                             "destinationPortRanges": ["80","443"],
-                            "sourceAddressPrefixes": ["[parameters('PamInterfaceNetwork')]"],
+                            "sourceAddressPrefixes": "[parameters('PamInterfaceNetwork')]",
                             "destinationAddressPrefixes": []
                         }
                     },
