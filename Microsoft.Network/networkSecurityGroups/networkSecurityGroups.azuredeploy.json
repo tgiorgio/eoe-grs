@@ -537,7 +537,7 @@
                         "properties": {
                             "protocol": "*",
                             "sourcePortRange": "*",
-                            "destinationPortRange": "",
+                            "destinationPortRange": "*",
                             "sourceAddressPrefix": "AzureLoadBalancer",
                             "destinationAddressPrefix": "*",
                             "access": "Allow",
@@ -1365,7 +1365,7 @@
                         "properties": {
                             "protocol": "*",
                             "sourcePortRange": "*",
-                            "destinationPortRange": "",
+                            "destinationPortRange": "*",
                             "sourceAddressPrefix": "AzureLoadBalancer",
                             "destinationAddressPrefix": "[parameters('Subnet-app-Prefix')]",
                             "access": "Allow",
