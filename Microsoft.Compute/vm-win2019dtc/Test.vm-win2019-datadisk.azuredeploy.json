@@ -5,6 +5,9 @@
       "vmArray":{
         "type": "array"
       },
+      "dataDiskResources":{
+        "type": "array"
+      },
       "storageAccountName":{
         "type": "string"
       },
@@ -35,7 +38,7 @@
         "copy": {
           "name": "vNICarray",
           "count": "[length(parameters('vmArray'))]"
-      },
+        },
         "dependsOn": [
         ],
         "properties": {
@@ -54,7 +57,7 @@
         }
       },
       {
-        "name": "[concat(parameters('vmArray')[copyIndex()].vmname,'-datadisk',copyIndex())]",
+        "name": "[concat(parameters('vmArray')[copyIndex()].vmname,'-datadisk',copyIndex('dataDiskResources'))]",
         "type": "Microsoft.Compute/disks",
         "apiVersion": "2018-06-01",
         "location": "[resourceGroup().location]",
@@ -62,15 +65,15 @@
           "[parameters('vmArray')[copyIndex()].vmZone]"
         ],
         "properties": {
-            "diskSizeGB": "[parameters('vmArray')[copyIndex()].dataDiskResources.diskSizeGB]",
-            "creationData": "[parameters('vmArray')[copyIndex()].dataDiskResources.creationData]"
+            "diskSizeGB": "[parameters('dataDiskResources')[copyIndex()].diskSizeGB]",
+            "creationData": "[parameters('dataDiskResources')[copyIndex()].creationData]"
         },
         "sku": {
-            "name": "[parameters('vmArray')[copyIndex()].dataDiskResources.sku]"
+            "name": "[parameters('dataDiskResources')[copyIndex()].sku]"
         },
         "copy": {
             "name": "managedDiskResources",
-            "count": "[length(parameters('vmArray').dataDiskResources)]"
+            "count": "[length(parameters('vmArray'))]"
         }
       },
       {
@@ -78,6 +81,10 @@
         "type": "Microsoft.Compute/virtualMachines",
         "apiVersion": "2018-10-01",
         "location": "[resourceGroup().location]",
+        "copy": {
+          "name": "vmDeploy",
+          "count": "[length(parameters('vmArray'))]"
+        },
         "zones": [
           "[parameters('vmArray')[copyIndex()].vmZone]"
         ],
@@ -105,15 +112,16 @@
                 "copy": [
                     {
                         "name": "dataDisks",
-                        "count": "[length(parameters('vmArray')[copyIndex()].dataDiskResources)]",
+                        "count": "[length(parameters('vmArray')[copyIndex()].datadiskquantity)]",
                         "input": {
-                            "lun": "[parameters('vmArray')[copyIndex('dataDiskResources')].dataDiskResources.lun]",
+                            "lun": "[parameters('dataDiskResources')[copyIndex()].lun]",
                             "createOption": "[parameters('vmArray')[copyIndex('dataDiskResources')].dataDiskResources.createOption]",
                             "caching": "[parameters('vmArray')[copyIndex('dataDiskResources')].caching]",
                             "writeAcceleratorEnabled": "[parameters('vmArray')[copyIndex('dataDiskResources')].dataDiskResources.writeAcceleratorEnabled]",
                             "diskSizeGB": "[parameters('vmArray')[copyIndex('dataDiskResources')].dataDiskResources.diskSizeGB]",
                             "managedDisk": {
-                                "id": "[coalesce(parameters('vmArray')[copyIndex('dataDiskResources')].dataDiskResources.id, if(equals(parameters('vmArray')[copyIndex('dataDiskResources')].name, json('null')), json('null'), resourceId('Microsoft.Compute/disks',concat(parameters('vmArray')[copyIndex()].vmname,'-datadisk',copyIndex('vmArray')))))]",
+                              "id": "",  
+                              "id": "[coalesce(parameters('vmArray')[copyIndex('dataDiskResources')].dataDiskResources.id, if(equals(parameters('vmArray')[copyIndex('dataDiskResources')].name, json('null')), json('null'), resourceId('Microsoft.Compute/disks',concat(parameters('vmArray')[copyIndex()].vmname,'-datadisk',copyIndex('dataDiskResources')))))]",
                                 "storageAccountType": "[parameters('vmArray')[copyIndex('dataDiskResources')].storageAccountType]"
                             }
                         }

@@ -8,6 +8,18 @@
         "AzureASRDestinationMonitoring":{
             "type": "string"
         },
+        "GRSWebServers":{
+            "type": "array"
+        },
+        "RDLicensingServerIP":{
+            "type": "string"
+        },
+        "PamInterfaceNetwork":{
+            "type": "string"
+        },
+        "EmailServerIP":{
+            "type": "string"
+        },
         "FileServerIP":{
             "type": "string"
         },
@@ -89,7 +101,7 @@
             "properties": {
                 "securityRules": [
                     {
-                        "name": "Allow-HTTPS-Web",
+                        "name": "Allow-In-HTTPS-Web",
                         "properties": {
                             "protocol": "*",
                             "sourcePortRange": "*",
@@ -106,7 +118,7 @@
                         }
                     },
                     {
-                        "name": "Allow-RDP-Mgmt",
+                        "name": "Allow-In-RDP-Mgmt",
                         "properties": {
                             "protocol": "*",
                             "sourcePortRange": "*",
@@ -123,7 +135,7 @@
                         }
                     },
                     {
-                        "name": "Allow-SameSubnet",
+                        "name": "Allow-In-SameSubnet",
                         "properties": {
                             "protocol": "*",
                             "sourcePortRange": "*",
@@ -140,7 +152,7 @@
                         }
                     },
                     {
-                        "name": "Allow-ServerManagerRDH",
+                        "name": "Allow-In-ServerManagerRDH",
                         "properties": {
                             "protocol": "*",
                             "sourcePortRange": "*",
@@ -154,6 +166,23 @@
                             "sourceAddressPrefixes": [],
                             "destinationAddressPrefixes": [],
                             "destinationPortRange": "*"
+                        }
+                    },
+                    {
+                        "name": "Allow-In-OnPremises",
+                        "properties": {
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "*",
+                            "sourceAddressPrefix":"[parameters('onpremNetPrefix')]",
+                            "destinationAddressPrefix":  "[parameters('Subnet-rda-Prefix')]",
+                            "access": "Allow",
+                            "priority": 3996,
+                            "direction": "Inbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
                         }
                     },
                     {
@@ -174,7 +203,7 @@
                         }
                     },
                     {
-                        "name": "Allow-RDhost-Service",
+                        "name": "Allow-Out-RDhost-Service",
                         "properties": {
                             "protocol": "*",
                             "sourcePortRange": "*",
@@ -191,7 +220,7 @@
                         }
                     },
                     {
-                        "name": "Allow-Core",
+                        "name": "Allow-Out-Core",
                         "properties": {
                             "protocol": "*",
                             "sourcePortRange": "*",
@@ -208,7 +237,7 @@
                         }
                     },
                     {
-                        "name": "Allow-Azure-KMS",
+                        "name": "Allow-Out-Azure-KMS",
                         "properties": {
                             "protocol": "*",
                             "sourcePortRange": "*",
@@ -259,7 +288,7 @@
                         }
                     },
                     {
-                        "name": "Allow-Azure-ADAuth",
+                        "name": "Allow-Out-Azure-ADAuth",
                         "properties": {
                             "protocol": "*",
                             "sourcePortRange": "*",
@@ -276,7 +305,7 @@
                         }
                     },
                     {
-                        "name": "Allow-Azure-Storage",
+                        "name": "Allow-Out-Azure-Storage",
                         "properties": {
                             "protocol": "*",
                             "sourcePortRange": "*",
@@ -293,7 +322,7 @@
                         }
                     },
                     {
-                        "name": "Allow-Azure-ASR-Endpoint",
+                        "name": "Allow-Out-Azure-ASR-Endpoint",
                         "properties": {
                             "protocol": "*",
                             "sourcePortRange": "*",
@@ -450,7 +479,7 @@
             "properties": {
                 "securityRules": [
                     {
-                        "name": "Allow-Azure-ADAuth",
+                        "name": "Allow-Out-Azure-ADAuth",
                         "properties": {
                             "protocol": "*",
                             "sourcePortRange": "*",
@@ -467,7 +496,7 @@
                         }
                     },
                     {
-                        "name": "Allow-Azure-Storage",
+                        "name": "Allow-Out-Azure-Storage",
                         "properties": {
                             "protocol": "*",
                             "sourcePortRange": "*",
@@ -484,7 +513,7 @@
                         }
                     },
                     {
-                        "name": "Allow-Azure-ASR-Endpoint",
+                        "name": "Allow-Out-Azure-ASR-Endpoint",
                         "properties": {
                             "protocol": "*",
                             "sourcePortRange": "*",
@@ -504,15 +533,15 @@
                         }
                     },
                     {
-                        "name": "Allow-HTTPS-Web",
+                        "name": "Allow-In-LB-Probe",
                         "properties": {
                             "protocol": "*",
                             "sourcePortRange": "*",
-                            "destinationPortRange": "443",
-                            "sourceAddressPrefix": "*",
-                            "destinationAddressPrefix": "[parameters('Subnet-web-Prefix')]",
+                            "destinationPortRange": "",
+                            "sourceAddressPrefix": "AzureLoadBalancer",
+                            "destinationAddressPrefix": "*",
                             "access": "Allow",
-                            "priority": 1000,
+                            "priority": 3995,
                             "direction": "Inbound",
                             "sourcePortRanges": [],
                             "destinationPortRanges": [],
@@ -521,7 +550,24 @@
                         }
                     },
                     {
-                        "name": "Allow-Azure-KMS",
+                        "name": "Allow-In-HTTP-Web",
+                        "properties": {
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "",
+                            "sourceAddressPrefix": "*",
+                            "destinationAddressPrefix": "[parameters('Subnet-web-Prefix')]",
+                            "access": "Allow",
+                            "priority": 1000,
+                            "direction": "Inbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": ["443","80"],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    },
+                    {
+                        "name": "Allow-Out-Azure-KMS",
                         "properties": {
                             "protocol": "*",
                             "sourcePortRange": "*",
@@ -538,7 +584,24 @@
                         }
                     },
                     {
-                        "name": "Allow-RDP-Mgmt",
+                        "name": "Allow-Out-GRS-to-SEL",
+                        "properties": {
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "443",
+                            "sourceAddressPrefix": "[parameters('Subnet-web-Prefix')]",
+                            "destinationAddressPrefix": "109.111.209.160/28",
+                            "access": "Allow",
+                            "priority": 3994,
+                            "direction": "Outbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    },
+                    {
+                        "name": "Allow-In-RDP-Mgmt",
                         "properties": {
                             "protocol": "*",
                             "sourcePortRange": "*",
@@ -555,7 +618,7 @@
                         }
                     },
                     {
-                        "name": "Allow-SameSubnet",
+                        "name": "Allow-In-SameSubnet",
                         "properties": {
                             "protocol": "*",
                             "sourcePortRange": "*",
@@ -564,6 +627,23 @@
                             "destinationAddressPrefix": "[parameters('Subnet-web-Prefix')]",
                             "access": "Allow",
                             "priority": 3999,
+                            "direction": "Inbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    },
+                    {
+                        "name": "Allow-In-OnPremises",
+                        "properties": {
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "*",
+                            "sourceAddressPrefix": "[parameters('onpremNetPrefix')]",
+                            "destinationAddressPrefix": "[parameters('Subnet-web-Prefix')]",
+                            "access": "Allow",
+                            "priority": 3994,
                             "direction": "Inbound",
                             "sourcePortRanges": [],
                             "destinationPortRanges": [],
@@ -589,28 +669,28 @@
                         }
                     },
                     {
-                        "name": "Allow-HTTPS-App",
+                        "name": "Allow-Out-HTTP-App",
                         "properties": {
                             "protocol": "*",
                             "sourcePortRange": "*",
-                            "destinationPortRange": "443",
+                            "destinationPortRange": "",
                             "sourceAddressPrefix": "[parameters('Subnet-web-Prefix')]",
                             "destinationAddressPrefix": "[parameters('Subnet-app-Prefix')]",
                             "access": "Allow",
                             "priority": 1001,
                             "direction": "Outbound",
                             "sourcePortRanges": [],
-                            "destinationPortRanges": [],
+                            "destinationPortRanges": ["80","443"],
                             "sourceAddressPrefixes": [],
                             "destinationAddressPrefixes": []
                         }
                     },
                     {
-                        "name": "Allow-DNS-Core",
+                        "name": "Allow-Out-Core",
                         "properties": {
                             "protocol": "*",
                             "sourcePortRange": "*",
-                            "destinationPortRange": "53",
+                            "destinationPortRange": "*",
                             "sourceAddressPrefix": "[parameters('Subnet-web-Prefix')]",
                             "access": "Allow",
                             "priority": 1000,
@@ -794,7 +874,7 @@
             "properties": {
                 "securityRules": [
                     {
-                        "name": "Allow-Azure-ADAuth",
+                        "name": "Allow-Out-Azure-ADAuth",
                         "properties": {
                             "protocol": "*",
                             "sourcePortRange": "*",
@@ -811,7 +891,7 @@
                         }
                     },
                     {
-                        "name": "Allow-Azure-Storage",
+                        "name": "Allow-Out-Azure-Storage",
                         "properties": {
                             "protocol": "*",
                             "sourcePortRange": "*",
@@ -828,7 +908,7 @@
                         }
                     },
                     {
-                        "name": "Allow-Azure-ASR-Endpoint",
+                        "name": "Allow-Out-Azure-ASR-Endpoint",
                         "properties": {
                             "protocol": "*",
                             "sourcePortRange": "*",
@@ -848,7 +928,7 @@
                         }
                     },
                     {
-                        "name": "Allow-RDaccess-Service",
+                        "name": "Allow-In-RDaccess-Service",
                         "properties": {
                             "protocol": "*",
                             "sourcePortRange": "*",
@@ -865,7 +945,7 @@
                         }
                     },
                     {
-                        "name": "Allow-Azure-KMS",
+                        "name": "Allow-Out-Azure-KMS",
                         "properties": {
                             "protocol": "*",
                             "sourcePortRange": "*",
@@ -882,7 +962,7 @@
                         }
                     },
                     {
-                        "name": "Allow-RDP-Mgmt",
+                        "name": "Allow-In-RDP-Mgmt",
                         "properties": {
                             "protocol": "*",
                             "sourcePortRange": "*",
@@ -899,7 +979,7 @@
                         }
                     },
                     {
-                        "name": "Allow-SameSubnet",
+                        "name": "Allow-In-SameSubnet",
                         "properties": {
                             "protocol": "*",
                             "sourcePortRange": "*",
@@ -908,6 +988,23 @@
                             "destinationAddressPrefix": "[parameters('Subnet-rdh-Prefix')]",
                             "access": "Allow",
                             "priority": 3999,
+                            "direction": "Inbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    },
+                    {
+                        "name": "Allow-In-OnPremises",
+                        "properties": {
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "*",
+                            "sourceAddressPrefix":"[parameters('onpremNetPrefix')]",
+                            "destinationAddressPrefix":  "[parameters('Subnet-rdh-Prefix')]",
+                            "access": "Allow",
+                            "priority": 3997,
                             "direction": "Inbound",
                             "sourcePortRanges": [],
                             "destinationPortRanges": [],
@@ -933,7 +1030,7 @@
                         }
                     },
                     {
-                        "name": "Allow-SQL-Data",
+                        "name": "Allow-Out-SQL-Data",
                         "properties": {
                             "protocol": "*",
                             "sourcePortRange": "*",
@@ -950,7 +1047,7 @@
                         }
                     },
                     {
-                        "name": "Allow-Core",
+                        "name": "Allow-Out-Core",
                         "properties": {
                             "protocol": "*",
                             "sourcePortRange": "*",
@@ -967,13 +1064,13 @@
                         }
                     },
                     {
-                        "name": "Allow-HTTPS-RDlicense",
+                        "name": "Allow-Out-RDlicense",
                         "properties": {
                             "protocol": "*",
                             "sourcePortRange": "*",
-                            "destinationPortRange": "443",
+                            "destinationPortRange": "*",
                             "sourceAddressPrefix": "[parameters('Subnet-rdh-Prefix')]",
-                            "destinationAddressPrefix": "[parameters('Subnet-core-Prefix')]",
+                            "destinationAddressPrefix": "[parameters('RDLicensingServerIP')]",
                             "access": "Allow",
                             "priority": 1002,
                             "direction": "Outbound",
@@ -984,7 +1081,7 @@
                         }
                     },
                     {
-                        "name": "Allow-FS-All",
+                        "name": "Allow-Out-FS-All",
                         "properties": {
                             "protocol": "*",
                             "sourcePortRange": "*",
@@ -993,6 +1090,23 @@
                             "destinationAddressPrefix": "[parameters('FileServerIP')]",
                             "access": "Allow",
                             "priority": 1003,
+                            "direction": "Outbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    },
+                    {
+                        "name": "Allow-Out-GRS-Web",
+                        "properties": {
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "*",
+                            "sourceAddressPrefix": "[parameters('Subnet-rdh-Prefix')]",
+                            "destinationAddressPrefix": "[parameters('GRSWebServers')]",
+                            "access": "Allow",
+                            "priority": 3993,
                             "direction": "Outbound",
                             "sourcePortRanges": [],
                             "destinationPortRanges": [],
@@ -1193,7 +1307,7 @@
             "properties": {
                 "securityRules": [
                     {
-                        "name": "Allow-Azure-ADAuth",
+                        "name": "Allow-Out-Azure-ADAuth",
                         "properties": {
                             "protocol": "*",
                             "sourcePortRange": "*",
@@ -1210,7 +1324,7 @@
                         }
                     },
                     {
-                        "name": "Allow-Azure-Storage",
+                        "name": "Allow-Out-Azure-Storage",
                         "properties": {
                             "protocol": "*",
                             "sourcePortRange": "*",
@@ -1227,7 +1341,7 @@
                         }
                     },
                     {
-                        "name": "Allow-Azure-ASR-Endpoint",
+                        "name": "Allow-Out-Azure-ASR-Endpoint",
                         "properties": {
                             "protocol": "*",
                             "sourcePortRange": "*",
@@ -1247,15 +1361,15 @@
                         }
                     },
                     {
-                        "name": "Allow-HTTPS-RDhost",
+                        "name": "Allow-In-LB-Probe",
                         "properties": {
                             "protocol": "*",
                             "sourcePortRange": "*",
-                            "destinationPortRange": "443",
-                            "sourceAddressPrefix": "[parameters('Subnet-data-Prefix')]",
+                            "destinationPortRange": "",
+                            "sourceAddressPrefix": "AzureLoadBalancer",
                             "destinationAddressPrefix": "[parameters('Subnet-app-Prefix')]",
                             "access": "Allow",
-                            "priority": 1000,
+                            "priority": 3995,
                             "direction": "Inbound",
                             "sourcePortRanges": [],
                             "destinationPortRanges": [],
@@ -1264,7 +1378,62 @@
                         }
                     },
                     {
-                        "name": "Allow-Azure-KMS",
+                        "name": "Allow-In-OnPremises",
+                        "properties": {
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "*",
+                            "sourceAddressPrefix":"[parameters('onpremNetPrefix')]",
+                            "destinationAddressPrefix":  "[parameters('Subnet-app-Prefix')]",
+                            "access": "Allow",
+                            "priority": 1002,
+                            "direction": "Inbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    },
+                    {
+                        "name": "Allow-In-HTTP-Trust-Network",
+                        "properties": {
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "",
+                            "sourceAddressPrefix": "*",
+                            "destinationAddressPrefix": "[parameters('Subnet-app-Prefix')]",
+                            "access": "Allow",
+                            "priority": 1000,
+                            "direction": "Inbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": ["80","443"],
+                            "sourceAddressPrefixes": [
+                                "[parameters('onpremNetPrefix')]",
+                                "[parameters('vnetAddressPrefix')]"
+                            ],
+                            "destinationAddressPrefixes": []
+                        }
+                    },
+
+                    {
+                        "name": "Allow-In-HTTP-PAM-Interface",
+                        "properties": {
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "",
+                            "sourceAddressPrefix": "[parameters('PamInterfaceNetwork')]",
+                            "destinationAddressPrefix": "[parameters('Subnet-app-Prefix')]",
+                            "access": "Allow",
+                            "priority": 1001,
+                            "direction": "Inbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": ["80","443"],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    },
+                    {
+                        "name": "Allow-Out-Azure-KMS",
                         "properties": {
                             "protocol": "*",
                             "sourcePortRange": "*",
@@ -1281,7 +1450,7 @@
                         }
                     },
                     {
-                        "name": "Allow-RDP-Mgmt",
+                        "name": "Allow-In-RDP-Mgmt",
                         "properties": {
                             "protocol": "*",
                             "sourcePortRange": "*",
@@ -1298,7 +1467,7 @@
                         }
                     },
                     {
-                        "name": "Allow-SameSubnet",
+                        "name": "Allow-In-SameSubnet",
                         "properties": {
                             "protocol": "*",
                             "sourcePortRange": "*",
@@ -1332,15 +1501,32 @@
                         }
                     },
                     {
-                        "name": "Allow-SQL-Data",
+                        "name": "Allow-Out-SQL-Data",
                         "properties": {
                             "protocol": "*",
                             "sourcePortRange": "*",
-                            "destinationPortRange": "1433",
+                            "destinationPortRange": "",
                             "sourceAddressPrefix": "[parameters('Subnet-app-Prefix')]",
                             "destinationAddressPrefix": "[parameters('Subnet-data-Prefix')]",
                             "access": "Allow",
                             "priority": 1000,
+                            "direction": "Outbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": ["1433","1434"],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    },
+                    {
+                        "name": "Allow-Out-GRS-to-SEL",
+                        "properties": {
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "443",
+                            "sourceAddressPrefix": "[parameters('Subnet-app-Prefix')]",
+                            "destinationAddressPrefix": "109.111.209.160/28",
+                            "access": "Allow",
+                            "priority": 3993,
                             "direction": "Outbound",
                             "sourcePortRanges": [],
                             "destinationPortRanges": [],
@@ -1349,11 +1535,62 @@
                         }
                     },
                     {
-                        "name": "Allow-DNS-Core",
+                        "name": "Allow-Out-FTP-N3",
                         "properties": {
                             "protocol": "*",
                             "sourcePortRange": "*",
-                            "destinationPortRange": "53",
+                            "destinationPortRange": "",
+                            "sourceAddressPrefix": "[parameters('Subnet-app-Prefix')]",
+                            "access": "Allow",
+                            "priority": 3994,
+                            "direction": "Outbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": ["21","32768-65535"],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": [],
+                            "destinationAddressPrefix": "10.129.117.0/27"
+                        }
+                    },
+                    {
+                        "name": "Allow-Out-HTTP-WebExternal",
+                        "properties": {
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "80",
+                            "sourceAddressPrefix": "[parameters('Subnet-app-Prefix')]",
+                            "access": "Allow",
+                            "priority": 3995,
+                            "direction": "Outbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": [],
+                            "destinationAddressPrefix": "[parameters('Subnet-web-Prefix')]"
+                        }
+                    },
+                    {
+                        "name": "Allow-Out-HTTP-RDH",
+                        "properties": {
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "80",
+                            "sourceAddressPrefix": "[parameters('Subnet-app-Prefix')]",
+                            "access": "Allow",
+                            "priority": 3996,
+                            "direction": "Outbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": [],
+                            "destinationAddressPrefix": "[parameters('Subnet-rdh-Prefix')]"
+                        }
+                    },
+                    {
+                        "name": "Allow-Out-Core",
+                        "properties": {
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "*",
                             "sourceAddressPrefix": "[parameters('Subnet-app-Prefix')]",
                             "access": "Allow",
                             "priority": 1001,
@@ -1537,7 +1774,7 @@
             "properties": {
                 "securityRules": [
                     {
-                        "name": "Allow-Azure-ADAuth",
+                        "name": "Allow-Out-Azure-ADAuth",
                         "properties": {
                             "protocol": "*",
                             "sourcePortRange": "*",
@@ -1554,7 +1791,7 @@
                         }
                     },
                     {
-                        "name": "Allow-Azure-Storage",
+                        "name": "Allow-Out-Azure-Storage",
                         "properties": {
                             "protocol": "*",
                             "sourcePortRange": "*",
@@ -1571,7 +1808,7 @@
                         }
                     },
                     {
-                        "name": "Allow-Azure-ASR-Endpoint",
+                        "name": "Allow-Out-Azure-ASR-Endpoint",
                         "properties": {
                             "protocol": "*",
                             "sourcePortRange": "*",
@@ -1591,7 +1828,7 @@
                         }
                     },
                     {
-                        "name": "Allow-SQL-App",
+                        "name": "Allow-In-SQL-App",
                         "properties": {
                             "protocol": "*",
                             "sourcePortRange": "*",
@@ -1608,7 +1845,7 @@
                         }
                     },
                     {
-                        "name": "Allow-Azure-KMS",
+                        "name": "Allow-Out-Azure-KMS",
                         "properties": {
                             "protocol": "*",
                             "sourcePortRange": "*",
@@ -1625,7 +1862,7 @@
                         }
                     },
                     {
-                        "name": "Allow-SQL-Rdh",
+                        "name": "Allow-In-SQL-Rdh",
                         "properties": {
                             "protocol": "*",
                             "sourcePortRange": "*",
@@ -1642,7 +1879,7 @@
                         }
                     },
                     {
-                        "name": "Allow-Rdh-All",
+                        "name": "Allow-In-Rdh-All",
                         "properties": {
                             "protocol": "*",
                             "sourcePortRange": "*",
@@ -1659,7 +1896,24 @@
                         }
                     },
                     {
-                        "name": "Allow-RDP-Mgmt",
+                        "name": "Allow-In-LB-Probe",
+                        "properties": {
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "59999",
+                            "sourceAddressPrefix": "AzureLoadBalancer",
+                            "destinationAddressPrefix": "[parameters('Subnet-data-Prefix')]",
+                            "access": "Allow",
+                            "priority": 1004,
+                            "direction": "Inbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    },
+                    {
+                        "name": "Allow-In-RDP-Mgmt",
                         "properties": {
                             "protocol": "*",
                             "sourcePortRange": "*",
@@ -1676,7 +1930,24 @@
                         }
                     },
                     {
-                        "name": "Allow-SameSubnet",
+                        "name": "Allow-In-OnPremises",
+                        "properties": {
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "*",
+                            "sourceAddressPrefix":"[parameters('onpremNetPrefix')]",
+                            "destinationAddressPrefix":  "[parameters('Subnet-data-Prefix')]",
+                            "access": "Allow",
+                            "priority": 3998,
+                            "direction": "Inbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    },
+                    {
+                        "name": "Allow-In-SameSubnet",
                         "properties": {
                             "protocol": "*",
                             "sourcePortRange": "*",
@@ -1710,7 +1981,7 @@
                         }
                     },
                     {
-                        "name": "Allow-CoreSvc",
+                        "name": "Allow-Out-Core",
                         "properties": {
                             "protocol": "*",
                             "sourcePortRange": "*",
@@ -1724,6 +1995,23 @@
                             "sourceAddressPrefixes": [],
                             "destinationAddressPrefixes": [],
                             "destinationAddressPrefix": "[parameters('Subnet-core-Prefix')]"
+                        }
+                    },
+                    {
+                        "name": "Allow-Out-SMTP-OnPrem",
+                        "properties": {
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "25",
+                            "sourceAddressPrefix": "[parameters('Subnet-data-Prefix')]",
+                            "destinationAddressPrefix": "[parameters('EmailServerIP')]",
+                            "access": "Allow",
+                            "priority": 3996,
+                            "direction": "Outbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
                         }
                     },
                     {
@@ -1898,7 +2186,7 @@
             "properties": {
                 "securityRules": [
                     {
-                        "name": "Allow-Azure-ADAuth",
+                        "name": "Allow-Out-Azure-ADAuth",
                         "properties": {
                             "protocol": "*",
                             "sourcePortRange": "*",
@@ -1915,7 +2203,7 @@
                         }
                     },
                     {
-                        "name": "Allow-Azure-Storage",
+                        "name": "Allow-Out-Azure-Storage",
                         "properties": {
                             "protocol": "*",
                             "sourcePortRange": "*",
@@ -1932,7 +2220,7 @@
                         }
                     },
                     {
-                        "name": "Allow-Azure-ASR-Endpoint",
+                        "name": "Allow-Out-Azure-ASR-Endpoint",
                         "properties": {
                             "protocol": "*",
                             "sourcePortRange": "*",
@@ -1952,7 +2240,7 @@
                         }
                     },
                     {
-                        "name": "Allow-All-in-DCrep-OnPrem",
+                        "name": "Allow-In-OnPrem",
                         "properties": {
                             "protocol": "*",
                             "sourcePortRange": "*",
@@ -1969,7 +2257,7 @@
                         }
                     },
                     {
-                        "name": "Allow-Azure-KMS",
+                        "name": "Allow-Out-Azure-KMS",
                         "properties": {
                             "protocol": "*",
                             "sourcePortRange": "*",
@@ -1986,7 +2274,7 @@
                         }
                     },
                     {
-                        "name": "Allow-VNET-Auth",
+                        "name": "Allow-In-VNET-All-Auth",
                         "properties": {
                             "protocol": "*",
                             "sourcePortRange": "*",
@@ -2003,27 +2291,7 @@
                         }
                     },
                     {
-                        "name": "Allow-HTTPS-Licensing",
-                        "properties": {
-                            "protocol": "*",
-                            "sourcePortRange": "*",
-                            "destinationPortRange": "443",
-                            "sourceAddressPrefix": "",
-                            "destinationAddressPrefix": "[parameters('Subnet-core-Prefix')]",
-                            "access": "Allow",
-                            "priority": 1003,
-                            "direction": "Inbound",
-                            "sourcePortRanges": [],
-                            "destinationPortRanges": [],
-                            "sourceAddressPrefixes": [
-                                "[parameters('Subnet-rdh-Prefix')]",
-                                "[parameters('Subnet-data-Prefix')]"
-                            ],
-                            "destinationAddressPrefixes": []
-                        }
-                    },
-                    {
-                        "name": "Allow-RDP-Mgmt",
+                        "name": "Allow-In-RDP-Mgmt",
                         "properties": {
                             "protocol": "*",
                             "sourcePortRange": "*",
@@ -2040,7 +2308,7 @@
                         }
                     },
                     {
-                        "name": "Allow-ServerManagerRDH",
+                        "name": "Allow-In-RDH-ServerManager",
                         "properties": {
                             "protocol": "*",
                             "sourcePortRange": "*",
@@ -2060,7 +2328,7 @@
                         }
                     },
                     {
-                        "name": "Allow-SameSubnet",
+                        "name": "Allow-In-SameSubnet",
                         "properties": {
                             "protocol": "*",
                             "sourcePortRange": "*",
@@ -2265,7 +2533,7 @@
             "properties": {
                 "securityRules": [
                     {
-                        "name": "Allow-HTTPS",
+                        "name": "Allow-In-HTTPS",
                         "properties": {
                             "protocol": "*",
                             "sourcePortRange": "*",
@@ -2282,7 +2550,7 @@
                         }
                     },
                     {
-                        "name": "Allow-Azure-KMS",
+                        "name": "Allow-Out-Azure-KMS",
                         "properties": {
                             "protocol": "*",
                             "sourcePortRange": "*",
@@ -2299,7 +2567,7 @@
                         }
                     },
                     {
-                        "name": "Allow-RDP-Mgmt",
+                        "name": "Allow-In-RDP-Mgmt",
                         "properties": {
                             "protocol": "*",
                             "sourcePortRange": "*",
@@ -2316,7 +2584,7 @@
                         }
                     },
                     {
-                        "name": "Allow-SameSubnet",
+                        "name": "Allow-In-SameSubnet",
                         "properties": {
                             "protocol": "*",
                             "sourcePortRange": "*",
@@ -2325,6 +2593,23 @@
                             "destinationAddressPrefix": "[parameters('Subnet-test-Prefix')]",
                             "access": "Allow",
                             "priority": 3999,
+                            "direction": "Inbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    },
+                    {
+                        "name": "Allow-In-OnPremises",
+                        "properties": {
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "*",
+                            "sourceAddressPrefix":"[parameters('onpremNetPrefix')]",
+                            "destinationAddressPrefix":  "[parameters('Subnet-test-Prefix')]",
+                            "access": "Allow",
+                            "priority": 3997,
                             "direction": "Inbound",
                             "sourcePortRanges": [],
                             "destinationPortRanges": [],
@@ -2350,7 +2635,7 @@
                         }
                     },
                     {
-                        "name": "Allow-HTTPS-Web",
+                        "name": "Allow-Out-HTTPS-Web",
                         "properties": {
                             "protocol": "*",
                             "sourcePortRange": "*",
@@ -2384,6 +2669,23 @@
                         }
                     },
                     {
+                        "name": "Allow-Out-All-to-Data",
+                        "properties": {
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "*",
+                            "sourceAddressPrefix": "[parameters('Subnet-test-Prefix')]",
+                            "destinationAddressPrefix": "[parameters('Subnet-data-Prefix')]",
+                            "access": "Allow",
+                            "priority": 3996,
+                            "direction": "Outbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    },
+                    {
                         "name": "Allow-Out-SameSubnet",
                         "properties": {
                             "protocol": "*",
@@ -2400,6 +2702,7 @@
                             "destinationAddressPrefixes": []
                         }
                     },
+                    
                     {
                         "name": "Deny-AllOutBound",
                         "properties": {
@@ -2538,7 +2841,61 @@
             "properties": {
                 "securityRules": [
                     {
-                        "name": "Allow-RDP-In",
+                        "name": "Allow-Out-Azure-ADAuth",
+                        "properties": {
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "443",
+                            "sourceAddressPrefix": "[parameters('Subnet-mgmt-Prefix')]",
+                            "destinationAddressPrefix": "AzureActiveDirectory",
+                            "access": "Allow",
+                            "priority": 2000,
+                            "direction": "Outbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    },
+                    {
+                        "name": "Allow-Out-Azure-Storage",
+                        "properties": {
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "443",
+                            "sourceAddressPrefix": "[parameters('Subnet-mgmt-Prefix')]",
+                            "destinationAddressPrefix": "Storage",
+                            "access": "Allow",
+                            "priority": 2001,
+                            "direction": "Outbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    },
+                    {
+                        "name": "Allow-Out-Azure-ASR-Endpoint",
+                        "properties": {
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "443",
+                            "sourceAddressPrefix": "[parameters('Subnet-mgmt-Prefix')]",
+                            "access": "Allow",
+                            "priority": 2002,
+                            "direction": "Outbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": [
+                                "[parameters('AzureASRDestinationEndpoint')]",
+                                "[parameters('AzureASRDestinationMonitoring')]"
+                            ],
+                            "destinationAddressPrefix": ""
+                        }
+                    },
+                    {
+                        "name": "Allow-In-RDP",
                         "properties": {
                             "protocol": "*",
                             "sourcePortRange": "*",
@@ -2555,7 +2912,7 @@
                         }
                     },
                     {
-                        "name": "Allow-Azure-KMS",
+                        "name": "Allow-Out-Azure-KMS",
                         "properties": {
                             "protocol": "*",
                             "sourcePortRange": "*",
@@ -2572,11 +2929,11 @@
                         }
                     },
                     {
-                        "name": "Allow-OnPrem-RDP-In",
+                        "name": "Allow-In-OnPrem",
                         "properties": {
                             "protocol": "*",
                             "sourcePortRange": "*",
-                            "destinationPortRange": "3389",
+                            "destinationPortRange": "*",
                             "sourceAddressPrefix": "[parameters('onpremNetPrefix')]",
                             "destinationAddressPrefix": "[parameters('Subnet-mgmt-Prefix')]",
                             "access": "Allow",
@@ -2589,7 +2946,7 @@
                         }
                     },
                     {
-                        "name": "Allow-SameSubnet",
+                        "name": "Allow-In-SameSubnet",
                         "properties": {
                             "protocol": "*",
                             "sourcePortRange": "*",
@@ -2623,7 +2980,7 @@
                         }
                     },
                     {
-                        "name": "Allow-RDP-Out",
+                        "name": "Allow-Out-RDP",
                         "properties": {
                             "protocol": "*",
                             "sourcePortRange": "*",
@@ -2640,7 +2997,7 @@
                         }
                     },
                     {
-                        "name": "Allow-FirewallManagement",
+                        "name": "Allow-Out-FirewallManagement",
                         "properties": {
                             "protocol": "*",
                             "sourcePortRange": "*",

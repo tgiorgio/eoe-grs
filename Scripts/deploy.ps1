@@ -27,6 +27,6 @@ New-AzDeployment  -Location "ukwest" -Name "DR-Deployment" -TemplateFile ".\mast
 
 
 
-Test-AzDeployment  -Location "northeurope" -TemplateFile ".\test-template.json" -Verbose 
+Test-AzResourceGroupDeployment -ResourceGroupName "V1-Thiago-StudyLab" -TemplateFile ".\Microsoft.Compute\vm-win2019dtc\Test.vm-win2019-datadisk.azuredeploy.json" -TemplateParameterFile ".\Microsoft.Compute\vm-win2019dtc\test.vm.parameters.json"
 
 New-AzDeployment  -Location "northeurope" -Name "Deployment" -TemplateFile ".\test-template.json" -Verbose

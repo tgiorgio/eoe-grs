@@ -35,23 +35,7 @@
                     "vmInternalIP":"192.168.2.10",
                     "osDiskType":"Standard_LRS",
                     "windowsOSVersion":"2019-Datacenter",
-                    "dataDiskResources": {
-                        "value": [
-                            {
-                                "diskSizeGB": 32,
-                                "sku": "Premium_LRS",
-                                "creationData": {
-                                    "createOption": "empty"
-                                },
-                                "lun": 0,
-                                "createOption": "attach",
-                                "caching": "None",
-                                "writeAcceleratorEnabled": false,
-                                "id": null,
-                                "storageAccountType": null
-                            }
-                        ]
-                    }
+                    "dataDiskQuantity":"1"
                 }, 
                 {
                     "vmName":"v1-thi-vm20",
@@ -63,25 +47,41 @@
                     "vmInternalIP":"192.168.1.10",
                     "osDiskType":"StandardSSD_LRS",
                     "windowsOSVersion":"2016-Datacenter",
-                    "dataDiskResources": {
-                        "value": [
-                            {
-                                "diskSizeGB": 32,
-                                "sku": "Premium_LRS",
-                                "creationData": {
-                                    "createOption": "empty"
-                                },
-                                "lun": 0,
-                                "createOption": "attach",
-                                "caching": "None",
-                                "writeAcceleratorEnabled": false,
-                                "id": null,
-                                "storageAccountType": null
-                            }
-                        ]
-                    }
+                    "dataDiskQuantity":"1"
                 }
 
+            ]
+        },
+        "dataDiskResources": {
+            "value": [
+                {
+                    "diskName": "v1-thi-vm10-datadisk-0",
+                    "diskSizeGB": 32,
+                    "sku": "Premium_LRS",
+                    "creationData": {
+                        "createOption": "empty"
+                    },
+                    "lun": 0,
+                    "createOption": "attach",
+                    "caching": "None",
+                    "writeAcceleratorEnabled": false,
+                    "id": null,
+                    "storageAccountType": null
+                },
+                {
+                    "diskName": "v1-thi-vm20-datadisk-0",
+                    "diskSizeGB": 32,
+                    "sku": "Premium_LRS",
+                    "creationData": {
+                        "createOption": "empty"
+                    },
+                    "lun": 0,
+                    "createOption": "attach",
+                    "caching": "None",
+                    "writeAcceleratorEnabled": false,
+                    "id": null,
+                    "storageAccountType": null
+                }
             ]
         }
     }
