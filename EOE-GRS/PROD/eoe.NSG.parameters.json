@@ -8,6 +8,25 @@
         "FileServerIP":{
           "value": "172.25.3.135"
         },
+        "EmailServerIP":{
+          "value": "192.168.32.71"
+        },
+        "PamInterfaceNetwork":{
+          "value": [
+            "172.24.32.0/22",
+            "172.24.96.0/22"
+          ]
+        },
+        "RDLicensingServerIP":{
+          "value": "172.25.2.5"
+        },
+        "GRSWebServers":{
+          "value": [
+            "172.25.3.5",
+            "172.25.3.6",
+            "172.25.3.7"
+          ]
+        },   
         "AzureASRDestinationEndpoint":{
           "value": "51.141.3.203"
         },
