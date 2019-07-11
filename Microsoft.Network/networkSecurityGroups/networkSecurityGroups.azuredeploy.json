@@ -1111,7 +1111,7 @@
                             "sourcePortRanges": [],
                             "destinationPortRanges": [],
                             "sourceAddressPrefixes": [],
-                            "destinationAddressPrefixes": ["[parameters('GRSWebServers')]"]
+                            "destinationAddressPrefixes": "[parameters('GRSWebServers')]"
                         }
                     },
                     {
