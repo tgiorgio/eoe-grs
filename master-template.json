@@ -7,9 +7,9 @@
       "vnetRG":"eoe-prod-vnet-RG",
       "MgmtRG":"eoe-prod-mgmt-RG",
       "sharedServicesRG": "eoe-prod-shared-RG",
-      "repo_base_url_templates":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/",
-      "repo_base_url_parameters":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/EOE-GRS/PROD/"
-    },  
+      "repo_base_url_templates":"https://v1thigrs01.blob.core.windows.net/grstemplate/Templates/",
+      "repo_base_url_parameters":"https://v1thigrs01.blob.core.windows.net/grstemplate/EOE-Parameters/EOE-GRS/PROD/"
+    },
     "resources": [
     {
       "apiVersion": "2018-02-01",

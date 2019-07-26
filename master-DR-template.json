@@ -12,8 +12,8 @@
       "dataRG": "eoe-dr-data-RG",
       "appRG": "eoe-dr-app-RG",
       "rdsRG": "eoe-dr-rds-RG",
-      "repo_base_url_templates":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/",
-      "repo_base_url_parameters":"https://raw.githubusercontent.com/tgiorgio/eoe-grs/master/EOE-GRS/DR/"   
+      "repo_base_url_templates":"https://v1thigrs01.blob.core.windows.net/grstemplate/Templates/",
+      "repo_base_url_parameters":"https://v1thigrs01.blob.core.windows.net/grstemplate/EOE-Parameters/EOE-GRS/PROD/"
     },  
     "resources": [
     {
