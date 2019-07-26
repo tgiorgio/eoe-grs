@@ -207,14 +207,14 @@
                         "properties": {
                             "protocol": "*",
                             "sourcePortRange": "*",
-                            "destinationPortRange": "",
+                            "destinationPortRange": "*",
                             "sourceAddressPrefix": "[parameters('Subnet-rda-Prefix')]",
                             "destinationAddressPrefix": "[parameters('Subnet-rdh-Prefix')]",
                             "access": "Allow",
                             "priority": 1001,
                             "direction": "Outbound",
                             "sourcePortRanges": [],
-                            "destinationPortRanges": ["443","80","3389"],
+                            "destinationPortRanges": [],
                             "sourceAddressPrefixes": [],
                             "destinationAddressPrefixes": []
                         }
@@ -932,14 +932,14 @@
                         "properties": {
                             "protocol": "*",
                             "sourcePortRange": "*",
-                            "destinationPortRange": "",
+                            "destinationPortRange": "*",
                             "sourceAddressPrefix": "[parameters('Subnet-rda-Prefix')]",
                             "destinationAddressPrefix": "[parameters('Subnet-rdh-Prefix')]",
                             "access": "Allow",
                             "priority": 1000,
                             "direction": "Inbound",
                             "sourcePortRanges": [],
-                            "destinationPortRanges": ["443","80","3389"],
+                            "destinationPortRanges": [],
                             "sourceAddressPrefixes": [],
                             "destinationAddressPrefixes": []
                         }
